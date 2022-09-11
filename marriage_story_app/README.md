@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # marriage_story_app
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# marriage-story-app
+>>>>>>> 46bbf9b4201b01c179d08d2c2e49f9a0874f144b
