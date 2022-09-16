@@ -68,11 +68,14 @@ class _BodyState extends State<Body> {
                 height: 24,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 175,
+                  ButtonTheme(
+                    minWidth: 160,
                     height: 100,
-                    child: Center(
+                    child: RaisedButton(
+                      color: Color(0xffFFFFFF),
+                      onPressed: () {},
                       child: Text(
                         "Pre-Wedding",
                         style: TextStyle(
@@ -82,18 +85,13 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Color(0xffFFFFFF),
-                    ),
                   ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Container(
-                    width: 175,
+                  ButtonTheme(
+                    minWidth: 160,
                     height: 100,
-                    child: Center(
+                    child: RaisedButton(
+                      color: Color(0xffFFFFFF),
+                      onPressed: () {},
                       child: Text(
                         "Engagement",
                         style: TextStyle(
@@ -103,10 +101,6 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Color(0xffFFFFFF),
-                    ),
                   ),
                 ],
               ),
@@ -114,11 +108,14 @@ class _BodyState extends State<Body> {
                 height: 16,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 175,
+                  ButtonTheme(
+                    minWidth: 160,
                     height: 100,
-                    child: Center(
+                    child: RaisedButton(
+                      color: Color(0xffFFFFFF),
+                      onPressed: () {},
                       child: Text(
                         "Akad",
                         style: TextStyle(
@@ -128,18 +125,13 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Color(0xffFFFFFF),
-                    ),
                   ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Container(
-                    width: 175,
+                  ButtonTheme(
+                    minWidth: 160,
                     height: 100,
-                    child: Center(
+                    child: RaisedButton(
+                      color: Color(0xffFFFFFF),
+                      onPressed: () {},
                       child: Text(
                         "Panggih",
                         style: TextStyle(
@@ -149,10 +141,6 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Color(0xffFFFFFF),
-                    ),
                   ),
                 ],
               ),
@@ -161,10 +149,12 @@ class _BodyState extends State<Body> {
               ),
               Row(
                 children: [
-                  Container(
-                    width: 175,
+                  ButtonTheme(
+                    minWidth: 160,
                     height: 100,
-                    child: Center(
+                    child: RaisedButton(
+                      color: Color(0xffFFFFFF),
+                      onPressed: () {},
                       child: Text(
                         "Resepsi",
                         style: TextStyle(
@@ -173,10 +163,6 @@ class _BodyState extends State<Body> {
                           fontSize: 16,
                         ),
                       ),
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Color(0xffFFFFFF),
                     ),
                   ),
                 ],

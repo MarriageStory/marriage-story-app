@@ -12,6 +12,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -55,7 +56,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 Text(
-                  'Agenda',
+                  "Agenda",
                   style: TextStyle(
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w700,
@@ -66,24 +67,30 @@ class _BodyState extends State<Body> {
                   height: 30,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xffFB6C90),
-                            Color(0xffFB8DA0),
-                          ],
+                    Column(
+                      children: [
+                        Checkbox(
+                          checkColor: Colors.white,
+                          fillColor:
+                              MaterialStateProperty.resolveWith(getColor),
+                          value: isChecked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              isChecked = value!;
+                            });
+                          },
                         ),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 40,
+                        Text(
+                          "Selesai",
+                          style: TextStyle(
+                            color: Color(0xffFB6C90),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                          ),
+                        )
+                      ],
                     ),
                     Container(
                       child: Padding(
@@ -199,5 +206,17 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  Color getColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return Colors.blue;
+    }
+    return Color(0xffFB6C90);
   }
 }

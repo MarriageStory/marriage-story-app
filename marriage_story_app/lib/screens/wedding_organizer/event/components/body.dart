@@ -52,7 +52,10 @@ class _BodyState extends State<Body> {
                   children: [
                     Container(
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(60, 40, 120, 40),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 60,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -84,9 +87,17 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     SizedBox(
-                      width: 16,
+                      width: 40,
                     ),
                     Container(
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.add,
+                          size: 30,
+                          color: Color(0xffFFFFFF),
+                        ),
+                        onPressed: () {},
+                      ),
                       height: 60,
                       width: 60,
                       decoration: BoxDecoration(

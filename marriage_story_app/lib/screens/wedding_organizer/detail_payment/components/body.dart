@@ -308,8 +308,14 @@ class _BodyState extends State<Body> {
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
+                        child: Icon(
+                          Icons.add,
+                          color: Color(0xffFFFFFF),
+                          size: 20,
+                        ),
                         height: 30,
                         width: 30,
                         decoration: BoxDecoration(
@@ -323,9 +329,6 @@ class _BodyState extends State<Body> {
                           ),
                           borderRadius: BorderRadius.circular(30),
                         ),
-                      ),
-                      SizedBox(
-                        width: 20,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -347,9 +350,6 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                         ],
-                      ),
-                      SizedBox(
-                        width: 40,
                       ),
                       Text(
                         "+ Rp10.000.000,00",

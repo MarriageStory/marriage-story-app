@@ -70,6 +70,7 @@ class _BodyState extends State<Body> {
                 height: 40,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     height: 45,
@@ -96,9 +97,6 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 16,
                   ),
                   Container(
                     height: 45,

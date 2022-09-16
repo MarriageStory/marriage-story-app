@@ -40,7 +40,7 @@ class Body extends StatelessWidget {
                     height: 20,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
                         height: 45,
@@ -67,9 +67,6 @@ class Body extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 16,
                       ),
                       Container(
                         height: 45,

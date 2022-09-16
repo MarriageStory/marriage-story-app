@@ -11,9 +11,11 @@ import 'package:marriage_story_app/screens/wedding_organizer/detail_transaction/
 import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/home/home_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/other/other_screen.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/payment/payment_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/sign_in/sign_in_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/sign_up/sign_up_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/splash/splash_screen.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/task/task_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/welcome/welcome_screen.dart';
 
 void main() {
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Nunito',
       ),
-      initialRoute: '/detail-payment-screen',
+      initialRoute: '/other-screen',
       routes: {
         '/': (context) => SplashScreen(),
         '/welcome-screen': (context) => WelcomeScreen(),
@@ -45,10 +47,10 @@ class MyApp extends StatelessWidget {
         '/add-event-3-screen': (context) => AddEvent3Screen(),
         '/add-event-detail-screen': (context) => AddEventDetailScreen(),
         '/detail-event-screen': (context) => DetailEventScreen(),
-        // '/task-screen': (context) => TaskScreen(),
+        '/task-screen': (context) => TaskScreen(),
         '/add-task-screen': (context) => AddTaskScreen(),
         '/detail-task-screen': (context) => DetailTaskScreen(),
-        // '/payment-screen': (context) => PaymentScreen(),
+        '/payment-screen': (context) => PaymentScreen(),
         '/detail-payment-screen': (context) => DetailPaymentScreen(),
         '/detail-transaction-screen': (context) => DetailTransactionScreen(),
         '/other-screen': (context) => OtherScreen(),
