@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Nunito',
       ),
-      initialRoute: '/other-screen',
+      initialRoute: '/detail-event-client-screen',
       routes: {
         '/': (context) => SplashScreen(),
         '/welcome-screen': (context) => WelcomeScreen(),
