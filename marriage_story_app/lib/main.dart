@@ -17,6 +17,13 @@ import 'package:marriage_story_app/screens/wedding_organizer/sign_up/sign_up_scr
 import 'package:marriage_story_app/screens/wedding_organizer/splash/splash_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/task/task_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/welcome/welcome_screen.dart';
+import 'package:marriage_story_app/screens/client/home/home_client_screen.dart';
+import 'package:marriage_story_app/screens/client/detail_event/detail_event_client_screen.dart';
+import 'package:marriage_story_app/screens/client/detail_task/detail_task_client_screen.dart';
+import 'package:marriage_story_app/screens/client/event/event_client_screen.dart';
+import 'package:marriage_story_app/screens/client/payment/payment_client_screen.dart';
+import 'package:marriage_story_app/screens/client/add_payment_report/add_payment_report_screen.dart';
+import 'package:marriage_story_app/widgets/navbar/navbar_client.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,8 +41,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Nunito',
       ),
-      initialRoute: '/other-screen',
+      initialRoute: '/navbar-client',
       routes: {
+        '/navbar-client': (context) => NavbarClient(
+              index: 0,
+            ),
         '/': (context) => SplashScreen(),
         '/welcome-screen': (context) => WelcomeScreen(),
         '/sign-in': (context) => SignInScreen(),
@@ -54,6 +64,12 @@ class MyApp extends StatelessWidget {
         '/detail-payment-screen': (context) => DetailPaymentScreen(),
         '/detail-transaction-screen': (context) => DetailTransactionScreen(),
         '/other-screen': (context) => OtherScreen(),
+        '/home-client-screen': (context) => HomeClientScreen(),
+        '/detail-event-client-screen': (context) => DetailEventClientScreen(),
+        '/detail-task-client-screen': (context) => DetailTaskClientScreen(),
+        '/event-client-screen': (context) => EventClientScreen(),
+        '/payment-client-screen': (context) => PaymentClientScreen(),
+        '/add-payment-report-screen': (context) => AddPaymentReportScreen(),
       },
     );
   }
