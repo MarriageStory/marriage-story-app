@@ -68,5 +68,8 @@ flutter:
         - asset: assets/fonts/Nunito/Nunito-Light.ttf
         - asset: assets/fonts/Nunito/Nunito-Italic.ttf
         - style: italic
+    - family : MyFlutterApp
+      fonts:
+        - asset: assets/fonts/Nunito/MyFlutterApp.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

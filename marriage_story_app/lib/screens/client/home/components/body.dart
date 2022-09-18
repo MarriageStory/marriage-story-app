@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class Body extends StatefulWidget {
+  static const route = '/home-client-screen';
   const Body({Key? key}) : super(key: key);
 
   @override

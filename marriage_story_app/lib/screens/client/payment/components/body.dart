@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/client/payment/components/background.dart';
 
 class Body extends StatefulWidget {
+  static const routeName = '/payment-client-screen';
   const Body({Key? key}) : super(key: key);
 
   @override
