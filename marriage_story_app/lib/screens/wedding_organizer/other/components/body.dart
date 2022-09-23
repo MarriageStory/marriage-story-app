@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/other/components/background.dart';
+import 'package:marriage_story_app/model/user_model.dart';
+import 'package:marriage_story_app/service/auth_service.dart';
 
 class Body extends StatefulWidget {
   static const routeName = '/other-screen';
@@ -13,6 +15,38 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  String role = "";
+  UserModel user = UserModel(
+      id: 0,
+      name: "",
+      email: "",
+      emailVerifiedAt: DateTime.now(),
+      roleName: "",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now());
+
+  @override
+  void initState() {
+    super.initState();
+    getUserProfile();
+  }
+
+  Future<void> getUserProfile() async {
+    try {
+      var data = await AuthService.authUserProfile();
+
+      setState(() {
+        user = data;
+      });
+    } catch (e) {
+      Navigator.pushReplacementNamed(context, "/base-screen");
+    }
+    if (user.roleName == "Client")
+      role = "Client";
+    else
+      role = "Wedding Organizer";
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -52,7 +86,7 @@ class _BodyState extends State<Body> {
                 height: 16,
               ),
               Text(
-                "Adam Bakwan",
+                user.name,
                 style: TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w700,
@@ -60,7 +94,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
               Text(
-                "Wedding Organizer",
+                role,
                 style: TextStyle(
                   color: Color(0xffBDBDBD),
                   fontWeight: FontWeight.w500,

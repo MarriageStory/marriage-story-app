@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/sign_in/components/background.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:marriage_story_app/service/auth_service.dart';
+import 'package:marriage_story_app/model/user_model.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final textFieldFocusNode = FocusNode();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   bool _obscured = true;
   bool isChecked = false;
 
@@ -77,7 +82,7 @@ class _BodyState extends State<Body> {
                         ),
                         child: TextFormField(
                           decoration: InputDecoration(
-                            hintText: "Username",
+                            hintText: "Email",
                             hintStyle: const TextStyle(
                               color: Color(0xff828282),
                               fontWeight: FontWeight.w500,
@@ -89,6 +94,7 @@ class _BodyState extends State<Body> {
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),
+                          controller: _emailController,
                         ),
                       ),
                       SizedBox(
@@ -124,6 +130,7 @@ class _BodyState extends State<Body> {
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),
+                          controller: _passwordController,
                         ),
                       ),
                       SizedBox(
@@ -144,7 +151,37 @@ class _BodyState extends State<Body> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            var data = <String, dynamic>{
+                              'email': _emailController.text,
+                              'password': _passwordController.text,
+                            };
+
+                            try {
+                              AuthService.authLogin(data).then((response) {
+                                if (response.accessToken != "") {
+                                  // Navigator.pushNamedAndRemoveUntil(
+                                  //   context,
+                                  //   "/home-screen",
+                                  //   (route) => false,
+                                  // );
+
+                                  validasi();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text("Berhasil Login")));
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text("Password Salah")));
+                                }
+                              });
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("Terdapat Kesalahan")));
+                            }
+                          },
                           child: const Text(
                             "Masuk",
                             style: TextStyle(
@@ -164,5 +201,56 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  void validasi() {
+    String role = "";
+    UserModel user = UserModel(
+        id: 0,
+        name: "",
+        email: "",
+        emailVerifiedAt: DateTime.now(),
+        roleName: "",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now());
+
+    Future<void> getUserProfile() async {
+      try {
+        var data = await AuthService.authUserProfile();
+
+        setState(() {
+          user = data;
+        });
+      } catch (e) {
+        Navigator.pushReplacementNamed(context, "/base-screen");
+      }
+      if ("Client" == "Client") {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          "/home-client-screen",
+          (route) => false,
+        );
+
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Berhasil Login")));
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          "/home-screen",
+          (route) => false,
+        );
+
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Berhasil Login")));
+      }
+    }
+
+    getUserProfile();
+
+    // @override
+    // void initState() {
+    //   super.initState();
+    //   getUserProfile();
+    // }
   }
 }

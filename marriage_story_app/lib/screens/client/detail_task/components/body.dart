@@ -3,18 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/client/detail_task/components/background.dart';
+import 'package:marriage_story_app/model/schedule_model.dart';
 
-class Body extends StatefulWidget {
+class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
 
-  @override
-  State<Body> createState() => _BodyState();
-}
+//   @override
+//   State<Body> createState() => _BodyState();
+// }
 
-class _BodyState extends State<Body> {
-  bool isChecked = false;
+// class _BodyState extends State<Body> {
+  // bool isChecked = false;
+
   @override
   Widget build(BuildContext context) {
+    final schedule =
+        ModalRoute.of(context)!.settings.arguments as ScheduleModel;
+
+
     Size size = MediaQuery.of(context).size;
     return Background(
       child: Container(
@@ -70,7 +76,7 @@ class _BodyState extends State<Body> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              "20.00",
+                              schedule.jam,
                               style: TextStyle(
                                 color: Color(0xffFFFFFF),
                                 fontWeight: FontWeight.w700,
@@ -81,7 +87,7 @@ class _BodyState extends State<Body> {
                               height: 4,
                             ),
                             Text(
-                              "Senin, 24 April 2022",
+                              schedule.tanggal.toString(),
                               style: TextStyle(
                                 color: Color(0xffFFFFFF),
                                 fontWeight: FontWeight.w600,
@@ -120,7 +126,7 @@ class _BodyState extends State<Body> {
                   height: 4,
                 ),
                 Text(
-                  "Meeting dengan Pengantin",
+                  schedule.namaKegiatan,
                   style: TextStyle(
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w700,
@@ -142,7 +148,7 @@ class _BodyState extends State<Body> {
                   height: 4,
                 ),
                 Text(
-                  "Jl. Sukolilo Surabaya 8 No. 25",
+                  schedule.tempat,
                   style: TextStyle(
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w700,
@@ -164,7 +170,7 @@ class _BodyState extends State<Body> {
                   height: 4,
                 ),
                 Text(
-                  "Kedua mempelai mengikuti rapat dengan WO",
+                  schedule.detailKegiatan,
                   style: TextStyle(
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w700,

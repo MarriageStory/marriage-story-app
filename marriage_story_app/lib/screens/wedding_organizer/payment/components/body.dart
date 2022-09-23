@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/payment/components/background.dart';
+import 'package:marriage_story_app/model/payment_model.dart';
+import 'package:marriage_story_app/service/payment_service.dart';
+import 'package:marriage_story_app/service/event_service.dart';
+import 'package:marriage_story_app/model/event_model.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -12,6 +16,18 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  late Future<PaymentsModel> _payment;
+
+  @override
+  void initState() {
+    super.initState();
+    try {
+      _payment = PaymentService.getAllPayments();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -46,13 +62,36 @@ class _BodyState extends State<Body> {
                   SizedBox(
                     height: 60,
                   ),
-                  Text(
-                    "2",
-                    style: TextStyle(
-                      color: Color(0xffFFFFFF),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 35,
-                    ),
+                  FutureBuilder(
+                    future: _payment,
+                    builder: (context, AsyncSnapshot<PaymentsModel> snapshot) {
+                      var state = snapshot.connectionState;
+                      if (state != ConnectionState.done) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        if (snapshot.hasData) {
+                          int totalPayment = snapshot.data!.data.length;
+                          return Text(
+                            totalPayment.toString(),
+                            style: TextStyle(
+                              color: Color(0xffFFFFFF),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 35,
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text(
+                              snapshot.error.toString(),
+                            ),
+                          );
+                        } else {
+                          return Text('No Event');
+                        }
+                      }
+                    },
                   ),
                   Text(
                     "Total Pembayaran",
@@ -101,231 +140,267 @@ class _BodyState extends State<Body> {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                "assets/images/poster-1.png",
-                                height: 95,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Pernikahan Aan dan Ainul",
-                                    style: TextStyle(
-                                      color: Color(0xff333333),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  Text(
-                                    "25 Agustus 2022",
-                                    style: TextStyle(
-                                      color: Color(0xffBDBDBD),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 3,
-                                          horizontal: 6,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                            color: Color(0xffFB6C90),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "Pre-wedding",
-                                            style: TextStyle(
-                                              color: Color(0xffFB6C90),
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 11,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 3,
-                                          horizontal: 6,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                            color: Color(0xffFB6C90),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "Engagement",
-                                            style: TextStyle(
-                                              color: Color(0xffFB6C90),
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 11,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 3,
-                                          horizontal: 6,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                            color: Color(0xffFB6C90),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "Akad",
-                                            style: TextStyle(
-                                              color: Color(0xffFB6C90),
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 11,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 3,
-                                          horizontal: 6,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                            color: Color(0xffFB6C90),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "Panggih",
-                                            style: TextStyle(
-                                              color: Color(0xffFB6C90),
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 11,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 3,
-                                          horizontal: 6,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.transparent,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                            color: Color(0xffFB6C90),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "Resepsi",
-                                            style: TextStyle(
-                                              color: Color(0xffFB6C90),
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 11,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 60,
-                          width: double.infinity,
-                          child: Center(
+                  FutureBuilder(
+                    future: _payment,
+                    builder: (context, AsyncSnapshot<PaymentsModel> snapshot) {
+                      var state = snapshot.connectionState;
+                      if (state != ConnectionState.done) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) {
+                              // var event = snapshot.data?.data.first;
+                              var payment = snapshot.data!.data[index];
+                              return InkWell(
+                                  onTap: () {
+                                    // Navigator.pushNamed(context, DetailTask.url,
+                                    //     arguments: schedule);
+                                  },
+                                  child: listItem(payment!));
+                            },
+                            itemCount: snapshot.data!.data.length,
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(
                             child: Text(
-                              "Rp30.000.000,00",
-                              style: TextStyle(
-                                color: Color(0xffFFFFFF),
-                                fontWeight: FontWeight.w700,
-                                fontSize: 18,
-                              ),
+                              snapshot.error.toString(),
                             ),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(15),
-                            ),
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xffFB6C90),
-                                Color(0xffFB8DA0),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Color(0xffFFFFFF),
-                    ),
+                          );
+                        } else {
+                          return Text('No Schedule');
+                        }
+                      }
+                    },
                   ),
                 ],
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget listItem(PaymentModel view) {
+    return Container(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Image.asset(
+                  "assets/images/poster-1.png",
+                  height: 95,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Pernikahan " + view.terbayar,
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                      ),
+                    ),
+                    Text(
+                      "25 Agustus 2022",
+                      style: TextStyle(
+                        color: Color(0xffBDBDBD),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 3,
+                            horizontal: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Color(0xffFB6C90),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Pre-wedding",
+                              style: TextStyle(
+                                color: Color(0xffFB6C90),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 3,
+                            horizontal: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Color(0xffFB6C90),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Engagement",
+                              style: TextStyle(
+                                color: Color(0xffFB6C90),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 3,
+                            horizontal: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Color(0xffFB6C90),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Akad",
+                              style: TextStyle(
+                                color: Color(0xffFB6C90),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 3,
+                            horizontal: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Color(0xffFB6C90),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Panggih",
+                              style: TextStyle(
+                                color: Color(0xffFB6C90),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 3,
+                            horizontal: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Color(0xffFB6C90),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Resepsi",
+                              style: TextStyle(
+                                color: Color(0xffFB6C90),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            height: 60,
+            width: double.infinity,
+            child: Center(
+              child: Text(
+                "Rp30.000.000,00",
+                style: TextStyle(
+                  color: Color(0xffFFFFFF),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(15),
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xffFB6C90),
+                  Color(0xffFB8DA0),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Color(0xffFFFFFF),
       ),
     );
   }

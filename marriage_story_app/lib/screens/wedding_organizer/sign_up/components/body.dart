@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/sign_up/components/background.dart';
+import 'package:marriage_story_app/service/auth_service.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -12,6 +13,9 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final textFieldFocusNode = FocusNode();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _userNameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   bool _obscured = true;
   bool isChecked = false;
 
@@ -89,6 +93,7 @@ class _BodyState extends State<Body> {
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),
+                          controller: _emailController,
                         ),
                       ),
                       SizedBox(
@@ -112,6 +117,7 @@ class _BodyState extends State<Body> {
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),
+                          controller: _userNameController,
                         ),
                       ),
                       SizedBox(
@@ -147,6 +153,7 @@ class _BodyState extends State<Body> {
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),
+                          controller: _passwordController,
                         ),
                       ),
                       SizedBox(
@@ -167,7 +174,33 @@ class _BodyState extends State<Body> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            Map<String, dynamic> body = {
+                              'name': _userNameController.text,
+                              'email': _emailController.text,
+                              'password': _passwordController.text,
+                              'role_name': "Client",
+                              'role_slug': "Client"
+                            };
+
+                            try {
+                              await AuthService.authRegister(body)
+                                  .then((value) {
+                                if (value == true) {
+                                  Navigator.pushReplacementNamed(
+                                      context, "/sign-in");
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              'You have successfully create a account')));
+                                }
+                              });
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Terdapat Kesalahan !')));
+                            }
+                          },
                           child: const Text(
                             "Daftar",
                             style: TextStyle(

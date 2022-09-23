@@ -41,12 +41,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Nunito',
       ),
-      initialRoute: '/navbar-client',
+      initialRoute: '/',
       routes: {
         '/navbar-client': (context) => NavbarClient(
               index: 0,
             ),
-        '/': (context) => SplashScreen(),
+        // '/': (context) => SplashScreen(),
+        '/': (context) => OtherScreen(),
         '/welcome-screen': (context) => WelcomeScreen(),
         '/sign-in': (context) => SignInScreen(),
         '/sign-up': (context) => SignUpScreen(),
