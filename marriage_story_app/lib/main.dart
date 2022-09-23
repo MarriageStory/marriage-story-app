@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
               index: 0,
             ),
         // '/': (context) => SplashScreen(),
-        '/': (context) => OtherScreen(),
+        '/': (context) => SignInScreen(),
         '/welcome-screen': (context) => WelcomeScreen(),
         '/sign-in': (context) => SignInScreen(),
         '/sign-up': (context) => SignUpScreen(),

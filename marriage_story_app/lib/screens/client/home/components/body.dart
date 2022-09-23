@@ -122,7 +122,7 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                       Text(
-                        "Penagntin " + user.name,
+                        "Pengantin " + user.name,
                         style: TextStyle(
                           color: Color(0xffFFFFFF),
                           fontWeight: FontWeight.w600,

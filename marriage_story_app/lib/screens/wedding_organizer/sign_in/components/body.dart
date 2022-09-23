@@ -224,7 +224,7 @@ class _BodyState extends State<Body> {
       } catch (e) {
         Navigator.pushReplacementNamed(context, "/base-screen");
       }
-      if ("Client" == "Client") {
+      if (user.roleName == "Client") {
         Navigator.pushNamedAndRemoveUntil(
           context,
           "/home-client-screen",
