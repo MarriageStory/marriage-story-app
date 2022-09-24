@@ -10,6 +10,7 @@ import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/model/user_model.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
 import 'package:marriage_story_app/screens/client/home/home_client_screen.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/detail_event/detail_event_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -323,22 +324,14 @@ class _BodyState extends State<Body> {
                           itemBuilder: (context, index) {
                             // var event = snapshot.data?.data.first;
                             var event = snapshot.data!.data[index];
-                            if (user.roleName == "WeddingOrganize") {
                               return InkWell(
                                   onTap: () {
-                                    // Navigator.pushNamed(context, DetailTask.url,
-                                    //     arguments: schedule);
+                                  Navigator.pushNamed(
+                                      context, DetailEventScreen.url,
+                                      arguments: event);
                                   },
                                   child: listItem(event!));
-                            } else if (event.userId == user.id) {
-                              return InkWell(
-                                  onTap: () {
-                                    // Navigator.pushNamed(context, DetailTask.url,
-                                    //     arguments: schedule);
-                                  },
-                                  child: listItem(event!));
-                            }
-                            return SizedBox();
+
                           },
                           itemCount: snapshot.data!.data.length,
                         );

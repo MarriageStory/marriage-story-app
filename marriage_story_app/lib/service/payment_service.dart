@@ -30,6 +30,8 @@ class PaymentService {
       "tunai_keseluruhan": data["tunai_keseluruhan"],
       "status": data["status"],
       "terbayar": data["terbayar"],
+      "tanggal": data["tanggal"],
+      "event_id": data["event_id"],
     };
 
     var response = await http.post(Uri.parse(baseURLAPI + "payments"),
@@ -54,6 +56,8 @@ class PaymentService {
       "tunai_keseluruhan": data["tunai_keseluruhan"],
       "status": data["status"],
       "terbayar": data["terbayar"],
+      "tanggal": data["tanggal"],
+      "event_id": data["event_id"],
     };
 
     var response = await http.put(

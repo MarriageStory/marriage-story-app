@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_event/components/background.dart';
+import 'package:marriage_story_app/model/event_model.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.dart';
+import 'package:marriage_story_app/service/schedule_service.dart';
+import 'package:marriage_story_app/service/event_service.dart';
+import 'package:marriage_story_app/model/schedule_model.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/task/task_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -12,9 +18,27 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  late Future<SchedulesModel> _schedule;
+
+  @override
+  void initState() {
+    super.initState();
+
+    try {
+      _schedule = ScheduleService.getAllSchedules();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    int count = 1;
+    int agendaSelesai = 0;
+    int agendaTotal = 0;
+    final event = ModalRoute.of(context)!.settings.arguments as EventModel;
     Size size = MediaQuery.of(context).size;
+
     return Background(
       child: ListView(
         children: [
@@ -42,9 +66,17 @@ class _BodyState extends State<Body> {
                       ),
                       IconButton(
                         icon: Icon(
-                          Icons.menu,
+                          Icons.delete
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await EventService.deleteEvent(event.id)
+                              .then((value) {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return EventScreen();
+                            }));
+                          });
+                        },
                       ),
                     ],
                   ),
@@ -82,14 +114,14 @@ class _BodyState extends State<Body> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Kode 170564765",
-                                style: TextStyle(
-                                  color: Color(0xffFFFFFF),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                ),
-                              ),
+                              // Text(
+                              //   "Kode 170564765",
+                              //   style: TextStyle(
+                              //     color: Color(0xffFFFFFF),
+                              //     fontWeight: FontWeight.w600,
+                              //     fontSize: 14,
+                              //   ),
+                              // ),
                             ],
                           ),
                           SizedBox(
@@ -107,7 +139,7 @@ class _BodyState extends State<Body> {
                                 ),
                               ),
                               Text(
-                                "Ainul dan Aan",
+                                event.nameClient,
                                 style: TextStyle(
                                   color: Color(0xffFFFFFF),
                                   fontWeight: FontWeight.w700,
@@ -115,7 +147,7 @@ class _BodyState extends State<Body> {
                                 ),
                               ),
                               Text(
-                                "25 Agustus 2022",
+                                event.date.toString(),
                                 style: TextStyle(
                                   color: Color(0xffFFFFFF),
                                   fontWeight: FontWeight.w600,
@@ -286,7 +318,7 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                   Text(
-                    "20.00 WIB",
+                    event.time + " WIB",
                     style: TextStyle(
                       color: Color(0xff333333),
                       fontWeight: FontWeight.w800,
@@ -310,7 +342,7 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           Text(
-                            "Rp30.000.000,00",
+                            event.totalPembayaran.toString(),
                             style: TextStyle(
                               color: Color(0xff333333),
                               fontWeight: FontWeight.w800,
@@ -397,14 +429,68 @@ class _BodyState extends State<Body> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              "10",
+                            
+
+
+                            FutureBuilder(
+                              future: _schedule,
+                              builder: (context,
+                                  AsyncSnapshot<SchedulesModel> snapshot) {
+                                var state = snapshot.connectionState;
+                                if (state != ConnectionState.done) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else {
+                                  if (snapshot.hasData) {
+                                    return ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        // var event = snapshot.data?.data.first;
+                                        var schedule =
+                                            snapshot.data!.data[index];
+                                        if (schedule.eventId == event.id) {
+                                          agendaTotal++;
+                                        } else if (count ==
+                                            snapshot.data!.data.length) {
+                                          count = 1;
+                                          return Container(
+                                            child: Row(children: [
+                                              SizedBox(
+                                                width: 75,
+                                              ),
+                                              Text(
+                                                agendaTotal.toString(),
                               style: TextStyle(
                                 color: Color(0xffFB5490),
                                 fontWeight: FontWeight.w700,
                                 fontSize: 20,
                               ),
                             ),
+                                            ]),
+                                          );
+                                        }
+                                        count++;
+                                        return SizedBox();
+                                      },
+                                      itemCount: snapshot.data!.data.length,
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return Center(
+                                      child: Text(
+                                        snapshot.error.toString(),
+                                      ),
+                                    );
+                                  } else {
+                                    return Text('No Schedule');
+                                  }
+                                }
+                              },
+                            ),
+
+
                             Text(
                               "Jumlah Agenda",
                               style: TextStyle(
@@ -426,13 +512,62 @@ class _BodyState extends State<Body> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              "3",
-                              style: TextStyle(
-                                color: Color(0xffFB5490),
-                                fontWeight: FontWeight.w700,
-                                fontSize: 20,
-                              ),
+                            FutureBuilder(
+                              future: _schedule,
+                              builder: (context,
+                                  AsyncSnapshot<SchedulesModel> snapshot) {
+                                var state = snapshot.connectionState;
+                                if (state != ConnectionState.done) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else {
+                                  if (snapshot.hasData) {
+                                    return ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        // var event = snapshot.data?.data.first;
+                                        var schedule =
+                                            snapshot.data!.data[index];
+                                        if (schedule.status == "done" &&
+                                            schedule.eventId == event.id) {
+                                          agendaSelesai++;
+                                        } else if (count ==
+                                            snapshot.data!.data.length) {
+                                          return Container(
+                                            child: Row(children: [
+                                              SizedBox(
+                                                width: 75,
+                                              ),
+                                              Text(
+                                                agendaSelesai.toString(),
+                                                style: TextStyle(
+                                                  color: Color(0xffFB5490),
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            ]),
+                                          );
+                                        }
+                                        count++;
+                                        return SizedBox();
+                                      },
+                                      itemCount: snapshot.data!.data.length,
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return Center(
+                                      child: Text(
+                                        snapshot.error.toString(),
+                                      ),
+                                    );
+                                  } else {
+                                    return Text('No Schedule');
+                                  }
+                                }
+                              },
                             ),
                             Text(
                               "Agenda Selesai",
@@ -472,7 +607,10 @@ class _BodyState extends State<Body> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, TaskScreen.url,
+                                arguments: event);
+                          },
                           child: const Text(
                             "Lihat Agenda",
                             style: TextStyle(

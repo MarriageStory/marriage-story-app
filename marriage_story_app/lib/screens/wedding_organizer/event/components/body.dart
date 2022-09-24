@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/event/components/background.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/service/event_service.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/detail_event/detail_event_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -190,8 +191,9 @@ class _BodyState extends State<Body> {
                             var event = snapshot.data!.data[index];
                             return InkWell(
                                 onTap: () {
-                                  // Navigator.pushNamed(context, DetailTask.url,
-                                  //     arguments: schedule);
+                                  Navigator.pushNamed(
+                                      context, DetailEventScreen.url,
+                                      arguments: event);
                                 },
                                 child: listItem(event!));
                           },

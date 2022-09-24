@@ -3,19 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_task/components/background.dart';
+import 'package:marriage_story_app/model/schedule_model.dart';
+import 'package:marriage_story_app/service/schedule_service.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.dart';
 
-class Body extends StatefulWidget {
+class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
 
-  @override
-  State<Body> createState() => _BodyState();
-}
+//   @override
+//   State<Body> createState() => _BodyState();
+// }
 
-class _BodyState extends State<Body> {
-  bool isChecked = false;
+// class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
+    final schedule =
+        ModalRoute.of(context)!.settings.arguments as ScheduleModel;
+    bool isChecked = false;
     Size size = MediaQuery.of(context).size;
+
     return Background(
       child: Container(
         height: size.height,
@@ -69,7 +75,8 @@ class _BodyState extends State<Body> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
+                    InkWell(
+                      child: Column(
                       children: [
                         Checkbox(
                           checkColor: Colors.white,
@@ -77,9 +84,9 @@ class _BodyState extends State<Body> {
                               MaterialStateProperty.resolveWith(getColor),
                           value: isChecked,
                           onChanged: (bool? value) {
-                            setState(() {
-                              isChecked = value!;
-                            });
+                              // setState(() {
+                              //   isChecked = value!;
+                              // });
                           },
                         ),
                         Text(
@@ -92,6 +99,40 @@ class _BodyState extends State<Body> {
                         )
                       ],
                     ),
+                      onTap: () async {
+                        // Map<String, dynamic> body = {
+                        //   'nama_kegiatan': _nameTaskController.text,
+                        //   'detail_kegiatan': _detailTaskController.text,
+                        //   'tanggal': _dateController.text,
+                        //   'tempat': _placeController.text,
+                        //   'jam': _timeController.text,
+                        //   'status': "pending",
+                        // };
+
+                        var body = <String, dynamic>{
+                          'nama_kegiatan': schedule.namaKegiatan,
+                          'detail_kegiatan': schedule.detailKegiatan,
+                          'tanggal': schedule.tanggal.toString(),
+                          'tempat': schedule.tempat,
+                          'jam': schedule.jam,
+                          'status': "done",
+                          'event_id': schedule.eventId,
+                        };
+
+                        await ScheduleService.updateSchedule(schedule.id, body)
+                            .then((value) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EventScreen()),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text(
+                                      'You have successfully update a scedule')));
+                        });
+                      },
+                    ),
                     Container(
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(80, 32, 52, 32),
@@ -99,7 +140,7 @@ class _BodyState extends State<Body> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              "20.00",
+                              schedule.jam,
                               style: TextStyle(
                                 color: Color(0xffFFFFFF),
                                 fontWeight: FontWeight.w700,
@@ -110,7 +151,7 @@ class _BodyState extends State<Body> {
                               height: 4,
                             ),
                             Text(
-                              "Senin, 24 April 2022",
+                              schedule.tanggal.toIso8601String(),
                               style: TextStyle(
                                 color: Color(0xffFFFFFF),
                                 fontWeight: FontWeight.w600,
@@ -149,7 +190,7 @@ class _BodyState extends State<Body> {
                   height: 4,
                 ),
                 Text(
-                  "Meeting dengan Pengantin",
+                  schedule.namaKegiatan,
                   style: TextStyle(
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w700,
@@ -171,7 +212,7 @@ class _BodyState extends State<Body> {
                   height: 4,
                 ),
                 Text(
-                  "Jl. Sukolilo Surabaya 8 No. 25",
+                  schedule.tempat,
                   style: TextStyle(
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w700,
@@ -193,7 +234,7 @@ class _BodyState extends State<Body> {
                   height: 4,
                 ),
                 Text(
-                  "Kedua mempelai mengikuti rapat dengan WO",
+                  schedule.detailKegiatan,
                   style: TextStyle(
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w700,

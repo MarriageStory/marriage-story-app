@@ -7,6 +7,7 @@ import 'package:marriage_story_app/model/payment_model.dart';
 import 'package:marriage_story_app/service/payment_service.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/detail_payment/detail_payment_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -17,12 +18,15 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   late Future<PaymentsModel> _payment;
+  late Future<EventsModel> _event;
+  int count = 0;
 
   @override
   void initState() {
     super.initState();
     try {
       _payment = PaymentService.getAllPayments();
+      _event = EventService.getAllEvent();
     } catch (e) {
       print(e);
     }
@@ -140,9 +144,48 @@ class _BodyState extends State<Body> {
                   SizedBox(
                     height: 20,
                   ),
+                  // FutureBuilder(
+                  //   future: _event,
+                  //   builder: (context, AsyncSnapshot<EventsModel> snapshot) {
+                  //     var state = snapshot.connectionState;
+                  //     if (state != ConnectionState.done) {
+                  //       return Center(
+                  //         child: CircularProgressIndicator(),
+                  //       );
+                  //     } else {
+                  //       if (snapshot.hasData) {
+                  //         return ListView.builder(
+                  //           physics: NeverScrollableScrollPhysics(),
+                  //           shrinkWrap: true,
+                  //           scrollDirection: Axis.vertical,
+                  //           itemBuilder: (context, index) {
+                  //             // var event = snapshot.data?.data.first;
+                  //             var event = snapshot.data!.data[index];
+                  //             return InkWell(
+                  //                 onTap: () {
+                  //                   // Navigator.pushNamed(context, DetailTask.url,
+                  //                   //     arguments: schedule);
+                  //                 },
+                  //                 child: listItem(event!));
+                  //           },
+                  //           itemCount: snapshot.data!.data.length,
+                  //         );
+                  //       } else if (snapshot.hasError) {
+                  //         return Center(
+                  //           child: Text(
+                  //             snapshot.error.toString(),
+                  //           ),
+                  //         );
+                  //       } else {
+                  //         return Text('No Schedule');
+                  //       }
+                  //     }
+                  //   },
+                  // ),
+
                   FutureBuilder(
-                    future: _payment,
-                    builder: (context, AsyncSnapshot<PaymentsModel> snapshot) {
+                    future: _event,
+                    builder: (context, AsyncSnapshot<EventsModel> snapshot) {
                       var state = snapshot.connectionState;
                       if (state != ConnectionState.done) {
                         return Center(
@@ -156,13 +199,18 @@ class _BodyState extends State<Body> {
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context, index) {
                               // var event = snapshot.data?.data.first;
-                              var payment = snapshot.data!.data[index];
-                              return InkWell(
-                                  onTap: () {
-                                    // Navigator.pushNamed(context, DetailTask.url,
-                                    //     arguments: schedule);
-                                  },
-                                  child: listItem(payment!));
+                              var event = snapshot.data!.data[index];
+                              if (count < 1) {
+                                count++;
+                                return InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, DetailPaymentScreen.url,
+                                          arguments: event);
+                                    },
+                                    child: listItem(event!));
+                              }
+                              return SizedBox();
                             },
                             itemCount: snapshot.data!.data.length,
                           );
@@ -187,7 +235,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget listItem(PaymentModel view) {
+  Widget listItem(EventModel view) {
     return Container(
       child: Column(
         children: [
@@ -206,7 +254,7 @@ class _BodyState extends State<Body> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Pernikahan " + view.terbayar,
+                      "Pernikahan " + view.nameClient,
                       style: TextStyle(
                         color: Color(0xff333333),
                         fontWeight: FontWeight.w700,
@@ -214,7 +262,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Text(
-                      "25 Agustus 2022",
+                      view.date.toString(),
                       style: TextStyle(
                         color: Color(0xffBDBDBD),
                         fontWeight: FontWeight.w500,
@@ -374,7 +422,7 @@ class _BodyState extends State<Body> {
             width: double.infinity,
             child: Center(
               child: Text(
-                "Rp30.000.000,00",
+                view.totalPembayaran.toString(),
                 style: TextStyle(
                   color: Color(0xffFFFFFF),
                   fontWeight: FontWeight.w700,

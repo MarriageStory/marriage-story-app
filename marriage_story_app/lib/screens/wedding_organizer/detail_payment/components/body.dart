@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_payment/components/background.dart';
+import 'package:marriage_story_app/model/event_model.dart';
+import 'package:marriage_story_app/service/event_service.dart';
+import 'package:marriage_story_app/service/payment_service.dart';
+import 'package:marriage_story_app/model/payment_model.dart';
+import 'package:marriage_story_app/service/payment_detail_service.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -14,7 +19,9 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
+    final event = ModalRoute.of(context)!.settings.arguments as EventModel;
     Size size = MediaQuery.of(context).size;
+            
     return Background(
       child: Container(
         height: size.height,
@@ -79,14 +86,14 @@ class _BodyState extends State<Body> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Kode 170564765",
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
-                          ),
+                          // Text(
+                          //   "Kode 170564765",
+                          //   style: TextStyle(
+                          //     color: Color(0xffFFFFFF),
+                          //     fontWeight: FontWeight.w600,
+                          //     fontSize: 14,
+                          //   ),
+                          // ),
                         ],
                       ),
                       SizedBox(
@@ -104,7 +111,7 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           Text(
-                            "Ainul dan Aan",
+                            event.nameClient,
                             style: TextStyle(
                               color: Color(0xffFFFFFF),
                               fontWeight: FontWeight.w700,
@@ -112,7 +119,7 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           Text(
-                            "25 Agustus 2022",
+                            event.date.toString(),
                             style: TextStyle(
                               color: Color(0xffFFFFFF),
                               fontWeight: FontWeight.w600,
@@ -283,7 +290,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
               Text(
-                "Rp30.000.000,00",
+                event.totalPembayaran.toString(),
                 style: TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w800,

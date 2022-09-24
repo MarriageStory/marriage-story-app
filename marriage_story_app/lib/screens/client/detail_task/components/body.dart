@@ -17,6 +17,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isChecked = false;
     final schedule =
         ModalRoute.of(context)!.settings.arguments as ScheduleModel;
 

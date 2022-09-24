@@ -227,7 +227,7 @@ class _BodyState extends State<Body> {
       if (user.roleName == "Client") {
         Navigator.pushNamedAndRemoveUntil(
           context,
-          "/home-client-screen",
+          "/navbar-client",
           (route) => false,
         );
 
