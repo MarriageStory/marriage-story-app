@@ -9,6 +9,8 @@ import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/model/schedule_model.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/task/task_screen.dart';
+import 'package:marriage_story_app/service/payment_service.dart';
+import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -69,11 +71,15 @@ class _BodyState extends State<Body> {
                           Icons.delete
                         ),
                         onPressed: () async {
-                          await EventService.deleteEvent(event.id)
+                          await EventService.deleteEvent(event.id);
+
+                          await PaymentService.deletePayment(event.id)
                               .then((value) {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return EventScreen();
+                              return NavbarWeddingOrganizer(
+                                index: 1,
+                              );
                             }));
                           });
                         },

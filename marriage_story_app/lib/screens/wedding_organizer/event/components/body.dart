@@ -6,6 +6,7 @@ import 'package:marriage_story_app/screens/wedding_organizer/event/components/ba
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_event/detail_event_screen.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/add_event_2/add_event_2_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -129,14 +130,62 @@ class _BodyState extends State<Body> {
                       width: 40,
                     ),
                     Container(
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          size: 30,
-                          color: Color(0xffFFFFFF),
-                        ),
-                        onPressed: () {},
+                      child: FutureBuilder(
+                        future: _event,
+                        builder:
+                            (context, AsyncSnapshot<EventsModel> snapshot) {
+                          var state = snapshot.connectionState;
+                          if (state != ConnectionState.done) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            if (snapshot.hasData) {
+                              if (snapshot.data!.data.length > 0) {
+                                return IconButton(
+                                  icon: Icon(
+                                    Icons.add,
+                                    size: 30,
+                                    color: Color(0xffFFFFFF),
+                                  ),
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'Sementara hanya bisa 1 Event')));
+                                  },
+                                );
+                              } else {
+                                return IconButton(
+                                  icon: Icon(
+                                    Icons.add,
+                                    size: 30,
+                                    color: Color(0xffFFFFFF),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AddEvent2Screen()),
+                                    );
+                                  },
+                                );
+                              }
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                child: Text(
+                                  snapshot.error.toString(),
+                                ),
+                              );
+                            } else {
+                              return Text('No Event');
+                            }
+                          }
+                        },
                       ),
+                      
+                      
                       height: 60,
                       width: 60,
                       decoration: BoxDecoration(

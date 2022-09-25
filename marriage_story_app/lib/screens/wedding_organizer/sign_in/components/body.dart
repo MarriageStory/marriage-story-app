@@ -236,7 +236,7 @@ class _BodyState extends State<Body> {
       } else {
         Navigator.pushNamedAndRemoveUntil(
           context,
-          "/home-screen",
+          "/navbar-wo",
           (route) => false,
         );
 

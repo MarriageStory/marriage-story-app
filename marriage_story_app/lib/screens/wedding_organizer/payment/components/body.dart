@@ -34,6 +34,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    String namaClient = "";
     Size size = MediaQuery.of(context).size;
     return Background(
       child: Column(
@@ -199,18 +200,52 @@ class _BodyState extends State<Body> {
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context, index) {
                               // var event = snapshot.data?.data.first;
-                              var event = snapshot.data!.data[index];
-                              if (count < 1) {
-                                count++;
+                              var event = snapshot.data!.data.first;
+                              namaClient = event.nameClient;
+                              return SizedBox();
+                            },
+                            itemCount: snapshot.data!.data.length,
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text(
+                              snapshot.error.toString(),
+                            ),
+                          );
+                        } else {
+                          return Text('No Schedule');
+                        }
+                      }
+                    },
+                  ),
+                  FutureBuilder(
+                    future: _payment,
+                    builder: (context, AsyncSnapshot<PaymentsModel> snapshot) {
+                      var state = snapshot.connectionState;
+                      if (state != ConnectionState.done) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) {
+                              // var event = snapshot.data?.data.first;
+                              var payment = snapshot.data!.data[index];
+                              // if (count == 1) {
+                              //   count++;
                                 return InkWell(
                                     onTap: () {
                                       Navigator.pushNamed(
                                           context, DetailPaymentScreen.url,
-                                          arguments: event);
+                                        arguments: payment);
                                     },
-                                    child: listItem(event!));
-                              }
-                              return SizedBox();
+                                  child: listItem(namaClient, payment!));
+                              // }
+                              // return Text(namaClient);
                             },
                             itemCount: snapshot.data!.data.length,
                           );
@@ -235,7 +270,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget listItem(EventModel view) {
+  Widget listItem(String viewNama, PaymentModel view) {
     return Container(
       child: Column(
         children: [
@@ -254,7 +289,7 @@ class _BodyState extends State<Body> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Pernikahan " + view.nameClient,
+                      viewNama,
                       style: TextStyle(
                         color: Color(0xff333333),
                         fontWeight: FontWeight.w700,
@@ -262,7 +297,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Text(
-                      view.date.toString(),
+                      view.tunaiKeseluruhan.toString(),
                       style: TextStyle(
                         color: Color(0xffBDBDBD),
                         fontWeight: FontWeight.w500,
@@ -422,7 +457,7 @@ class _BodyState extends State<Body> {
             width: double.infinity,
             child: Center(
               child: Text(
-                view.totalPembayaran.toString(),
+                view.tunaiKeseluruhan.toString(),
                 style: TextStyle(
                   color: Color(0xffFFFFFF),
                   fontWeight: FontWeight.w700,

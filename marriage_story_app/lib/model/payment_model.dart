@@ -32,6 +32,7 @@ class PaymentModel {
     required this.tunaiKeseluruhan,
     required this.status,
     required this.terbayar,
+    required this.tanggal,
     required this.eventId,
     required this.createdAt,
     required this.updatedAt,
@@ -42,6 +43,7 @@ class PaymentModel {
   int tunaiKeseluruhan;
   String status;
   String terbayar;
+  DateTime tanggal;
   int eventId;
   DateTime createdAt;
   DateTime updatedAt;
@@ -52,6 +54,7 @@ class PaymentModel {
         tunaiKeseluruhan: json["tunai_keseluruhan"],
         status: json["status"],
         terbayar: json["terbayar"],
+        tanggal: DateTime.parse(json["tanggal"]),
         eventId: json["event_id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
@@ -64,6 +67,7 @@ class PaymentModel {
         "tunai_keseluruhan": tunaiKeseluruhan,
         "status": status,
         "terbayar": terbayar,
+        "tanggal": tanggal.toIso8601String(),
         "event_id": eventId,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),

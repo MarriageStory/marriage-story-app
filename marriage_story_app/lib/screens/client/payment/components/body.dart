@@ -98,9 +98,12 @@ class _BodyState extends State<Body> {
                 },
               ),
 
+
+      
               //disini woiiii
             ),
           ),
+          
           Container(
             child: Padding(
               padding: const EdgeInsets.only(
@@ -108,7 +111,22 @@ class _BodyState extends State<Body> {
                 left: 20,
                 right: 20,
               ),
-              child: FutureBuilder(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Jumlah Terbayar",
+                          style: TextStyle(
+                            color: Color(0xff000000).withOpacity(0.25),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                    FutureBuilder(
                 future: _payment,
                 builder: (context, AsyncSnapshot<PaymentsModel> snapshot) {
                   var state = snapshot.connectionState;
@@ -147,6 +165,8 @@ class _BodyState extends State<Body> {
                   }
                 },
               ),
+                  ],
+                )
             ),
           ),
         ],
@@ -212,7 +232,10 @@ class _BodyState extends State<Body> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, "/add-payment-report-screen",
+                      arguments: view);
+                },
                 child: const Text(
                   "Upload Pembayaran",
                   style: TextStyle(
@@ -232,19 +255,7 @@ class _BodyState extends State<Body> {
   Widget listItemPaymentDetail(PaymentModel view) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "Jumlah Terbayar",
-              style: TextStyle(
-                color: Color(0xff000000).withOpacity(0.25),
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
+        
         SizedBox(
           height: 10,
         ),

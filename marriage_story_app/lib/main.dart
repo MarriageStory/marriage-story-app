@@ -24,6 +24,7 @@ import 'package:marriage_story_app/screens/client/event/event_client_screen.dart
 import 'package:marriage_story_app/screens/client/payment/payment_client_screen.dart';
 import 'package:marriage_story_app/screens/client/add_payment_report/add_payment_report_screen.dart';
 import 'package:marriage_story_app/widgets/navbar/navbar_client.dart';
+import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,8 +47,11 @@ class MyApp extends StatelessWidget {
         '/navbar-client': (context) => NavbarClient(
               index: 0,
             ),
+        '/navbar-wo': (context) => NavbarWeddingOrganizer(
+              index: 0,
+            ),
         // '/': (context) => SplashScreen(),
-        '/': (context) => PaymentScreen(),
+        '/': (context) => SignInScreen(),
         '/welcome-screen': (context) => WelcomeScreen(),
         '/sign-in': (context) => SignInScreen(),
         '/sign-up': (context) => SignUpScreen(),

@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_detail/components/background.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.dart';
 import 'package:marriage_story_app/service/event_service.dart';
+import 'package:marriage_story_app/service/payment_service.dart';
+import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
 
 class Body extends StatelessWidget {
   final String namaClient;
@@ -373,17 +375,37 @@ class Body extends StatelessWidget {
                           'user_id': 5,
                         };
 
-                        await EventService.createNewEvent(body).then((value) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EventScreen()),
-                          );
+                        await EventService.createNewEvent(body);
+
+                        Map<String, dynamic> body1 = {
+                          'tunai_keseluruhan': totalPembayaran,
+                          'status': "pending",
+                          "terbayar": "0",
+                          'tanggal': tanggal,
+                          'event_id': "0",
+                        };
+
+                        try {
+                          await PaymentService.createNewPayment(body1)
+                              .then((value) {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return NavbarWeddingOrganizer(
+                                index: 1,
+                              );
+                            }));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    backgroundColor: Colors.green,
+                                    content: Text(
+                                        'You have successfully create a scedule')));
+                          });
+                        } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text(
-                                      'You have successfully create a scedule')));
-                        });
+                                  backgroundColor: Colors.red,
+                                  content: Text('Terjadi Kesalahan !')));
+                        }
                       },
                       child: const Text(
                         "Selanjutnya",

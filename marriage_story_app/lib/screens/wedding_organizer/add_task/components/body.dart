@@ -7,6 +7,7 @@ import 'package:marriage_story_app/components/dateTime.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/home/home_screen.dart';
 import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
+import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -299,7 +300,10 @@ class _BodyState extends State<Body> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
+                              builder: (context) => NavbarWeddingOrganizer(
+                                index: 0,
+                              ),
+                            ),
                           );
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
