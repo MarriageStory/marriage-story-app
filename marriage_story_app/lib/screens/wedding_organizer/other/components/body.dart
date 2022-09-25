@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/other/components/background.dart';
 import 'package:marriage_story_app/model/user_model.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/sign_in/sign_in_screen.dart';
 
 class Body extends StatefulWidget {
   static const routeName = '/other-screen';
@@ -148,7 +150,15 @@ class _BodyState extends State<Body> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.remove("token");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignInScreen()),
+                        );
+                      },
                       child: const Text(
                         "Keluar",
                         style: TextStyle(
