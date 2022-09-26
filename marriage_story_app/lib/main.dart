@@ -24,6 +24,7 @@ import 'package:marriage_story_app/screens/client/event/event_client_screen.dart
 import 'package:marriage_story_app/screens/client/payment/payment_client_screen.dart';
 import 'package:marriage_story_app/screens/client/add_payment_report/add_payment_report_screen.dart';
 import 'package:marriage_story_app/widgets/navbar/navbar_client.dart';
+import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,12 +42,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Nunito',
       ),
-      initialRoute: '/navbar-client',
+      initialRoute: '/',
       routes: {
         '/navbar-client': (context) => NavbarClient(
               index: 0,
             ),
-        '/': (context) => SplashScreen(),
+        '/navbar-wo': (context) => NavbarWeddingOrganizer(
+              index: 0,
+            ),
+        // '/': (context) => SplashScreen(),
+        '/': (context) => SignInScreen(),
         '/welcome-screen': (context) => WelcomeScreen(),
         '/sign-in': (context) => SignInScreen(),
         '/sign-up': (context) => SignUpScreen(),
@@ -55,7 +60,7 @@ class MyApp extends StatelessWidget {
         '/add-event-1-screen': (context) => AddEvent1Screen(),
         '/add-event-2-screen': (context) => AddEvent2Screen(),
         '/add-event-3-screen': (context) => AddEvent3Screen(),
-        '/add-event-detail-screen': (context) => AddEventDetailScreen(),
+        // '/add-event-detail-screen': (context) => AddEventDetailScreen(),
         '/detail-event-screen': (context) => DetailEventScreen(),
         '/task-screen': (context) => TaskScreen(),
         '/add-task-screen': (context) => AddTaskScreen(),

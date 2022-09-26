@@ -57,7 +57,9 @@ class Body extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, "/sign-in");
+                          },
                           child: const Text(
                             "Pengantin",
                             style: TextStyle(
@@ -83,7 +85,9 @@ class Body extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, "/sign-in");
+                          },
                           child: const Text(
                             "WO",
                             style: TextStyle(

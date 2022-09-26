@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/client/event/components/background.dart';
+import 'package:marriage_story_app/screens/client/detail_task/detail_task_client_screen.dart';
+import 'package:marriage_story_app/service/schedule_service.dart';
+import 'package:marriage_story_app/model/schedule_model.dart';
+import 'package:marriage_story_app/service/event_service.dart';
+import 'package:marriage_story_app/model/event_model.dart';
 
 class Body extends StatefulWidget {
   static const routeName = '/event-client-screen';
@@ -13,6 +18,21 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  late Future<SchedulesModel> _schedule;
+  late Future<EventsModel> _event;
+
+  @override
+  void initState() {
+    super.initState();
+
+    try {
+      _schedule = ScheduleService.getAllSchedules();
+      _event = EventService.getAllEvent();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -199,81 +219,62 @@ class _BodyState extends State<Body> {
                   SizedBox(
                     height: 60,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            "Pernikahan",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                shadows: <Shadow>[
-                                  Shadow(
-                                    offset: Offset(0, 3),
-                                    blurRadius: 5.0,
-                                    color: Color.fromARGB(255, 0, 0, 0)
-                                        .withOpacity(0.20),
-                                  )
-                                ]),
-                          ),
-                          Text(
-                            "User Name Event",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                shadows: <Shadow>[
-                                  Shadow(
-                                    offset: Offset(0, 3),
-                                    blurRadius: 5.0,
-                                    color: Color.fromARGB(255, 0, 0, 0)
-                                        .withOpacity(0.20),
-                                  )
-                                ]),
-                          ),
-                          SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            "25 Agustus 2022",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w800,
-                                shadows: <Shadow>[
-                                  Shadow(
-                                    offset: Offset(0, 3),
-                                    blurRadius: 5.0,
-                                    color: Color.fromARGB(255, 0, 0, 0)
-                                        .withOpacity(0.20),
-                                  )
-                                ]),
-                          ),
-                        ],
-                      ),
-                    ],
+                  FutureBuilder(
+                    future: _event,
+                    builder: (context, AsyncSnapshot<EventsModel> snapshot) {
+                      var state = snapshot.connectionState;
+                      if (state != ConnectionState.done) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) {
+                              // var event = snapshot.data?.data.first;
+                              var event = snapshot.data!.data[index];
+
+                              return InkWell(
+                                  onTap: () {
+                                    // Navigator.pushNamed(context, DetailTask.url,
+                                    //     arguments: schedule);
+                                  },
+                                  child: listItemEvent(event!));
+                            },
+                            itemCount: snapshot.data!.data.length,
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text(
+                              snapshot.error.toString(),
+                            ),
+                          );
+                        } else {
+                          return Text('No Event');
+                        }
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 50,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Kode 12312314",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   crossAxisAlignment: CrossAxisAlignment.end,
+                  //   children: [
+                  //     Text(
+                  //       "Kode 12312314",
+                  //       style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontSize: 14,
+                  //         fontWeight: FontWeight.w700,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
@@ -282,8 +283,10 @@ class _BodyState extends State<Body> {
             height: 30,
           ),
           const Padding(
-            padding: EdgeInsets.only(left: 20,
-              right: 20,),
+            padding: EdgeInsets.only(
+              left: 20,
+              right: 20,
+            ),
             child: Text(
               "Agenda Selanjutnya",
               style: TextStyle(
@@ -293,65 +296,163 @@ class _BodyState extends State<Body> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 10,
-              left: 20,
-              right: 20,
+          FutureBuilder(
+            future: _schedule,
+            builder: (context, AsyncSnapshot<SchedulesModel> snapshot) {
+              var state = snapshot.connectionState;
+              if (state != ConnectionState.done) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      var schedule = snapshot.data!.data[index];
+
+                      return InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, DetailTaskClientScreen.url,
+                                arguments: schedule);
+                          },
+                          child: listItemSchedule(schedule!));
+                    },
+                    itemCount: snapshot.data!.data.length,
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      snapshot.error.toString(),
+                    ),
+                  );
+                } else {
+                  return Text('No Schedule');
+                }
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget listItemEvent(EventModel view) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Column(
+          children: [
+            Text(
+              "Pernikahan",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  shadows: <Shadow>[
+                    Shadow(
+                      offset: Offset(0, 3),
+                      blurRadius: 5.0,
+                      color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
+                    )
+                  ]),
             ),
-            child: 
-            
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Color(0xffFFFFFF),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 3,
-                    color: Color(0xff000000).withOpacity(0.25),
+            Text(
+              view.nameClient,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  shadows: <Shadow>[
+                    Shadow(
+                      offset: Offset(0, 3),
+                      blurRadius: 5.0,
+                      color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
+                    )
+                  ]),
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(
+              view.date.toString(),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w800,
+                  shadows: <Shadow>[
+                    Shadow(
+                      offset: Offset(0, 3),
+                      blurRadius: 5.0,
+                      color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
+                    )
+                  ]),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget listItemSchedule(ScheduleModel view) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 10,
+        left: 20,
+        right: 20,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Color(0xffFFFFFF),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 3,
+              color: Color(0xff000000).withOpacity(0.25),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    view.tanggal.toString(),
+                    style: TextStyle(
+                      color: Color(0xffBDBDBD),
+                      fontWeight: FontWeight.normal,
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    view.namaKegiatan,
+                    style: TextStyle(
+                      color: Color(0xff333333),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
                   ),
                 ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Kamis, 23 April 2022",
-                          style: TextStyle(
-                            color: Color(0xffBDBDBD),
-                            fontWeight: FontWeight.normal,
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          "Meeting dengan MUA",
-                          style: TextStyle(
-                            color: Color(0xff333333),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      "20.00",
-                      style: TextStyle(
-                        color: Color(0xffFB5490),
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
+              Text(
+                view.jam,
+                style: TextStyle(
+                  color: Color(0xffFB5490),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

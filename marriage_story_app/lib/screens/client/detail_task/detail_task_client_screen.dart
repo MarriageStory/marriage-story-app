@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/client/detail_task/components/body.dart';
 
 class DetailTaskClientScreen extends StatefulWidget {
+  static final url = "/detail-task-client-screen";
   const DetailTaskClientScreen({Key? key}) : super(key: key);
 
   @override

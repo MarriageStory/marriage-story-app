@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_event/components/body.dart';
 
 class DetailEventScreen extends StatefulWidget {
+  static final url = "/detail-event-screen";
   const DetailEventScreen({Key? key}) : super(key: key);
 
   @override
