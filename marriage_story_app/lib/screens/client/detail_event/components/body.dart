@@ -112,6 +112,17 @@ class _BodyState extends State<Body> {
                               Container(
                                 width: size.width,
                                 height: 160,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Color(0xffFB6C90),
+                                      Color(0xffFB8DA0),
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(20),
                                   child: Column(
@@ -168,17 +179,6 @@ class _BodyState extends State<Body> {
                                       ),
                                     ],
                                   ),
-                                ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      Color(0xffFB6C90),
-                                      Color(0xffFB8DA0),
-                                    ],
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
                                 ),
                               ),
                               SizedBox(
