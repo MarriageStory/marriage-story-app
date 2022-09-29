@@ -33,6 +33,9 @@ class EventModel {
     required this.nameClient,
     required this.date,
     required this.time,
+    required this.tempat,
+    required this.totalPembayaran,
+    required this.note,
     required this.userId,
     required this.createdAt,
     required this.updatedAt,
@@ -42,6 +45,9 @@ class EventModel {
   String nameClient;
   DateTime date;
   String time;
+  String tempat;
+  int totalPembayaran;
+  String note;
   int userId;
   DateTime createdAt;
   DateTime updatedAt;
@@ -51,6 +57,9 @@ class EventModel {
         nameClient: json["name_client"],
         date: DateTime.parse(json["date"]),
         time: json["time"],
+        tempat: json["tempat"],
+        totalPembayaran: json["total_pembayaran"],
+        note: json["note"],
         userId: json["user_id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
@@ -61,6 +70,9 @@ class EventModel {
         "name_client": nameClient,
         "date": date.toIso8601String(),
         "time": time,
+        "tempat": tempat,
+        "total_pembayaran": totalPembayaran,
+        "note": note,
         "user_id": userId,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),

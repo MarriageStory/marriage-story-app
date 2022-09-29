@@ -3,15 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_detail/components/background.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.dart';
+import 'package:marriage_story_app/service/event_service.dart';
+import 'package:marriage_story_app/service/payment_service.dart';
+import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
 
-class Body extends StatefulWidget {
-  const Body({Key? key}) : super(key: key);
+class Body extends StatelessWidget {
+  final String namaClient;
+  final String tanggal;
+  final String jam;
+  final String tempat;
+  final String totalPembayaran;
+  final String catatan;
+  Body(
+      {Key? key,
+      required this.namaClient,
+      required this.tanggal,
+      required this.jam,
+      required this.tempat,
+      required this.totalPembayaran,
+      required this.catatan})
+      : super(key: key);
 
-  @override
-  State<Body> createState() => _BodyState();
-}
+//   @override
+//   State<Body> createState() => _BodyState();
+// }
 
-class _BodyState extends State<Body> {
+// class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -68,14 +86,14 @@ class _BodyState extends State<Body> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Kode 170564765",
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
-                          ),
+                          // Text(
+                          //   "Kode 170564765",
+                          //   style: TextStyle(
+                          //     color: Color(0xffFFFFFF),
+                          //     fontWeight: FontWeight.w600,
+                          //     fontSize: 14,
+                          //   ),
+                          // ),
                         ],
                       ),
                       SizedBox(
@@ -93,7 +111,7 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           Text(
-                            "Ainul dan Aan",
+                            namaClient,
                             style: TextStyle(
                               color: Color(0xffFFFFFF),
                               fontWeight: FontWeight.w700,
@@ -101,7 +119,7 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           Text(
-                            "25 Agustus 2022",
+                            tanggal,
                             style: TextStyle(
                               color: Color(0xffFFFFFF),
                               fontWeight: FontWeight.w600,
@@ -272,7 +290,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
               Text(
-                "20.00 WIB",
+                jam,
                 style: TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w800,
@@ -291,7 +309,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
               Text(
-                "Rp30.000.000,00",
+                totalPembayaran,
                 style: TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w800,
@@ -310,21 +328,21 @@ class _BodyState extends State<Body> {
                 ),
               ),
               Text(
-                "MC : Abdul Malik",
+                catatan,
                 style: TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w500,
                   fontSize: 12,
                 ),
               ),
-              Text(
-                "Fotografer : Jono Samsudin",
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12,
-                ),
-              ),
+              // Text(
+              //   "Fotografer : Jono Samsudin",
+              //   style: TextStyle(
+              //     color: Color(0xff333333),
+              //     fontWeight: FontWeight.w500,
+              //     fontSize: 12,
+              //   ),
+              // ),
               SizedBox(
                 height: 60,
               ),
@@ -346,7 +364,49 @@ class _BodyState extends State<Body> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        var body = <String, dynamic>{
+                          'name_client': namaClient,
+                          'date': tanggal,
+                          'time': jam,
+                          'tempat': tempat,
+                          'total_pembayaran': totalPembayaran,
+                          'note': catatan,
+                          'user_id': 5,
+                        };
+
+                        await EventService.createNewEvent(body);
+
+                        Map<String, dynamic> body1 = {
+                          'tunai_keseluruhan': totalPembayaran,
+                          'status': "pending",
+                          "terbayar": "0",
+                          'tanggal': tanggal,
+                          'event_id': "0",
+                        };
+
+                        try {
+                          await PaymentService.createNewPayment(body1)
+                              .then((value) {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return NavbarWeddingOrganizer(
+                                index: 1,
+                              );
+                            }));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    backgroundColor: Colors.green,
+                                    content: Text(
+                                        'You have successfully create a scedule')));
+                          });
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  backgroundColor: Colors.red,
+                                  content: Text('Terjadi Kesalahan !')));
+                        }
+                      },
                       child: const Text(
                         "Selanjutnya",
                         style: TextStyle(

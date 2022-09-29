@@ -27,9 +27,13 @@ class EventService {
     final token = prefs.getString("token");
 
     var event = <String, dynamic>{
-      "name_client": data["name_kegiatan"],
+      "name_client": data["name_client"],
       "date": data["date"],
       "time": data["time"],
+      "tempat": data["tempat"],
+      "total_pembayaran": data["total_pembayaran"],
+      "note": data["note"],
+      "user_id": data["user_id"],
     };
 
     var response = await http.post(Uri.parse(baseURLAPI + "events"),
@@ -51,9 +55,13 @@ class EventService {
     final token = prefs.getString("token");
 
     var event = <String, dynamic>{
-      "name_client": data["name_kegiatan"],
+      "name_client": data["name_client"],
       "date": data["date"],
       "time": data["time"],
+      "tempat": data["tempat"],
+      "total_pembayaran": data["total_pembayaran"],
+      "note": data["note"],
+      "user_id": data["user_id"],
     };
 
     var response = await http.put(
