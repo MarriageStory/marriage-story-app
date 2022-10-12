@@ -109,6 +109,24 @@ class _BodyState extends State<Body> {
                   height: 125,
                   width: size.width,
                   padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xffFB6C90),
+                        Color(0xffFB8DA0),
+                      ],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 6,
+                        offset: Offset(1, 1),
+                        color: Color(0xff000000).withOpacity(0.25),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -130,24 +148,6 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                     ],
-                  ),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Color(0xffFB6C90),
-                        Color(0xffFB8DA0),
-                      ],
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 6,
-                        offset: Offset(1, 1),
-                        color: Color(0xff000000).withOpacity(0.25),
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(15),
                   ),
                 ),
                 const SizedBox(
