@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/home/components/background.dart';
 import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/model/schedule_model.dart';
@@ -54,7 +53,8 @@ class _BodyState extends State<Body> {
         user = data;
       });
     } catch (e) {
-      Navigator.pushReplacementNamed(context, "/base-screen");
+      Get.offAllNamed(RouteName.splash);
+      // Navigator.pushReplacementNamed(context, "/base-screen");
     }
   }
 
@@ -159,9 +159,9 @@ class _BodyState extends State<Body> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                        width: 42.w,
-                        height: 12.h,
-                        decoration: BoxDecoration(
+                      width: 42.w,
+                      height: 12.h,
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: const Color(0xffFFFFFF),
                         boxShadow: [
@@ -222,10 +222,10 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                     ),
-                  Container(
-                        width: 42.w,
-                        height: 12.h,
-                        decoration: BoxDecoration(
+                    Container(
+                      width: 42.w,
+                      height: 12.h,
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: const Color(0xffFFFFFF),
                         boxShadow: [
@@ -287,7 +287,6 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                     ),
-                  
                   ],
                 ),
                 // Row(
@@ -442,7 +441,7 @@ class _BodyState extends State<Body> {
                     ),
                   ],
                 ),
-                
+
                 SizedBox(
                   height: 10,
                 ),
@@ -465,9 +464,11 @@ class _BodyState extends State<Body> {
                             var event = snapshot.data!.data[index];
                             return InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                      context, DetailEventScreen.url,
+                                  Get.toNamed(RouteName.detailEventWo,
                                       arguments: event);
+                                  // Navigator.pushNamed(
+                                  //     context, DetailEventScreen.url,
+                                  //     arguments: event);
                                 },
                                 child: listItem(event!));
                           },

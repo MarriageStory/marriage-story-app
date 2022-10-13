@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/payment/components/background.dart';
 import 'package:marriage_story_app/model/payment_model.dart';
 import 'package:marriage_story_app/service/payment_service.dart';
@@ -237,12 +236,14 @@ class _BodyState extends State<Body> {
                               var payment = snapshot.data!.data[index];
                               // if (count == 1) {
                               //   count++;
-                                return InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, DetailPaymentScreen.url,
+                              return InkWell(
+                                  onTap: () {
+                                    Get.toNamed(RouteName.detailPaymentWo,
                                         arguments: payment);
-                                    },
+                                    // Navigator.pushNamed(
+                                    //     context, DetailPaymentScreen.url,
+                                    //     arguments: payment);
+                                  },
                                   child: listItem(namaClient, payment!));
                               // }
                               // return Text(namaClient);

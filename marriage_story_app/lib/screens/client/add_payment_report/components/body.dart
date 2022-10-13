@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/client/add_payment_report/components/background.dart';
 import 'package:marriage_story_app/model/payment_model.dart';
 import 'package:marriage_story_app/components/dateTime.dart';
@@ -9,6 +7,7 @@ import 'package:marriage_story_app/service/payment_detail_service.dart';
 import 'package:marriage_story_app/service/payment_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:marriage_story_app/widgets/navbar/navbar_client.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -95,7 +94,7 @@ class _BodyState extends State<Body> {
                 icon: Icon(
                   Icons.arrow_back,
                 ),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => Get.back(),
               ),
               SizedBox(
                 height: 10,
@@ -258,12 +257,8 @@ class _BodyState extends State<Body> {
                         await PaymentService.updatePayment(payment.id, body1)
                             .then((response) {
                           if (response == true) {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return NavbarClient(
-                                index: 2,
-                              );
-                            }));
+                            Get.toNamed(RouteName.navigationClient);
+
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     backgroundColor: Colors.green,

@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_payment/components/background.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/service/event_service.dart';
@@ -53,7 +52,7 @@ class _BodyState extends State<Body> {
                     icon: Icon(
                       Icons.arrow_back,
                     ),
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => Get.back(),
                   ),
                   IconButton(
                     icon: Icon(

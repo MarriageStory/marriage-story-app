@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_task/components/background.dart';
 import 'package:marriage_story_app/components/dateTime.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/home/home_screen.dart';
@@ -81,7 +80,7 @@ class _BodyState extends State<Body> {
                 icon: Icon(
                   Icons.arrow_back,
                 ),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => Get.back(),
               ),
               SizedBox(
                 height: 10,
@@ -297,14 +296,15 @@ class _BodyState extends State<Body> {
 
                         await ScheduleService.createNewSchedule(body)
                             .then((value) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NavbarWeddingOrganizer(
-                                index: 0,
-                              ),
-                            ),
-                          );
+                          Get.toNamed(RouteName.navigationWo);
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => NavbarWeddingOrganizer(
+                          //       index: 0,
+                          //     ),
+                          //   ),
+                          // );
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text(

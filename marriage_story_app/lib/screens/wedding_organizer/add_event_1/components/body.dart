@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:group_button/group_button.dart';
+import 'package:group_button/group_button.dart'; 
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_1/components/background.dart';
 
 class Body extends StatefulWidget {
@@ -33,7 +32,7 @@ class _BodyState extends State<Body> {
                 icon: Icon(
                   Icons.arrow_back,
                 ),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => Get.back(),
               ),
               SizedBox(
                 height: 10,
@@ -145,7 +144,7 @@ class _BodyState extends State<Body> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: ()=>Get.toNamed(RouteName.addEvent2),
                       child: const Text(
                         "Selanjutnya",
                         style: TextStyle(

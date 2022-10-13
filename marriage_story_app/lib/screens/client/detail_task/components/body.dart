@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/client/detail_task/components/background.dart';
 import 'package:marriage_story_app/model/schedule_model.dart';
 
@@ -44,7 +43,7 @@ class Body extends StatelessWidget {
                       icon: Icon(
                         Icons.arrow_back,
                       ),
-                      onPressed: () => Navigator.of(context).pop(),
+                      onPressed: () => Get.back(),
                     ),
                   ],
                 ),

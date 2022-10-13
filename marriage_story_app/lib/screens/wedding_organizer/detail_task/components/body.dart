@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_task/components/background.dart';
 import 'package:marriage_story_app/model/schedule_model.dart';
 import 'package:marriage_story_app/service/schedule_service.dart';
@@ -43,7 +42,7 @@ class Body extends StatelessWidget {
                       icon: Icon(
                         Icons.arrow_back,
                       ),
-                      onPressed: () => Navigator.of(context).pop(),
+                      onPressed: () => Get.back(),
                     ),
                     IconButton(
                       icon: Icon(
@@ -77,28 +76,28 @@ class Body extends StatelessWidget {
                   children: [
                     InkWell(
                       child: Column(
-                      children: [
-                        Checkbox(
-                          checkColor: Colors.white,
-                          fillColor:
-                              MaterialStateProperty.resolveWith(getColor),
-                          value: isChecked,
-                          onChanged: (bool? value) {
+                        children: [
+                          Checkbox(
+                            checkColor: Colors.white,
+                            fillColor:
+                                MaterialStateProperty.resolveWith(getColor),
+                            value: isChecked,
+                            onChanged: (bool? value) {
                               // setState(() {
                               //   isChecked = value!;
                               // });
-                          },
-                        ),
-                        Text(
-                          "Selesai",
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14,
+                            },
                           ),
-                        )
-                      ],
-                    ),
+                          Text(
+                            "Selesai",
+                            style: TextStyle(
+                              color: Color(0xffFB6C90),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14,
+                            ),
+                          )
+                        ],
+                      ),
                       onTap: () async {
                         // Map<String, dynamic> body = {
                         //   'nama_kegiatan': _nameTaskController.text,
@@ -120,20 +119,34 @@ class Body extends StatelessWidget {
                         };
 
                         await ScheduleService.updateSchedule(schedule.id, body)
-                            .then((value) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EventScreen()),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'You have successfully update a scedule')));
-                        });
+                            .then(
+                          (value) {
+                            Get.toNamed(RouteName.eventWo);
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => EventScreen()),
+                            // );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'You have successfully update a scedule')));
+                          },
+                        );
                       },
                     ),
                     Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xffFB6C90),
+                            Color(0xffFB8DA0),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(80, 32, 52, 32),
                         child: Column(
@@ -160,17 +173,6 @@ class Body extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xffFB6C90),
-                            Color(0xffFB8DA0),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(15),
                       ),
                     ),
                   ],

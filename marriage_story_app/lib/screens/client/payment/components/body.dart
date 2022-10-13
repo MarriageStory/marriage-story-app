@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/client/payment/components/background.dart';
 import 'package:marriage_story_app/model/payment_model.dart';
 import 'package:marriage_story_app/service/payment_service.dart';
@@ -98,19 +97,16 @@ class _BodyState extends State<Body> {
                 },
               ),
 
-
-      
               //disini woiiii
             ),
           ),
-          
           Container(
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: 30,
-                left: 20,
-                right: 20,
-              ),
+                padding: const EdgeInsets.only(
+                  top: 30,
+                  left: 20,
+                  right: 20,
+                ),
                 child: Column(
                   children: [
                     Row(
@@ -127,47 +123,47 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                     FutureBuilder(
-                future: _payment,
-                builder: (context, AsyncSnapshot<PaymentsModel> snapshot) {
-                  var state = snapshot.connectionState;
-                  if (state != ConnectionState.done) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    if (snapshot.hasData) {
-                      return ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
-                          payment = snapshot.data!.data[index];
+                      future: _payment,
+                      builder:
+                          (context, AsyncSnapshot<PaymentsModel> snapshot) {
+                        var state = snapshot.connectionState;
+                        if (state != ConnectionState.done) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) {
+                                payment = snapshot.data!.data[index];
 
-                          return InkWell(
-                              onTap: () {
-                                // Navigator.pushNamed(
-                                //     context, DetailTaskClientScreen.url,
-                                //     arguments: payment);
+                                return InkWell(
+                                    onTap: () {
+                                      // Navigator.pushNamed(
+                                      //     context, DetailTaskClientScreen.url,
+                                      //     arguments: payment);
+                                    },
+                                    child: listItemPaymentDetail(payment!));
                               },
-                              child: listItemPaymentDetail(payment!));
-                        },
-                        itemCount: snapshot.data!.data.length,
-                      );
-                    } else if (snapshot.hasError) {
-                      return Center(
-                        child: Text(
-                          snapshot.error.toString(),
-                        ),
-                      );
-                    } else {
-                      return Text('No Payment');
-                    }
-                  }
-                },
-              ),
+                              itemCount: snapshot.data!.data.length,
+                            );
+                          } else if (snapshot.hasError) {
+                            return Center(
+                              child: Text(
+                                snapshot.error.toString(),
+                              ),
+                            );
+                          } else {
+                            return Text('No Payment');
+                          }
+                        }
+                      },
+                    ),
                   ],
-                )
-            ),
+                )),
           ),
         ],
       ),
@@ -233,8 +229,7 @@ class _BodyState extends State<Body> {
               ),
               child: TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/add-payment-report-screen",
-                      arguments: view);
+                  Get.toNamed(RouteName.addPaymentClient, arguments: view);
                 },
                 child: const Text(
                   "Upload Pembayaran",
@@ -255,7 +250,6 @@ class _BodyState extends State<Body> {
   Widget listItemPaymentDetail(PaymentModel view) {
     return Column(
       children: [
-        
         SizedBox(
           height: 10,
         ),

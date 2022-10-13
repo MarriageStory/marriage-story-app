@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/task/components/background.dart';
 import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/model/schedule_model.dart';
@@ -73,7 +72,7 @@ class _BodyState extends State<Body> {
                       Icons.arrow_back,
                     ),
                     color: Color(0xffFFFFFF),
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => Get.back(),
                   ),
                   SizedBox(
                     height: 10,
@@ -283,8 +282,10 @@ class _BodyState extends State<Body> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, AddTaskScreen.url,
+                            Get.toNamed(RouteName.addTaskWo,
                                 arguments: eventDetail);
+                            // Navigator.pushNamed(context, AddTaskScreen.url,
+                            //     arguments: eventDetail);
                           },
                           child: const Text(
                             "Tambah Agenda",
@@ -321,7 +322,9 @@ class _BodyState extends State<Body> {
 
                       return InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, DetailTaskScreen.url,
+                            // Navigator.pushNamed(context, DetailTaskScreen.url,
+                            //     arguments: schedule);
+                            Get.toNamed(RouteName.detailTaskWo,
                                 arguments: schedule);
                           },
                           child: listItemSchedule(eventDetail, schedule!));

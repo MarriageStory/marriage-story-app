@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/welcome/components/background.dart';
 
 class Body extends StatelessWidget {
@@ -58,7 +58,8 @@ class Body extends StatelessWidget {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(context, "/sign-in");
+                            Get.toNamed(RouteName.login);
+                            // Navigator.pushReplacementNamed(context, "/sign-in");
                           },
                           child: const Text(
                             "Pengantin",
@@ -86,7 +87,8 @@ class Body extends StatelessWidget {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(context, "/sign-in");
+                            Get.toNamed(RouteName.login);
+                            // Navigator.pushReplacementNamed(context, "/sign-in");
                           },
                           child: const Text(
                             "WO",

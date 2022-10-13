@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/client/detail_event/components/background.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/service/payment_service.dart';
 import 'package:marriage_story_app/model/payment_model.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -76,8 +75,7 @@ class _BodyState extends State<Body> {
                                     icon: Icon(
                                       Icons.arrow_back,
                                     ),
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
+                                    onPressed: () =>Get.back(),
                                   ),
                                   IconButton(
                                     icon: Icon(

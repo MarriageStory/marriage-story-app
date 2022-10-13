@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_2/components/background.dart';
 import 'package:marriage_story_app/components/dateTime.dart';
 import 'package:marriage_story_app/service/event_service.dart';
@@ -78,7 +77,7 @@ class _BodyState extends State<Body> {
                 icon: Icon(
                   Icons.arrow_back,
                 ),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => Get.back(),
               ),
               SizedBox(
                 height: 10,
@@ -273,18 +272,19 @@ class _BodyState extends State<Body> {
                         // };
 
                         // await EventService.createNewEvent(body).then((value) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AddEventDetailScreen(
-                                  namaClient: _nameClientController.text,
-                                  tanggal: _dateController.text,
-                                  jam: _timeController.text,
-                                  tempat: _placeController.text,
-                                  totalPembayaran:
-                                      _totalPembayaranController.text,
-                                  catatan: _noteController.text)),
-                        );
+                        Get.toNamed(RouteName.addEvent3);
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => AddEventDetailScreen(
+                        //           namaClient: _nameClientController.text,
+                        //           tanggal: _dateController.text,
+                        //           jam: _timeController.text,
+                        //           tempat: _placeController.text,
+                        //           totalPembayaran:
+                        //               _totalPembayaranController.text,
+                        //           catatan: _noteController.text)),
+                        // );
                         //   ScaffoldMessenger.of(context).showSnackBar(
                         //       const SnackBar(
                         //           content: Text(

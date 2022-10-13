@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/other/components/background.dart';
 import 'package:marriage_story_app/model/user_model.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
@@ -41,7 +40,7 @@ class _BodyState extends State<Body> {
         user = data;
       });
     } catch (e) {
-      Navigator.pushReplacementNamed(context, "/base-screen");
+      Get.offAllNamed(RouteName.splash);
     }
     if (user.roleName == "Client")
       role = "Client";
@@ -153,11 +152,12 @@ class _BodyState extends State<Body> {
                       onPressed: () async {
                         final prefs = await SharedPreferences.getInstance();
                         prefs.remove("token");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SignInScreen()),
-                        );
+                        Get.toNamed(RouteName.welcome);
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => SignInScreen()),
+                        // );
                       },
                       child: const Text(
                         "Keluar",

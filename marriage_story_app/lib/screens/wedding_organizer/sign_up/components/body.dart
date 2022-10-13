@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/sign_up/components/background.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
 
@@ -187,8 +187,9 @@ class _BodyState extends State<Body> {
                               await AuthService.authRegister(body)
                                   .then((value) {
                                 if (value == true) {
-                                  Navigator.pushReplacementNamed(
-                                      context, "/sign-in");
+                                  Get.toNamed(RouteName.login);
+                                  // Navigator.pushReplacementNamed(
+                                  //     context, "/sign-in");
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           content: Text(

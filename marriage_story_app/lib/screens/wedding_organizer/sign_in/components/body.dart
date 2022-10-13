@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/sign_in/components/background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
@@ -222,23 +222,26 @@ class _BodyState extends State<Body> {
           user = data;
         });
       } catch (e) {
-        Navigator.pushReplacementNamed(context, "/base-screen");
+        Get.offAllNamed(RouteName.splash);
+        // Navigator.pushReplacementNamed(context, "/base-screen");
       }
       if (user.roleName == "Client") {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          "/navbar-client",
-          (route) => false,
-        );
+        Get.offAllNamed(RouteName.navigationClient);
+        // Navigator.pushNamedAndRemoveUntil(
+        //   context,
+        //   "/navbar-client",
+        //   (route) => false,
+        // );
 
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Berhasil Login")));
       } else {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          "/navbar-wo",
-          (route) => false,
-        );
+        Get.offAllNamed(RouteName.navigationWo);
+        // Navigator.pushNamedAndRemoveUntil(
+        //   context,
+        //   "/navbar-wo",
+        //   (route) => false,
+        // );
 
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Berhasil Login")));

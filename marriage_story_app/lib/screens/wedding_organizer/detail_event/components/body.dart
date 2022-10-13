@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_event/components/background.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.dart';
@@ -64,24 +63,27 @@ class _BodyState extends State<Body> {
                         icon: Icon(
                           Icons.arrow_back,
                         ),
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => Get.back(),
                       ),
                       IconButton(
-                        icon: Icon(
-                          Icons.delete
-                        ),
+                        icon: Icon(Icons.delete),
                         onPressed: () async {
                           await EventService.deleteEvent(event.id);
-
-                          await PaymentService.deletePayment(event.id)
-                              .then((value) {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return NavbarWeddingOrganizer(
-                                index: 1,
-                              );
-                            }));
-                          });
+                          await PaymentService.deletePayment(event.id).then(
+                            (value) {
+                              Get.toNamed(RouteName.navigationWo);
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) {
+                              //       return NavbarWeddingOrganizer(
+                              //         index: 1,
+                              //       );
+                              //     },
+                              //   ),
+                              // );
+                            },
+                          );
                         },
                       ),
                     ],
@@ -435,9 +437,6 @@ class _BodyState extends State<Body> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            
-
-
                             FutureBuilder(
                               future: _schedule,
                               builder: (context,
@@ -469,12 +468,12 @@ class _BodyState extends State<Body> {
                                               ),
                                               Text(
                                                 agendaTotal.toString(),
-                              style: TextStyle(
-                                color: Color(0xffFB5490),
-                                fontWeight: FontWeight.w700,
-                                fontSize: 20,
-                              ),
-                            ),
+                                                style: TextStyle(
+                                                  color: Color(0xffFB5490),
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
                                             ]),
                                           );
                                         }
@@ -495,8 +494,6 @@ class _BodyState extends State<Body> {
                                 }
                               },
                             ),
-
-
                             Text(
                               "Jumlah Agenda",
                               style: TextStyle(
@@ -614,8 +611,9 @@ class _BodyState extends State<Body> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, TaskScreen.url,
-                                arguments: event);
+                            Get.toNamed(RouteName.taskWo, arguments: event);
+                            // Navigator.pushNamed(context, TaskScreen.url,
+                            //     arguments: event);
                           },
                           child: const Text(
                             "Lihat Agenda",

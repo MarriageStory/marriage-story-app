@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/client/event/components/background.dart';
 import 'package:marriage_story_app/screens/client/detail_task/detail_task_client_screen.dart';
 import 'package:marriage_story_app/service/schedule_service.dart';
@@ -315,9 +314,9 @@ class _BodyState extends State<Body> {
 
                       return InkWell(
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, DetailTaskClientScreen.url,
+                            Get.toNamed(RouteName.detailTaskClient,
                                 arguments: schedule);
+                            
                           },
                           child: listItemSchedule(schedule!));
                     },

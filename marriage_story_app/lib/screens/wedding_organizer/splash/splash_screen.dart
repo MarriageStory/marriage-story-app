@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:marriage_story_app/routes/app_pages.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/splash/components/body.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -11,6 +11,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  int splashtime = 3;
+  // duration of splash screen on second
+
+  @override
+  void initState() {
+    Future.delayed(Duration(seconds: splashtime), () async {
+      Get.offAllNamed(RouteName.welcome);
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

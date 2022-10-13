@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_detail/components/background.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.dart';
 import 'package:marriage_story_app/service/event_service.dart';
@@ -50,7 +49,7 @@ class Body extends StatelessWidget {
                 icon: Icon(
                   Icons.arrow_back,
                 ),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => Get.back(),
               ),
               SizedBox(
                 height: 10,
@@ -388,12 +387,17 @@ class Body extends StatelessWidget {
                         try {
                           await PaymentService.createNewPayment(body1)
                               .then((value) {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return NavbarWeddingOrganizer(
-                                index: 1,
-                              );
-                            }));
+                            Get.toNamed(RouteName.navigationWo);
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return NavbarWeddingOrganizer(
+                            //         index: 1,
+                            //       );
+                            //     },
+                            //   ),
+                            // );
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     backgroundColor: Colors.green,

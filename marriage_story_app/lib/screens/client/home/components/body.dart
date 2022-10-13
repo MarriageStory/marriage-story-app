@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/event/components/background.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/model/schedule_model.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/model/user_model.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
+import 'package:get/get.dart';
+import 'package:marriage_story_app/routes/routes.dart';
 
 class Body extends StatefulWidget {
   static const route = '/home-client-screen';
@@ -52,7 +52,8 @@ class _BodyState extends State<Body> {
         user = data;
       });
     } catch (e) {
-      Navigator.pushReplacementNamed(context, "/base-screen");
+      Get.offAllNamed(RouteName.splash);
+      // Navigator.pushReplacementNamed(context, "/base-screen");
     }
   }
 
