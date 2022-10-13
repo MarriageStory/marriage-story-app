@@ -49,6 +49,16 @@ class _BodyState extends State<Body> {
           Container(
             height: 400,
             width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xffFB6C90),
+                  Color(0xffFB8DA0),
+                ],
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.only(
                 top: 64,
@@ -93,6 +103,10 @@ class _BodyState extends State<Body> {
                       Container(
                         width: 160,
                         height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Color(0xffFFFFFF),
+                        ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -164,14 +178,14 @@ class _BodyState extends State<Body> {
                             ),
                           ],
                         ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Color(0xffFFFFFF),
-                        ),
                       ),
                       Container(
                         width: 160,
                         height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Color(0xffFFFFFF),
+                        ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -251,10 +265,6 @@ class _BodyState extends State<Body> {
                             ),
                           ],
                         ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Color(0xffFFFFFF),
-                        ),
                       ),
                     ],
                   ),
@@ -288,16 +298,6 @@ class _BodyState extends State<Body> {
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xffFB6C90),
-                  Color(0xffFB8DA0),
                 ],
               ),
             ),

@@ -67,6 +67,10 @@ class _BodyState extends State<Body> {
                 Row(
                   children: [
                     Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Color(0xffFFFFFF),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 20,
@@ -121,15 +125,24 @@ class _BodyState extends State<Body> {
                           ],
                         ),
                       ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Color(0xffFFFFFF),
-                      ),
                     ),
                     SizedBox(
                       width: 40,
                     ),
                     Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xffFB6C90),
+                            Color(0xffFB8DA0),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                       child: FutureBuilder(
                         future: _event,
                         builder:
@@ -183,21 +196,6 @@ class _BodyState extends State<Body> {
                             }
                           }
                         },
-                      ),
-                      
-                      
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xffFB6C90),
-                            Color(0xffFB8DA0),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                   ],
@@ -273,6 +271,10 @@ class _BodyState extends State<Body> {
 
   Widget listItem(EventModel view) {
     return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Color(0xffFFFFFF),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
@@ -450,10 +452,6 @@ class _BodyState extends State<Body> {
             ),
           ],
         ),
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Color(0xffFFFFFF),
       ),
     );
   }
