@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             fontFamily: 'Nunito',
           ),
-          initialRoute: '/',
+          initialRoute: '/add-event-1-screen',
           routes: {
             '/navbar-client': (context) => NavbarClient(
                   index: 0,

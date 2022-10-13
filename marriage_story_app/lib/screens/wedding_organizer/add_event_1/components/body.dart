@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:group_button/group_button.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_1/components/background.dart';
 
 class Body extends StatefulWidget {
@@ -67,105 +68,61 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 24,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ButtonTheme(
-                    minWidth: 160,
-                    height: 100,
-                    child: RaisedButton(
-                      color: Color(0xffFFFFFF),
-                      onPressed: () {},
-                      child: Text(
-                        "Pre-Wedding",
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
+              Center(
+                child: GroupButton(
+                  buttons: [
+                    "Pre-Wedding",
+                    "Engagement",
+                    "Akad",
+                    "Panggih",
+                    "Resepsi",
+                  ],
+                  isRadio: false,
+                  options: GroupButtonOptions(
+                    selectedShadow: [
+                      BoxShadow(
+                        blurRadius: 6,
+                        offset: Offset(1, 1),
+                        color: Color(0xff000000).withOpacity(0.25),
                       ),
+                    ],
+                    selectedTextStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFFFFFFFF),
                     ),
-                  ),
-                  ButtonTheme(
-                    minWidth: 160,
-                    height: 100,
-                    child: RaisedButton(
-                      color: Color(0xffFFFFFF),
-                      onPressed: () {},
-                      child: Text(
-                        "Engagement",
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
+                    selectedColor: Color(0xFFFB6C90),
+                    selectedBorderColor: Color(0xFFFB6C90),
+                    unselectedShadow: [
+                      BoxShadow(
+                        blurRadius: 6,
+                        offset: Offset(1, 1),
+                        color: Color(0xff000000).withOpacity(0.25),
                       ),
+                    ],
+                    unselectedTextStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff4F4F4F),
                     ),
+                    unselectedColor: Color(0xFFFFFFFF),
+                    unselectedBorderColor: Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(15),
+                    spacing: 20,
+                    runSpacing: 20,
+                    groupingType: GroupingType.wrap,
+                    direction: Axis.horizontal,
+                    buttonHeight: 130,
+                    buttonWidth: 160,
+                    mainGroupAlignment: MainGroupAlignment.start,
+                    crossGroupAlignment: CrossGroupAlignment.start,
+                    groupRunAlignment: GroupRunAlignment.start,
+                    textAlign: TextAlign.center,
+                    textPadding: EdgeInsets.zero,
+                    alignment: Alignment.center,
+                    elevation: 0,
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ButtonTheme(
-                    minWidth: 160,
-                    height: 100,
-                    child: RaisedButton(
-                      color: Color(0xffFFFFFF),
-                      onPressed: () {},
-                      child: Text(
-                        "Akad",
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                  ButtonTheme(
-                    minWidth: 160,
-                    height: 100,
-                    child: RaisedButton(
-                      color: Color(0xffFFFFFF),
-                      onPressed: () {},
-                      child: Text(
-                        "Panggih",
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Row(
-                children: [
-                  ButtonTheme(
-                    minWidth: 160,
-                    height: 100,
-                    child: RaisedButton(
-                      color: Color(0xffFFFFFF),
-                      onPressed: () {},
-                      child: Text(
-                        "Resepsi",
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
               SizedBox(
                 height: 50,

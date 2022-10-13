@@ -154,6 +154,65 @@ class _BodyState extends State<Body> {
                   height: 20,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 224,
+                      height: 45,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.only(left: 20),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color(0xFFFB6C90), width: 1),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color(0xFFFBC0C0), width: 0.1),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          hintText: 'Masukan Kode Acara',
+                          hintStyle: TextStyle(
+                            color: Color(0xff828282).withOpacity(0.40),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 96,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFFB8DA0),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: Text(
+                          "OK",
+                          style: TextStyle(
+                            color: Color(0xFFFCFCFC),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(

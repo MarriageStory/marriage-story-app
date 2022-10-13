@@ -30,10 +30,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  shared_preferences: ^2.0.15
+  group_button: ^5.2.2
   http: ^0.13.5
-  url_launcher: ^6.0.20
   responsive_sizer: ^3.1.1
+  shared_preferences: ^2.0.15
+  url_launcher: ^6.0.20
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -72,7 +73,7 @@ flutter:
         - asset: assets/fonts/Nunito/Nunito-Light.ttf
         - asset: assets/fonts/Nunito/Nunito-Italic.ttf
         - style: italic
-    - family : MyFlutterApp
+    - family: MyFlutterApp
       fonts:
         - asset: assets/fonts/Nunito/MyFlutterApp.ttf
   # For details regarding fonts from package dependencies,
