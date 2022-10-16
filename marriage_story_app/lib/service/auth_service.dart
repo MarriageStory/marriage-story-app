@@ -68,4 +68,27 @@ class AuthService {
       return UserModel.fromJson(jsonDecode(response.body));
     }
   }
+
+  static Future<bool> updateUser(int id, Map<String, dynamic> data) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token");
+
+    var event = <String, dynamic>{
+      "gencode": data["gencode"],
+    };
+
+    var response = await http.put(
+        Uri.parse(baseURLAPI + "admin/" + id.toString() + "/update"),
+        body: jsonEncode(event),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': "Bearer $token",
+        });
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception("Gagal Terhubung ke Server");
+    }
+  }
 }

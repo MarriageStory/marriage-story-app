@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
+import 'package:http/retry.dart';
 import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:marriage_story_app/screens/client/payment/components/background.dart';
 import 'package:marriage_story_app/model/payment_model.dart';
 import 'package:marriage_story_app/service/payment_service.dart';
+import 'package:marriage_story_app/model/event_model.dart';
+import 'package:marriage_story_app/service/event_service.dart';
+import 'package:marriage_story_app/model/user_model.dart';
+import 'package:marriage_story_app/service/auth_service.dart';
+import 'package:marriage_story_app/components/formatAngka.dart';
 
 class Body extends StatefulWidget {
-  static const routeName = '/payment-client-screen';
+  // static const routeName = '/payment-client-screen';
   const Body({Key? key}) : super(key: key);
 
   @override
@@ -14,23 +20,48 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  late Future<PaymentsModel> _payment;
+  // late Future<PaymentsModel> _payment;
+  late Future<EventsModel> _event;
+
+  UserModel user = UserModel(
+      id: 0,
+      name: "",
+      email: "",
+      emailVerifiedAt: DateTime.now(),
+      roleName: "",
+      gencode: "",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now());
 
   @override
   void initState() {
     super.initState();
+    getUserProfile();
 
     try {
-      _payment = PaymentService.getAllPayments();
+      // _payment = PaymentService.getAllPayments();
+      _event = EventService.getAllEvent();
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<void> getUserProfile() async {
+    try {
+      var data = await AuthService.authUserProfile();
+
+      setState(() {
+        user = data;
+      });
+    } catch (e) {
+      Get.offAllNamed(RouteName.splash);
+      // Navigator.pushReplacementNamed(context, "/base-screen");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     int idPayment;
-    var payment;
     Size size = MediaQuery.of(context).size;
 
     return Background(
@@ -57,8 +88,8 @@ class _BodyState extends State<Body> {
                 right: 20,
               ),
               child: FutureBuilder(
-                future: _payment,
-                builder: (context, AsyncSnapshot<PaymentsModel> snapshot) {
+                future: _event,
+                builder: (context, AsyncSnapshot<EventsModel> snapshot) {
                   var state = snapshot.connectionState;
                   if (state != ConnectionState.done) {
                     return Center(
@@ -71,16 +102,19 @@ class _BodyState extends State<Body> {
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) {
-                          payment = snapshot.data!.data[index];
-                          idPayment = payment.id;
+                          var payment = snapshot.data!.data[index];
+                          // idPayment = payment.id;
 
-                          return InkWell(
-                              onTap: () {
-                                // Navigator.pushNamed(
-                                //     context, DetailTaskClientScreen.url,
-                                //     arguments: payment);
-                              },
-                              child: listItemPayment(payment!));
+                          if (payment.gencode == user.gencode) {
+                            return InkWell(
+                                onTap: () {
+                                  // Navigator.pushNamed(
+                                  //     context, DetailTaskClientScreen.url,
+                                  //     arguments: payment);
+                                },
+                                child: listItemPayment(payment!));
+                          }
+                          return SizedBox();
                         },
                         itemCount: snapshot.data!.data.length,
                       );
@@ -96,6 +130,20 @@ class _BodyState extends State<Body> {
                   }
                 },
               ),
+
+              //batas
+              // child: ListView.builder(
+              //         physics: NeverScrollableScrollPhysics(),
+              //         shrinkWrap: true,
+              //         scrollDirection: Axis.vertical,
+              //         itemBuilder: (context, index) {
+              //     var payment_detail = payment.paymentDetails[index];
+
+              //     return listItemPaymentDetail(payment_detail);
+              //   },
+              //   // itemCount: payment.paymentDetails.length,
+              // )
+              //batas
 
               //disini woiiii
             ),
@@ -123,9 +171,8 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                     FutureBuilder(
-                      future: _payment,
-                      builder:
-                          (context, AsyncSnapshot<PaymentsModel> snapshot) {
+                      future: _event,
+                      builder: (context, AsyncSnapshot<EventsModel> snapshot) {
                         var state = snapshot.connectionState;
                         if (state != ConnectionState.done) {
                           return Center(
@@ -138,15 +185,18 @@ class _BodyState extends State<Body> {
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemBuilder: (context, index) {
-                                payment = snapshot.data!.data[index];
+                                var payment = snapshot.data!.data[index];
 
-                                return InkWell(
-                                    onTap: () {
-                                      // Navigator.pushNamed(
-                                      //     context, DetailTaskClientScreen.url,
-                                      //     arguments: payment);
-                                    },
-                                    child: listItemPaymentDetail(payment!));
+                                if (payment.gencode == user.gencode) {
+                                  return InkWell(
+                                      onTap: () {
+                                        // Navigator.pushNamed(
+                                        //     context, DetailTaskClientScreen.url,
+                                        //     arguments: payment);
+                                      },
+                                      child: listItemPaymentDetail(payment!));
+                                }
+                                return SizedBox();
                               },
                               itemCount: snapshot.data!.data.length,
                             );
@@ -170,7 +220,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget listItemPayment(PaymentModel view) {
+  Widget listItemPayment(EventModel view) {
     return Column(
       children: [
         Row(
@@ -201,7 +251,8 @@ class _BodyState extends State<Body> {
           height: 30,
         ),
         Text(
-          view.tunaiKeseluruhan.toString(),
+          formatAngka.convertToIdr(
+              int.parse(view.totalPembayaran.toString()), 2),
           style: TextStyle(
               color: Colors.white,
               fontSize: 30,
@@ -229,7 +280,13 @@ class _BodyState extends State<Body> {
               ),
               child: TextButton(
                 onPressed: () {
-                  Get.toNamed(RouteName.addPaymentClient, arguments: view);
+                  if (int.parse(view.jumlahTerbayar) < view.totalPembayaran) {
+                    Get.toNamed(RouteName.addPaymentClient, arguments: view);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text('Pembayaran anda telah lunas')));
+                  }
                 },
                 child: const Text(
                   "Upload Pembayaran",
@@ -247,7 +304,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget listItemPaymentDetail(PaymentModel view) {
+  Widget listItemPaymentDetail(EventModel view) {
     return Column(
       children: [
         SizedBox(
@@ -301,7 +358,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Text(
-                      view.status,
+                      view.statusPembayaran,
                       style: TextStyle(
                         color: Color(0xffBDBDBD),
                         fontWeight: FontWeight.w500,
@@ -311,7 +368,9 @@ class _BodyState extends State<Body> {
                   ],
                 ),
                 Text(
-                  "+ " + view.terbayar,
+                  "+ " +
+                      formatAngka.convertToIdr(
+                          int.parse(view.jumlahTerbayar), 2),
                   style: TextStyle(
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w700,

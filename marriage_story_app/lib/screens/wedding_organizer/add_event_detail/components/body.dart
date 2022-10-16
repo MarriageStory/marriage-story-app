@@ -6,8 +6,14 @@ import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/service/payment_service.dart';
 import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
+import 'package:marriage_story_app/components/formatAngka.dart';
 
 class Body extends StatelessWidget {
+  final String paket1;
+  final String paket2;
+  final String paket3;
+  final String paket4;
+  final String paket5;
   final String namaClient;
   final String tanggal;
   final String jam;
@@ -16,6 +22,11 @@ class Body extends StatelessWidget {
   final String catatan;
   Body(
       {Key? key,
+      required this.paket1,
+      required this.paket2,
+      required this.paket3,
+      required this.paket4,
+      required this.paket5,
       required this.namaClient,
       required this.tanggal,
       required this.jam,
@@ -162,7 +173,7 @@ class Body extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "Pre-wedding",
+                        paket1,
                         style: TextStyle(
                           color: Color(0xffFB6C90),
                           fontWeight: FontWeight.w500,
@@ -188,7 +199,7 @@ class Body extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "Engagement",
+                        paket2,
                         style: TextStyle(
                           color: Color(0xffFB6C90),
                           fontWeight: FontWeight.w500,
@@ -214,7 +225,7 @@ class Body extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "Akad",
+                        paket3,
                         style: TextStyle(
                           color: Color(0xffFB6C90),
                           fontWeight: FontWeight.w500,
@@ -240,7 +251,7 @@ class Body extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "Panggih",
+                        paket4,
                         style: TextStyle(
                           color: Color(0xffFB6C90),
                           fontWeight: FontWeight.w500,
@@ -266,7 +277,7 @@ class Body extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "Resepsi",
+                        paket5,
                         style: TextStyle(
                           color: Color(0xffFB6C90),
                           fontWeight: FontWeight.w500,
@@ -308,7 +319,7 @@ class Body extends StatelessWidget {
                 ),
               ),
               Text(
-                totalPembayaran,
+                formatAngka.convertToIdr(int.parse(totalPembayaran), 2),
                 style: TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w800,
@@ -370,22 +381,18 @@ class Body extends StatelessWidget {
                           'time': jam,
                           'tempat': tempat,
                           'total_pembayaran': totalPembayaran,
+                          'status_pembayaran': "pending",
+                          'jumlah_terbayar': "0",
                           'note': catatan,
-                          'user_id': 5,
-                        };
-
-                        await EventService.createNewEvent(body);
-
-                        Map<String, dynamic> body1 = {
-                          'tunai_keseluruhan': totalPembayaran,
-                          'status': "pending",
-                          "terbayar": "0",
-                          'tanggal': tanggal,
-                          'event_id': "0",
+                          'paket1': paket1,
+                          'paket2': paket2,
+                          'paket3': paket3,
+                          'paket4': paket4,
+                          'paket5': paket5,
                         };
 
                         try {
-                          await PaymentService.createNewPayment(body1)
+                          await EventService.createNewEvent(body)
                               .then((value) {
                             Get.toNamed(RouteName.navigationWo);
                             // Navigator.push(

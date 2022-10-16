@@ -7,6 +7,8 @@ import 'package:marriage_story_app/service/payment_service.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_payment/detail_payment_screen.dart';
+import 'package:marriage_story_app/components/formatAngka.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  late Future<PaymentsModel> _payment;
+  // late Future<PaymentsModel> _payment;
   late Future<EventsModel> _event;
   int count = 0;
 
@@ -24,7 +26,7 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
     try {
-      _payment = PaymentService.getAllPayments();
+      // _payment = PaymentService.getAllPayments();
       _event = EventService.getAllEvent();
     } catch (e) {
       print(e);
@@ -67,8 +69,8 @@ class _BodyState extends State<Body> {
                     height: 60,
                   ),
                   FutureBuilder(
-                    future: _payment,
-                    builder: (context, AsyncSnapshot<PaymentsModel> snapshot) {
+                    future: _event,
+                    builder: (context, AsyncSnapshot<EventsModel> snapshot) {
                       var state = snapshot.connectionState;
                       if (state != ConnectionState.done) {
                         return Center(
@@ -183,43 +185,43 @@ class _BodyState extends State<Body> {
                   //   },
                   // ),
 
+                  // FutureBuilder(
+                  //   future: _event,
+                  //   builder: (context, AsyncSnapshot<EventsModel> snapshot) {
+                  //     var state = snapshot.connectionState;
+                  //     if (state != ConnectionState.done) {
+                  //       return Center(
+                  //         child: CircularProgressIndicator(),
+                  //       );
+                  //     } else {
+                  //       if (snapshot.hasData) {
+                  //         return ListView.builder(
+                  //           physics: NeverScrollableScrollPhysics(),
+                  //           shrinkWrap: true,
+                  //           scrollDirection: Axis.vertical,
+                  //           itemBuilder: (context, index) {
+                  //             // var event = snapshot.data?.data.first;
+                  //             var event = snapshot.data!.data.first;
+                  //             namaClient = event.nameClient;
+                  //             return SizedBox();
+                  //           },
+                  //           itemCount: snapshot.data!.data.length,
+                  //         );
+                  //       } else if (snapshot.hasError) {
+                  //         return Center(
+                  //           child: Text(
+                  //             snapshot.error.toString(),
+                  //           ),
+                  //         );
+                  //       } else {
+                  //         return Text('No Schedule');
+                  //       }
+                  //     }
+                  //   },
+                  // ),
                   FutureBuilder(
                     future: _event,
                     builder: (context, AsyncSnapshot<EventsModel> snapshot) {
-                      var state = snapshot.connectionState;
-                      if (state != ConnectionState.done) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        if (snapshot.hasData) {
-                          return ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, index) {
-                              // var event = snapshot.data?.data.first;
-                              var event = snapshot.data!.data.first;
-                              namaClient = event.nameClient;
-                              return SizedBox();
-                            },
-                            itemCount: snapshot.data!.data.length,
-                          );
-                        } else if (snapshot.hasError) {
-                          return Center(
-                            child: Text(
-                              snapshot.error.toString(),
-                            ),
-                          );
-                        } else {
-                          return Text('No Schedule');
-                        }
-                      }
-                    },
-                  ),
-                  FutureBuilder(
-                    future: _payment,
-                    builder: (context, AsyncSnapshot<PaymentsModel> snapshot) {
                       var state = snapshot.connectionState;
                       if (state != ConnectionState.done) {
                         return Center(
@@ -244,7 +246,7 @@ class _BodyState extends State<Body> {
                                     //     context, DetailPaymentScreen.url,
                                     //     arguments: payment);
                                   },
-                                  child: listItem(namaClient, payment!));
+                                  child: listItem(payment!));
                               // }
                               // return Text(namaClient);
                             },
@@ -271,7 +273,9 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget listItem(String viewNama, PaymentModel view) {
+  Widget listItem(EventModel view) {
+    String tanggal = DateFormat.yMd().format(view.date);
+
     return Container(
       child: Column(
         children: [
@@ -290,7 +294,7 @@ class _BodyState extends State<Body> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      viewNama,
+                      view.nameClient,
                       style: TextStyle(
                         color: Color(0xff333333),
                         fontWeight: FontWeight.w700,
@@ -298,7 +302,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Text(
-                      view.tunaiKeseluruhan.toString(),
+                      tanggal,
                       style: TextStyle(
                         color: Color(0xffBDBDBD),
                         fontWeight: FontWeight.w500,
@@ -325,7 +329,7 @@ class _BodyState extends State<Body> {
                           ),
                           child: Center(
                             child: Text(
-                              "Pre-wedding",
+                              view.paket1,
                               style: TextStyle(
                                 color: Color(0xffFB6C90),
                                 fontWeight: FontWeight.w500,
@@ -351,7 +355,7 @@ class _BodyState extends State<Body> {
                           ),
                           child: Center(
                             child: Text(
-                              "Engagement",
+                              view.paket2,
                               style: TextStyle(
                                 color: Color(0xffFB6C90),
                                 fontWeight: FontWeight.w500,
@@ -385,7 +389,7 @@ class _BodyState extends State<Body> {
                           ),
                           child: Center(
                             child: Text(
-                              "Akad",
+                              view.paket3,
                               style: TextStyle(
                                 color: Color(0xffFB6C90),
                                 fontWeight: FontWeight.w500,
@@ -411,7 +415,7 @@ class _BodyState extends State<Body> {
                           ),
                           child: Center(
                             child: Text(
-                              "Panggih",
+                              view.paket4,
                               style: TextStyle(
                                 color: Color(0xffFB6C90),
                                 fontWeight: FontWeight.w500,
@@ -437,7 +441,7 @@ class _BodyState extends State<Body> {
                           ),
                           child: Center(
                             child: Text(
-                              "Resepsi",
+                              view.paket5,
                               style: TextStyle(
                                 color: Color(0xffFB6C90),
                                 fontWeight: FontWeight.w500,
@@ -458,7 +462,8 @@ class _BodyState extends State<Body> {
             width: double.infinity,
             child: Center(
               child: Text(
-                view.tunaiKeseluruhan.toString(),
+                formatAngka.convertToIdr(
+                    int.parse(view.totalPembayaran.toString()), 2),
                 style: TextStyle(
                   color: Color(0xffFFFFFF),
                   fontWeight: FontWeight.w700,

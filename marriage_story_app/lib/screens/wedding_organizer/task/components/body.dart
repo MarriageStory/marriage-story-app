@@ -8,6 +8,7 @@ import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_task/detail_task_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_task/add_task_screen.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -349,6 +350,7 @@ class _BodyState extends State<Body> {
   }
 
   Widget listItemSchedule(EventModel viewEvent, ScheduleModel viewSchedule) {
+    String tanggal = DateFormat.yMd().format(viewSchedule.tanggal);
     if (viewEvent.id == viewSchedule.eventId) {
       return Container(
         child: Padding(
@@ -367,7 +369,7 @@ class _BodyState extends State<Body> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        viewSchedule.tanggal.toIso8601String(),
+                        tanggal,
                         style: TextStyle(
                           color: Color(0xffBDBDBD),
                           fontWeight: FontWeight.normal,

@@ -7,6 +7,9 @@ import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/model/schedule_model.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
+import 'package:marriage_story_app/model/user_model.dart';
+import 'package:marriage_story_app/service/auth_service.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   static const routeName = '/event-client-screen';
@@ -20,15 +23,39 @@ class _BodyState extends State<Body> {
   late Future<SchedulesModel> _schedule;
   late Future<EventsModel> _event;
 
+  UserModel user = UserModel(
+      id: 0,
+      name: "",
+      email: "",
+      emailVerifiedAt: DateTime.now(),
+      roleName: "",
+      gencode: "",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now());
+
   @override
   void initState() {
     super.initState();
+    getUserProfile();
 
     try {
       _schedule = ScheduleService.getAllSchedules();
       _event = EventService.getAllEvent();
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<void> getUserProfile() async {
+    try {
+      var data = await AuthService.authUserProfile();
+
+      setState(() {
+        user = data;
+      });
+    } catch (e) {
+      Get.offAllNamed(RouteName.splash);
+      // Navigator.pushReplacementNamed(context, "/base-screen");
     }
   }
 
@@ -80,144 +107,144 @@ class _BodyState extends State<Body> {
                       fontSize: 25,
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 3,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.white,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Pre-wedding",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 3,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.white,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Engagement",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 3,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.white,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Akad",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 3,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.white,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Panggih",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 3,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.white,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Resepsi",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 60,
-                  ),
+                  // SizedBox(
+                  //   height: 30,
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   children: [
+                  //     Container(
+                  //       padding: const EdgeInsets.symmetric(
+                  //         vertical: 3,
+                  //         horizontal: 6,
+                  //       ),
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.transparent,
+                  //         borderRadius: BorderRadius.circular(5),
+                  //         border: Border.all(
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //       child: Center(
+                  //         child: Text(
+                  //           "Pre-wedding",
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //             fontWeight: FontWeight.w500,
+                  //             fontSize: 11,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 4,
+                  //     ),
+                  //     Container(
+                  //       padding: const EdgeInsets.symmetric(
+                  //         vertical: 3,
+                  //         horizontal: 6,
+                  //       ),
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.transparent,
+                  //         borderRadius: BorderRadius.circular(5),
+                  //         border: Border.all(
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //       child: Center(
+                  //         child: Text(
+                  //           "Engagement",
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //             fontWeight: FontWeight.w500,
+                  //             fontSize: 11,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 4,
+                  //     ),
+                  //     Container(
+                  //       padding: const EdgeInsets.symmetric(
+                  //         vertical: 3,
+                  //         horizontal: 6,
+                  //       ),
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.transparent,
+                  //         borderRadius: BorderRadius.circular(5),
+                  //         border: Border.all(
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //       child: Center(
+                  //         child: Text(
+                  //           "Akad",
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //             fontWeight: FontWeight.w500,
+                  //             fontSize: 11,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 4,
+                  //     ),
+                  //     Container(
+                  //       padding: const EdgeInsets.symmetric(
+                  //         vertical: 3,
+                  //         horizontal: 6,
+                  //       ),
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.transparent,
+                  //         borderRadius: BorderRadius.circular(5),
+                  //         border: Border.all(
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //       child: Center(
+                  //         child: Text(
+                  //           "Panggih",
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //             fontWeight: FontWeight.w500,
+                  //             fontSize: 11,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 4,
+                  //     ),
+                  //     Container(
+                  //       padding: const EdgeInsets.symmetric(
+                  //         vertical: 3,
+                  //         horizontal: 6,
+                  //       ),
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.transparent,
+                  //         borderRadius: BorderRadius.circular(5),
+                  //         border: Border.all(
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //       child: Center(
+                  //         child: Text(
+                  //           "Resepsi",
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //             fontWeight: FontWeight.w500,
+                  //             fontSize: 11,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // SizedBox(
+                  //   height: 60,
+                  // ),
                   FutureBuilder(
                     future: _event,
                     builder: (context, AsyncSnapshot<EventsModel> snapshot) {
@@ -235,13 +262,15 @@ class _BodyState extends State<Body> {
                             itemBuilder: (context, index) {
                               // var event = snapshot.data?.data.first;
                               var event = snapshot.data!.data[index];
-
-                              return InkWell(
-                                  onTap: () {
-                                    // Navigator.pushNamed(context, DetailTask.url,
-                                    //     arguments: schedule);
-                                  },
-                                  child: listItemEvent(event!));
+                              if (user.gencode == event.gencode) {
+                                return InkWell(
+                                    onTap: () {
+                                      // Navigator.pushNamed(context, DetailTask.url,
+                                      //     arguments: schedule);
+                                    },
+                                    child: listItemEvent(event!));
+                              }
+                              return SizedBox();
                             },
                             itemCount: snapshot.data!.data.length,
                           );
@@ -312,13 +341,15 @@ class _BodyState extends State<Body> {
                     itemBuilder: (context, index) {
                       var schedule = snapshot.data!.data[index];
 
-                      return InkWell(
-                          onTap: () {
-                            Get.toNamed(RouteName.detailTaskClient,
-                                arguments: schedule);
-                            
-                          },
-                          child: listItemSchedule(schedule!));
+                      if (schedule.gencode == user.gencode) {
+                        return InkWell(
+                            onTap: () {
+                              Get.toNamed(RouteName.detailTaskClient,
+                                  arguments: schedule);
+                            },
+                            child: listItemSchedule(schedule!));
+                      }
+                      return SizedBox();
                     },
                     itemCount: snapshot.data!.data.length,
                   );
@@ -340,56 +371,196 @@ class _BodyState extends State<Body> {
   }
 
   Widget listItemEvent(EventModel view) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+    String tanggal = DateFormat.yMd().format(view.date);
+    return Column(
       children: [
-        Column(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              "Pernikahan",
-              style: TextStyle(
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: 6,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
                   color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  shadows: <Shadow>[
-                    Shadow(
-                      offset: Offset(0, 3),
-                      blurRadius: 5.0,
-                      color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
-                    )
-                  ]),
-            ),
-            Text(
-              view.nameClient,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  shadows: <Shadow>[
-                    Shadow(
-                      offset: Offset(0, 3),
-                      blurRadius: 5.0,
-                      color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
-                    )
-                  ]),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  view.paket1,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
             ),
             SizedBox(
-              height: 4,
+              width: 4,
             ),
-            Text(
-              view.date.toString(),
-              style: TextStyle(
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: 6,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
                   color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w800,
-                  shadows: <Shadow>[
-                    Shadow(
-                      offset: Offset(0, 3),
-                      blurRadius: 5.0,
-                      color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
-                    )
-                  ]),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  view.paket2,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 4,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: 6,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: Colors.white,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  view.paket3,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 4,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: 6,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: Colors.white,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  view.paket4,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 4,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: 6,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: Colors.white,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  view.paket5,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 60,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                Text(
+                  "Pernikahan",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(0, 3),
+                          blurRadius: 5.0,
+                          color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
+                        )
+                      ]),
+                ),
+                Text(
+                  view.nameClient,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(0, 3),
+                          blurRadius: 5.0,
+                          color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
+                        )
+                      ]),
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  tanggal,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(0, 3),
+                          blurRadius: 5.0,
+                          color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
+                        )
+                      ]),
+                ),
+              ],
             ),
           ],
         ),
@@ -398,6 +569,7 @@ class _BodyState extends State<Body> {
   }
 
   Widget listItemSchedule(ScheduleModel view) {
+    String tanggal = DateFormat.yMd().format(view.tanggal);
     return Padding(
       padding: const EdgeInsets.only(
         top: 10,
@@ -424,7 +596,7 @@ class _BodyState extends State<Body> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    view.tanggal.toString(),
+                    tanggal,
                     style: TextStyle(
                       color: Color(0xffBDBDBD),
                       fontWeight: FontWeight.normal,

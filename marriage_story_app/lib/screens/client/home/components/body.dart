@@ -8,6 +8,7 @@ import 'package:marriage_story_app/model/user_model.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
 import 'package:get/get.dart';
 import 'package:marriage_story_app/routes/routes.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   static const route = '/home-client-screen';
@@ -20,7 +21,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   late Future<SchedulesModel> _schedule;
   late Future<EventsModel> _event;
-  bool cetak = false;
+  TextEditingController _gencodeController = TextEditingController();
 
   UserModel user = UserModel(
       id: 0,
@@ -28,6 +29,7 @@ class _BodyState extends State<Body> {
       email: "",
       emailVerifiedAt: DateTime.now(),
       roleName: "",
+      gencode: "",
       createdAt: DateTime.now(),
       updatedAt: DateTime.now());
 
@@ -154,62 +156,94 @@ class _BodyState extends State<Body> {
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 224,
-                      height: 45,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(left: 20),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color(0xFFFB6C90), width: 1),
-                            borderRadius: BorderRadius.circular(15),
+                user.gencode == ""
+                    ?
+                  Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: 224,
+                            height: 45,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(left: 20),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFFFB6C90), width: 1),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xFFFBC0C0), width: 0.1),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                hintText: 'Masukan Kode Acara',
+                                hintStyle: TextStyle(
+                                  color: Color(0xff828282).withOpacity(0.40),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              controller: _gencodeController,
+                            ),
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color(0xFFFBC0C0), width: 0.1),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          hintText: 'Masukan Kode Acara',
-                          hintStyle: TextStyle(
-                            color: Color(0xff828282).withOpacity(0.40),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 96,
-                      height: 45,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFB8DA0),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                        child: Text(
-                          "OK",
-                          style: TextStyle(
-                            color: Color(0xFFFCFCFC),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                          Container(
+                            width: 96,
+                            height: 45,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFFB8DA0),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                var data = <String, dynamic>{
+                                  "gencode": _gencodeController.text,
+                                };
+
+                                try {
+                                  await AuthService.updateUser(user.id, data)
+                                      .then((response) {
+                                    if (response == true) {
+                                      Get.toNamed(RouteName.navigationClient);
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              backgroundColor: Colors.green,
+                                              content:
+                                                  Text('Event ditemukan')));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              backgroundColor: Colors.red,
+                                              content: Text(
+                                                  'Terdapat Kesalahan, coba lagi!')));
+                                    }
+                                  });
+                                } catch (e) {
+                                  print(e);
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                  color: Color(0xFFFCFCFC),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    : Column(
+                        children: [
                 SizedBox(
                   height: 20,
                 ),
@@ -228,10 +262,11 @@ class _BodyState extends State<Body> {
                 ),
                 SizedBox(
                   height: 10,
-                ),
+                          ),                
                 FutureBuilder(
                   future: _event,
-                  builder: (context, AsyncSnapshot<EventsModel> snapshot) {
+                            builder:
+                                (context, AsyncSnapshot<EventsModel> snapshot) {
                     var state = snapshot.connectionState;
                     if (state != ConnectionState.done) {
                       return Center(
@@ -246,11 +281,14 @@ class _BodyState extends State<Body> {
                           itemBuilder: (context, index) {
                             // var event = snapshot.data?.data.first;
                             var event = snapshot.data!.data[index];
-                            if (event.userId == user.id) {
+                                      if (event.gencode == user.gencode) {
                               return InkWell(
                                   onTap: () {
                                     // Navigator.pushNamed(context, DetailTask.url,
                                     //     arguments: schedule);
+                                              // Get.toNamed(
+                                              //     RouteName.detailEventClient,
+                                              //     arguments: event);
                                   },
                                   child: listItemEvent(event!));
                             }
@@ -291,7 +329,8 @@ class _BodyState extends State<Body> {
                 ),
                 FutureBuilder(
                   future: _schedule,
-                  builder: (context, AsyncSnapshot<SchedulesModel> snapshot) {
+                            builder: (context,
+                                AsyncSnapshot<SchedulesModel> snapshot) {
                     var state = snapshot.connectionState;
                     if (state != ConnectionState.done) {
                       return Center(
@@ -305,19 +344,21 @@ class _BodyState extends State<Body> {
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) {
                             // var event = snapshot.data?.data.first;
-                            var schedule = snapshot.data!.data.first;
+                                      var schedule = snapshot.data!.data[index];
                             // var schedule_2 = snapshot.data?.data.first;
 
-                            if (!cetak) {
-                              cetak = true;
+                                      if (user.gencode == schedule.gencode) {
                               return InkWell(
                                   onTap: () {
                                     // Navigator.pushNamed(context, DetailTask.url,
                                     //     arguments: schedule);
+                                              Get.toNamed(
+                                                  RouteName.detailTaskClient,
+                                                  arguments: schedule);
                                   },
                                   child: listItemSchedule(schedule!));
-                            }
-                            return SizedBox();
+                                      }
+                                      return SizedBox();
                           },
                           itemCount: snapshot.data!.data.length,
                         );
@@ -335,6 +376,8 @@ class _BodyState extends State<Body> {
                 ),
               ],
             ),
+              ],
+            ),
           ),
         ),
       ),
@@ -342,6 +385,7 @@ class _BodyState extends State<Body> {
   }
 
   Widget listItemEvent(EventModel view) {
+    String tanggal = DateFormat.yMd().format(view.date);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -380,7 +424,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 Text(
-                  view.date.toString(),
+                  tanggal,
                   style: TextStyle(
                     color: Color(0xffBDBDBD),
                     fontWeight: FontWeight.w500,
@@ -407,7 +451,7 @@ class _BodyState extends State<Body> {
                       ),
                       child: Center(
                         child: Text(
-                          "Pre-wedding",
+                          view.paket1,
                           style: TextStyle(
                             color: Color(0xffFB6C90),
                             fontWeight: FontWeight.w500,
@@ -433,7 +477,7 @@ class _BodyState extends State<Body> {
                       ),
                       child: Center(
                         child: Text(
-                          "Engagement",
+                          view.paket2,
                           style: TextStyle(
                             color: Color(0xffFB6C90),
                             fontWeight: FontWeight.w500,
@@ -467,7 +511,7 @@ class _BodyState extends State<Body> {
                       ),
                       child: Center(
                         child: Text(
-                          "Akad",
+                          view.paket3,
                           style: TextStyle(
                             color: Color(0xffFB6C90),
                             fontWeight: FontWeight.w500,
@@ -493,7 +537,7 @@ class _BodyState extends State<Body> {
                       ),
                       child: Center(
                         child: Text(
-                          "Panggih",
+                          view.paket4,
                           style: TextStyle(
                             color: Color(0xffFB6C90),
                             fontWeight: FontWeight.w500,
@@ -519,7 +563,7 @@ class _BodyState extends State<Body> {
                       ),
                       child: Center(
                         child: Text(
-                          "Resepsi",
+                          view.paket5,
                           style: TextStyle(
                             color: Color(0xffFB6C90),
                             fontWeight: FontWeight.w500,
@@ -539,6 +583,7 @@ class _BodyState extends State<Body> {
   }
 
   Widget listItemSchedule(ScheduleModel view) {
+    String tanggal = DateFormat.yMd().format(view.tanggal);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -559,7 +604,7 @@ class _BodyState extends State<Body> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  view.tanggal.toString(),
+                  tanggal,
                   style: TextStyle(
                     color: Color(0xffBDBDBD),
                     fontWeight: FontWeight.normal,

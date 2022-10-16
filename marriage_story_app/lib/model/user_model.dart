@@ -2,6 +2,7 @@
 //
 //     final userModel = userModelFromJson(jsonString);
 
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -16,6 +17,7 @@ class UserModel {
     required this.email,
     required this.emailVerifiedAt,
     required this.roleName,
+    required this.gencode,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -25,6 +27,7 @@ class UserModel {
   String email;
   dynamic emailVerifiedAt;
   String roleName;
+  String gencode;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -34,6 +37,7 @@ class UserModel {
         email: json["email"],
         emailVerifiedAt: json["email_verified_at"],
         roleName: json["role_name"],
+        gencode: json["gencode"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -44,6 +48,7 @@ class UserModel {
         "email": email,
         "email_verified_at": emailVerifiedAt,
         "role_name": roleName,
+        "gencode": gencode,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
