@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marriage_story_app/routes/routes.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:marriage_story_app/screens/auth/components/background.dart';
 
 class Body extends StatefulWidget {

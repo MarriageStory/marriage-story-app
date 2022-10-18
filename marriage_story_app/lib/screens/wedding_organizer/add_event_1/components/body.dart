@@ -251,8 +251,8 @@ class _BodyState extends State<Body> {
                   ButtonTheme(
                     minWidth: 160,
                     height: 100,
-                    child: RaisedButton(
-                      color: Color(0xffFFFFFF),
+                    child: ElevatedButton(
+                      // color: Color(0xffFFFFFF),
                       onPressed: () {
                         paket1 = "Pre-Wedding";
                       },
@@ -269,8 +269,8 @@ class _BodyState extends State<Body> {
                   ButtonTheme(
                     minWidth: 160,
                     height: 100,
-                    child: RaisedButton(
-                      color: Color(0xffFFFFFF),
+                    child: ElevatedButton(
+                      // color: Color(0xffFFFFFF),
                       onPressed: () {
                         paket2 = "Engagement";
                       },
@@ -295,8 +295,8 @@ class _BodyState extends State<Body> {
                   ButtonTheme(
                     minWidth: 160,
                     height: 100,
-                    child: RaisedButton(
-                      color: Color(0xffFFFFFF),
+                    child: ElevatedButton(
+                      // color: Color(0xffFFFFFF),
                       onPressed: () {
                         paket3 = "Akad";
                       },
@@ -313,8 +313,8 @@ class _BodyState extends State<Body> {
                   ButtonTheme(
                     minWidth: 160,
                     height: 100,
-                    child: RaisedButton(
-                      color: Color(0xffFFFFFF),
+                    child: ElevatedButton(
+                      // color: Color(0xffFFFFFF),
                       onPressed: () {
                         paket4 = "Panggih";
                       },
@@ -338,8 +338,8 @@ class _BodyState extends State<Body> {
                   ButtonTheme(
                     minWidth: 160,
                     height: 100,
-                    child: RaisedButton(
-                      color: Color(0xffFFFFFF),
+                    child: ElevatedButton(
+                      // color: Color(0xffFFFFFF),
                       onPressed: () {
                         paket5 = "Resepsi";
                       },

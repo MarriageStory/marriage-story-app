@@ -30,7 +30,7 @@ import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
 part './app_routes.dart';
 
 class AppPages {
-  static const initial = RouteName.auth;
+  static const initial = RouteName.splash;
 
   static final pages = [
     GetPage(

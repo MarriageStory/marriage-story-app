@@ -58,7 +58,7 @@ class Body extends StatelessWidget {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            Get.toNamed(RouteName.login);
+                            Get.toNamed(RouteName.auth);
                             // Navigator.pushReplacementNamed(context, "/sign-in");
                           },
                           child: const Text(
