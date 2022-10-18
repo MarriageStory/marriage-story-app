@@ -211,6 +211,7 @@ class _BodyState extends State<Body> {
         email: "",
         emailVerifiedAt: DateTime.now(),
         roleName: "",
+        gencode: "",
         createdAt: DateTime.now(),
         updatedAt: DateTime.now());
 

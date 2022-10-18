@@ -7,6 +7,9 @@ import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/service/payment_service.dart';
 import 'package:marriage_story_app/model/payment_model.dart';
 import 'package:marriage_story_app/service/payment_detail_service.dart';
+import 'package:marriage_story_app/model/paymentDetail_model.dart';
+import 'package:marriage_story_app/components/formatAngka.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -29,7 +32,8 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final payment = ModalRoute.of(context)!.settings.arguments as PaymentModel;
+    final payment = ModalRoute.of(context)!.settings.arguments as EventModel;
+    String tanggal = DateFormat.yMd().format(payment.date);
     Size size = MediaQuery.of(context).size;
 
     return Background(
@@ -150,7 +154,7 @@ class _BodyState extends State<Body> {
                                             ),
                                           ),
                                           Text(
-                                            event.date.toString(),
+                                            tanggal,
                                             style: TextStyle(
                                               color: Color(0xffFFFFFF),
                                               fontWeight: FontWeight.w600,
@@ -354,7 +358,8 @@ class _BodyState extends State<Body> {
                 ),
               ),
               Text(
-                payment.tunaiKeseluruhan.toString(),
+                formatAngka.convertToIdr(
+                    int.parse(payment.totalPembayaran.toString()), 2),
                 style: TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w800,
@@ -376,24 +381,24 @@ class _BodyState extends State<Body> {
                 height: 20,
               ),
 
-              payment.paymentDetails.length != 0
-                  ? ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) {
-                        var payment_detail = payment.paymentDetails[index];
+              // payment.paymentDetail.length != 0
+              //     ? ListView.builder(
+              //         physics: NeverScrollableScrollPhysics(),
+              //         shrinkWrap: true,
+              //         scrollDirection: Axis.vertical,
+              //         itemBuilder: (context, index) {
+              //           var payment_detail = payment.paymentDetail[index];
 
-                        return listItem(payment_detail);
-                      },
-                      itemCount: payment.paymentDetails.length,
-                    )
-                  : Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: const Center(
-                        child: Text("Detail Pembayaran Masih Kosong"),
-                      ),
-                    ),
+              //           return listItem(payment_detail);
+              //         },
+              //         itemCount: payment.paymentDetail.length,
+              //       )
+              //     : Container(
+              //         margin: const EdgeInsets.only(top: 20),
+              //         child: const Center(
+              //           child: Text("Detail Pembayaran Masih Kosong"),
+              //         ),
+              //       ),
               //siniiiii
 
               //siniiiiii

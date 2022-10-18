@@ -77,10 +77,10 @@ class AppPages {
       name: RouteName.addEvent1,
       page: () => const AddEvent1Screen(),
     ),
-    GetPage(
-      name: RouteName.addEvent2,
-      page: () => const AddEvent2Screen(),
-    ),
+    // GetPage(
+    //   name: RouteName.addEvent2,
+    //   page: () => const AddEvent2Screen(),
+    // ),
     GetPage(
       name: RouteName.addEvent3,
       page: () => const AddEvent3Screen(),

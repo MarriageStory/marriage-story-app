@@ -6,6 +6,7 @@ import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_event/detail_event_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_2/add_event_2_screen.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -142,33 +143,7 @@ class _BodyState extends State<Body> {
                         ),
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      child: FutureBuilder(
-                        future: _event,
-                        builder:
-                            (context, AsyncSnapshot<EventsModel> snapshot) {
-                          var state = snapshot.connectionState;
-                          if (state != ConnectionState.done) {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else {
-                            if (snapshot.hasData) {
-                              if (snapshot.data!.data.length > 0) {
-                                return IconButton(
-                                  icon: Icon(
-                                    Icons.add,
-                                    size: 30,
-                                    color: Color(0xffFFFFFF),
-                                  ),
-                                  onPressed: () {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            content: Text(
-                                                'Sementara hanya bisa 1 Event')));
-                                  },
-                                );
-                              } else {
-                                return IconButton(
+                      child: IconButton(
                                   icon: Icon(
                                     Icons.add,
                                     size: 30,
@@ -181,20 +156,7 @@ class _BodyState extends State<Body> {
                                     //   MaterialPageRoute(
                                     //       builder: (context) =>
                                     //           AddEvent2Screen()),
-                                    // );
-                                  },
-                                );
-                              }
-                            } else if (snapshot.hasError) {
-                              return Center(
-                                child: Text(
-                                  snapshot.error.toString(),
-                                ),
-                              );
-                            } else {
-                              return Text('No Event');
-                            }
-                          }
+                          // );
                         },
                       ),
                     ),
@@ -272,6 +234,8 @@ class _BodyState extends State<Body> {
   }
 
   Widget listItem(EventModel view) {
+    String tanggal = DateFormat.yMd().format(view.date);
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -300,7 +264,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 Text(
-                  view.date.toString(),
+                  tanggal,
                   style: TextStyle(
                     color: Color(0xffBDBDBD),
                     fontWeight: FontWeight.w500,
@@ -327,7 +291,7 @@ class _BodyState extends State<Body> {
                       ),
                       child: Center(
                         child: Text(
-                          "Pre-wedding",
+                          view.paket1,
                           style: TextStyle(
                             color: Color(0xffFB6C90),
                             fontWeight: FontWeight.w500,
@@ -353,7 +317,7 @@ class _BodyState extends State<Body> {
                       ),
                       child: Center(
                         child: Text(
-                          "Engagement",
+                          view.paket2,
                           style: TextStyle(
                             color: Color(0xffFB6C90),
                             fontWeight: FontWeight.w500,
@@ -387,7 +351,7 @@ class _BodyState extends State<Body> {
                       ),
                       child: Center(
                         child: Text(
-                          "Akad",
+                          view.paket3,
                           style: TextStyle(
                             color: Color(0xffFB6C90),
                             fontWeight: FontWeight.w500,
@@ -413,7 +377,7 @@ class _BodyState extends State<Body> {
                       ),
                       child: Center(
                         child: Text(
-                          "Panggih",
+                          view.paket4,
                           style: TextStyle(
                             color: Color(0xffFB6C90),
                             fontWeight: FontWeight.w500,
@@ -439,7 +403,7 @@ class _BodyState extends State<Body> {
                       ),
                       child: Center(
                         child: Text(
-                          "Resepsi",
+                          view.paket5,
                           style: TextStyle(
                             color: Color(0xffFB6C90),
                             fontWeight: FontWeight.w500,

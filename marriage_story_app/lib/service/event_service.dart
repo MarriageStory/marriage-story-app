@@ -10,7 +10,7 @@ class EventService {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
 
-    var response = await http.get(Uri.parse(baseURLAPI + "events"), headers: {
+    var response = await http.get(Uri.parse(baseURLAPI + "events1"), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': "Bearer $token",
     });
@@ -32,11 +32,17 @@ class EventService {
       "time": data["time"],
       "tempat": data["tempat"],
       "total_pembayaran": data["total_pembayaran"],
+      "status_pembayaran": data["status_pembayaran"],
+      "jumlah_terbayar": data["jumlah_terbayar"],
       "note": data["note"],
-      "user_id": data["user_id"],
+      "paket1": data["paket1"],
+      "paket2": data["paket2"],
+      "paket3": data["paket3"],
+      "paket4": data["paket4"],
+      "paket5": data["paket5"],
     };
 
-    var response = await http.post(Uri.parse(baseURLAPI + "events"),
+    var response = await http.post(Uri.parse(baseURLAPI + "events1"),
         body: jsonEncode(event),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
@@ -60,12 +66,18 @@ class EventService {
       "time": data["time"],
       "tempat": data["tempat"],
       "total_pembayaran": data["total_pembayaran"],
+      "status_pembayaran": data["status_pembayaran"],
+      "jumlah_terbayar": data["jumlah_terbayar"],
       "note": data["note"],
-      "user_id": data["user_id"],
+      "paket1": data["paket1"],
+      "paket2": data["paket2"],
+      "paket3": data["paket3"],
+      "paket4": data["paket4"],
+      "paket5": data["paket5"],
     };
 
     var response = await http.put(
-        Uri.parse(baseURLAPI + "events/" + id.toString()),
+        Uri.parse(baseURLAPI + "events1/" + id.toString()),
         body: jsonEncode(event),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
@@ -84,7 +96,7 @@ class EventService {
     final token = prefs.getString("token");
 
     var response = await http
-        .delete(Uri.parse(baseURLAPI + "events/" + id.toString()), headers: {
+        .delete(Uri.parse(baseURLAPI + "events1/" + id.toString()), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': "Bearer $token",
     });

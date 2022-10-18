@@ -275,15 +275,6 @@ class _BodyState extends State<Body> {
                     ),
                     child: TextButton(
                       onPressed: () async {
-                        // Map<String, dynamic> body = {
-                        //   'nama_kegiatan': _nameTaskController.text,
-                        //   'detail_kegiatan': _detailTaskController.text,
-                        //   'tanggal': _dateController.text,
-                        //   'tempat': _placeController.text,
-                        //   'jam': _timeController.text,
-                        //   'status': "pending",
-                        // };
-
                         var body = <String, dynamic>{
                           'nama_kegiatan': _nameTaskController.text,
                           'detail_kegiatan': _detailTaskController.text,
@@ -291,12 +282,35 @@ class _BodyState extends State<Body> {
                           'tempat': _placeController.text,
                           'jam': _timeController.text,
                           'status': "pending",
-                          'event_id': event.id,
+                          'gencode': event.gencode,
                         };
 
-                        await ScheduleService.createNewSchedule(body)
-                            .then((value) {
-                          Get.toNamed(RouteName.navigationWo);
+                        try {
+                          await ScheduleService.createNewSchedule(
+                                  event.id, body)
+                              .then((response) {
+                            if (response == true) {
+                              Get.toNamed(RouteName.navigationWo);
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor: Colors.green,
+                                      content: Text(
+                                          'You have successfully create a detail payment')));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor: Colors.red,
+                                      content: Text('Terdapat Kesalahan !')));
+                            }
+                          });
+                        } catch (e) {
+                          print(e);
+                        }
+
+                        // await ScheduleService.createNewSchedule(event.id, body)
+                        //     .then((value) {
+                        //   Get.toNamed(RouteName.navigationWo);
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(
@@ -305,11 +319,11 @@ class _BodyState extends State<Body> {
                           //     ),
                           //   ),
                           // );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'You have successfully create a scedule')));
-                        });
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //       const SnackBar(
+                        //           content: Text(
+                        //               'You have successfully create a scedule')));
+                        // });
                       },
                       child: const Text(
                         "Tambah",

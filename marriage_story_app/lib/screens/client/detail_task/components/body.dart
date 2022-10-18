@@ -3,6 +3,7 @@ import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:marriage_story_app/screens/client/detail_task/components/background.dart';
 import 'package:marriage_story_app/model/schedule_model.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class Body extends StatelessWidget {
     bool isChecked = false;
     final schedule =
         ModalRoute.of(context)!.settings.arguments as ScheduleModel;
+    String tanggal = DateFormat.yMd().format(schedule.tanggal);
 
 
     Size size = MediaQuery.of(context).size;
@@ -87,7 +89,7 @@ class Body extends StatelessWidget {
                               height: 4,
                             ),
                             Text(
-                              schedule.tanggal.toString(),
+                              tanggal,
                               style: TextStyle(
                                 color: Color(0xffFFFFFF),
                                 fontWeight: FontWeight.w600,

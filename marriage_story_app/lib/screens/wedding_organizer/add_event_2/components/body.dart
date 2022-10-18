@@ -7,13 +7,43 @@ import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_detail/add_event_detail_screen.dart';
 
 class Body extends StatefulWidget {
-  const Body({Key? key}) : super(key: key);
+  final String paket1;
+  final String paket2;
+  final String paket3;
+  final String paket4;
+  final String paket5;
+  Body(
+      {Key? key,
+      required this.paket1,
+      required this.paket2,
+      required this.paket3,
+      required this.paket4,
+      required this.paket5})
+      : super(key: key);
 
   @override
-  State<Body> createState() => _BodyState();
+  State<Body> createState() => _BodyState(
+      paket1: paket1,
+      paket2: paket2,
+      paket3: paket3,
+      paket4: paket4,
+      paket5: paket5);
 }
 
 class _BodyState extends State<Body> {
+  String paket1;
+  String paket2;
+  String paket3;
+  String paket4;
+  String paket5;
+  _BodyState(
+      {Key? key,
+      required this.paket1,
+      required this.paket2,
+      required this.paket3,
+      required this.paket4,
+      required this.paket5});
+
   //controller
   TextEditingController _nameClientController = TextEditingController();
   TextEditingController _totalPembayaranController = TextEditingController();
@@ -272,23 +302,28 @@ class _BodyState extends State<Body> {
                         // };
 
                         // await EventService.createNewEvent(body).then((value) {
-                        Get.toNamed(RouteName.addEvent3);
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => AddEventDetailScreen(
-                        //           namaClient: _nameClientController.text,
-                        //           tanggal: _dateController.text,
-                        //           jam: _timeController.text,
-                        //           tempat: _placeController.text,
-                        //           totalPembayaran:
-                        //               _totalPembayaranController.text,
-                        //           catatan: _noteController.text)),
-                        // );
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //       const SnackBar(
-                        //           content: Text(
-                        //               'You have successfully create a scedule')));
+                        // Get.toNamed(RouteName.addEvent4);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddEventDetailScreen(
+                                  paket1: paket1,
+                                  paket2: paket2,
+                                  paket3: paket3,
+                                  paket4: paket4,
+                                  paket5: paket5,
+                                  namaClient: _nameClientController.text,
+                                  tanggal: _dateController.text,
+                                  jam: _timeController.text,
+                                  tempat: _placeController.text,
+                                  totalPembayaran:
+                                      _totalPembayaranController.text,
+                                  catatan: _noteController.text)),
+                        );
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //     const SnackBar(
+                        //         content: Text(
+                        //             'You have successfully create a scedule')));
                         // });
                       },
                       child: const Text(
