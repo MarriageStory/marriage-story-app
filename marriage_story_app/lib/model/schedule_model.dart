@@ -36,6 +36,7 @@ class ScheduleModel {
     required this.tempat,
     required this.jam,
     required this.status,
+    required this.gencode,
     required this.eventId,
     required this.createdAt,
     required this.updatedAt,
@@ -48,6 +49,7 @@ class ScheduleModel {
   String tempat;
   String jam;
   String status;
+  String gencode;
   int eventId;
   DateTime createdAt;
   DateTime updatedAt;
@@ -60,6 +62,7 @@ class ScheduleModel {
         tempat: json["tempat"],
         jam: json["jam"],
         status: json["status"],
+        gencode: json["gencode"],
         eventId: json["event_id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
@@ -73,6 +76,7 @@ class ScheduleModel {
         "tempat": tempat,
         "jam": jam,
         "status": status,
+        "gencode": gencode,
         "event_id": eventId,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),

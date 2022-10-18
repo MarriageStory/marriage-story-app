@@ -1,9 +1,88 @@
-// To parse this JSON data, do
-//
-//     final EventsModel = EventsModelFromJson(jsonString);
+// // To parse this JSON data, do
+// //
+// //     final EventsModel = EventsModelFromJson(jsonString);
+
+// import 'package:meta/meta.dart';
+// import 'dart:convert';
+
+// EventsModel eventsModelFromJson(String str) =>
+//     EventsModel.fromJson(json.decode(str));
+
+// String eventsModelToJson(EventsModel data) => json.encode(data.toJson());
+
+// class EventsModel {
+//   EventsModel({
+//     required this.data,
+//   });
+
+//   List<EventModel> data;
+
+//   factory EventsModel.fromJson(Map<String, dynamic> json) => EventsModel(
+//         data: List<EventModel>.from(
+//             json["data"].map((x) => EventModel.fromJson(x))),
+//       );
+
+//   Map<String, dynamic> toJson() => {
+//         "data": List<dynamic>.from(data.map((x) => x.toJson())),
+//       };
+// }
+
+// class EventModel {
+//   EventModel({
+//     required this.id,
+//     required this.nameClient,
+//     required this.date,
+//     required this.time,
+//     required this.tempat,
+//     required this.totalPembayaran,
+//     required this.note,
+//     required this.userId,
+//     required this.createdAt,
+//     required this.updatedAt,
+//   });
+
+//   int id;
+//   String nameClient;
+//   DateTime date;
+//   String time;
+//   String tempat;
+//   int totalPembayaran;
+//   String note;
+//   int userId;
+//   DateTime createdAt;
+//   DateTime updatedAt;
+
+//   factory EventModel.fromJson(Map<String, dynamic> json) => EventModel(
+//         id: json["id"],
+//         nameClient: json["name_client"],
+//         date: DateTime.parse(json["date"]),
+//         time: json["time"],
+//         tempat: json["tempat"],
+//         totalPembayaran: json["total_pembayaran"],
+//         note: json["note"],
+//         userId: json["user_id"],
+//         createdAt: DateTime.parse(json["created_at"]),
+//         updatedAt: DateTime.parse(json["updated_at"]),
+//       );
+
+//   Map<String, dynamic> toJson() => {
+//         "id": id,
+//         "name_client": nameClient,
+//         "date": date.toIso8601String(),
+//         "time": time,
+//         "tempat": tempat,
+//         "total_pembayaran": totalPembayaran,
+//         "note": note,
+//         "user_id": userId,
+//         "created_at": createdAt.toIso8601String(),
+//         "updated_at": updatedAt.toIso8601String(),
+//       };
+// }
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
+import 'package:marriage_story_app/model/schedule_model.dart';
+import 'package:marriage_story_app/model/paymentDetail_model.dart';
 
 EventsModel eventsModelFromJson(String str) =>
     EventsModel.fromJson(json.decode(str));
@@ -35,10 +114,19 @@ class EventModel {
     required this.time,
     required this.tempat,
     required this.totalPembayaran,
+    required this.statusPembayaran,
+    required this.jumlahTerbayar,
     required this.note,
-    required this.userId,
+    required this.paket1,
+    required this.paket2,
+    required this.paket3,
+    required this.paket4,
+    required this.paket5,
+    required this.gencode,
     required this.createdAt,
     required this.updatedAt,
+    // required this.schedule,
+    // required this.paymentDetail,
   });
 
   int id;
@@ -47,10 +135,19 @@ class EventModel {
   String time;
   String tempat;
   int totalPembayaran;
+  String statusPembayaran;
+  String jumlahTerbayar;
   String note;
-  int userId;
+  String paket1;
+  String paket2;
+  String paket3;
+  String paket4;
+  String paket5;
+  String gencode;
   DateTime createdAt;
   DateTime updatedAt;
+  // List<ScheduleModel> schedule;
+  // List<PaymentDetailModel>? paymentDetail;
 
   factory EventModel.fromJson(Map<String, dynamic> json) => EventModel(
         id: json["id"],
@@ -59,10 +156,21 @@ class EventModel {
         time: json["time"],
         tempat: json["tempat"],
         totalPembayaran: json["total_pembayaran"],
+        statusPembayaran: json["status_pembayaran"],
+        jumlahTerbayar: json["jumlah_terbayar"],
         note: json["note"],
-        userId: json["user_id"],
+        paket1: json["paket1"],
+        paket2: json["paket2"],
+        paket3: json["paket3"],
+        paket4: json["paket4"],
+        paket5: json["paket5"],
+        gencode: json["gencode"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        // schedule: List<ScheduleModel>.from(
+        //     json["schedules"].map((x) => ScheduleModel.fromJson(x))),
+        // paymentDetail: List<PaymentDetailModel>.from(
+        //     json["payment_details"].map((i) => PaymentDetailModel.fromJson(i))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -72,9 +180,19 @@ class EventModel {
         "time": time,
         "tempat": tempat,
         "total_pembayaran": totalPembayaran,
+        "status_pembayaran": statusPembayaran,
+        "jumlah_terbayar": jumlahTerbayar,
         "note": note,
-        "user_id": userId,
+        "paket1": paket1,
+        "paket2": paket2,
+        "paket3": paket3,
+        "paket4": paket4,
+        "paket5": paket5,
+        "gencode": gencode,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        // "schedules": List<dynamic>.from(schedule.map((x) => x.toJson())),
+        // "payment_details":
+        //     List<dynamic>.from(paymentDetail!.map((i) => i.toJson())),
       };
 }

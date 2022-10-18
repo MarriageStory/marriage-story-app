@@ -5,20 +5,25 @@ import 'package:marriage_story_app/screens/wedding_organizer/detail_task/compone
 import 'package:marriage_story_app/model/schedule_model.dart';
 import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.dart';
+import 'package:intl/intl.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
-//   @override
-//   State<Body> createState() => _BodyState();
-// }
+  @override
+  State<Body> createState() => _BodyState();
+}
 
-// class _BodyState extends State<Body> {
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final schedule =
         ModalRoute.of(context)!.settings.arguments as ScheduleModel;
+    String tanggal = DateFormat.yMd().format(schedule.tanggal);
     bool isChecked = false;
+    if (schedule.status == "done") {
+      isChecked = true;
+    }
     Size size = MediaQuery.of(context).size;
 
     return Background(
@@ -83,9 +88,9 @@ class Body extends StatelessWidget {
                                 MaterialStateProperty.resolveWith(getColor),
                             value: isChecked,
                             onChanged: (bool? value) {
-                              // setState(() {
-                              //   isChecked = value!;
-                              // });
+                              setState(() {
+                                isChecked = true;
+                              });
                             },
                           ),
                           Text(
@@ -109,19 +114,13 @@ class Body extends StatelessWidget {
                         // };
 
                         var body = <String, dynamic>{
-                          'nama_kegiatan': schedule.namaKegiatan,
-                          'detail_kegiatan': schedule.detailKegiatan,
-                          'tanggal': schedule.tanggal.toString(),
-                          'tempat': schedule.tempat,
-                          'jam': schedule.jam,
                           'status': "done",
-                          'event_id': schedule.eventId,
                         };
 
                         await ScheduleService.updateSchedule(schedule.id, body)
                             .then(
                           (value) {
-                            Get.toNamed(RouteName.eventWo);
+                            Get.toNamed(RouteName.navigationWo);
                             // Navigator.push(
                             //   context,
                             //   MaterialPageRoute(
@@ -164,7 +163,7 @@ class Body extends StatelessWidget {
                               height: 4,
                             ),
                             Text(
-                              schedule.tanggal.toIso8601String(),
+                              tanggal,
                               style: TextStyle(
                                 color: Color(0xffFFFFFF),
                                 fontWeight: FontWeight.w600,

@@ -10,6 +10,8 @@ import 'package:marriage_story_app/model/schedule_model.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/task/task_screen.dart';
 import 'package:marriage_story_app/service/payment_service.dart';
 import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
+import 'package:marriage_story_app/components/formatAngka.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -38,6 +40,7 @@ class _BodyState extends State<Body> {
     int agendaSelesai = 0;
     int agendaTotal = 0;
     final event = ModalRoute.of(context)!.settings.arguments as EventModel;
+    String tanggal = DateFormat.yMd().format(event.date);
     Size size = MediaQuery.of(context).size;
 
     return Background(
@@ -68,8 +71,7 @@ class _BodyState extends State<Body> {
                       IconButton(
                         icon: Icon(Icons.delete),
                         onPressed: () async {
-                          await EventService.deleteEvent(event.id);
-                          await PaymentService.deletePayment(event.id).then(
+                          await EventService.deleteEvent(event.id).then(
                             (value) {
                               Get.toNamed(RouteName.navigationWo);
                               // Navigator.push(
@@ -122,14 +124,14 @@ class _BodyState extends State<Body> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Text(
-                              //   "Kode 170564765",
-                              //   style: TextStyle(
-                              //     color: Color(0xffFFFFFF),
-                              //     fontWeight: FontWeight.w600,
-                              //     fontSize: 14,
-                              //   ),
-                              // ),
+                              Text(
+                                "Kode " + event.gencode,
+                                style: TextStyle(
+                                  color: Color(0xffFFFFFF),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                ),
+                              ),
                             ],
                           ),
                           SizedBox(
@@ -155,7 +157,7 @@ class _BodyState extends State<Body> {
                                 ),
                               ),
                               Text(
-                                event.date.toString(),
+                                tanggal,
                                 style: TextStyle(
                                   color: Color(0xffFFFFFF),
                                   fontWeight: FontWeight.w600,
@@ -199,7 +201,7 @@ class _BodyState extends State<Body> {
                         ),
                         child: Center(
                           child: Text(
-                            "Pre-wedding",
+                            event.paket1,
                             style: TextStyle(
                               color: Color(0xffFB6C90),
                               fontWeight: FontWeight.w500,
@@ -225,7 +227,7 @@ class _BodyState extends State<Body> {
                         ),
                         child: Center(
                           child: Text(
-                            "Engagement",
+                            event.paket2,
                             style: TextStyle(
                               color: Color(0xffFB6C90),
                               fontWeight: FontWeight.w500,
@@ -251,7 +253,7 @@ class _BodyState extends State<Body> {
                         ),
                         child: Center(
                           child: Text(
-                            "Akad",
+                            event.paket3,
                             style: TextStyle(
                               color: Color(0xffFB6C90),
                               fontWeight: FontWeight.w500,
@@ -277,7 +279,7 @@ class _BodyState extends State<Body> {
                         ),
                         child: Center(
                           child: Text(
-                            "Panggih",
+                            event.paket4,
                             style: TextStyle(
                               color: Color(0xffFB6C90),
                               fontWeight: FontWeight.w500,
@@ -303,7 +305,7 @@ class _BodyState extends State<Body> {
                         ),
                         child: Center(
                           child: Text(
-                            "Resepsi",
+                            event.paket5,
                             style: TextStyle(
                               color: Color(0xffFB6C90),
                               fontWeight: FontWeight.w500,
@@ -350,7 +352,8 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           Text(
-                            event.totalPembayaran.toString(),
+                            formatAngka.convertToIdr(
+                                int.parse(event.totalPembayaran.toString()), 2),
                             style: TextStyle(
                               color: Color(0xff333333),
                               fontWeight: FontWeight.w800,

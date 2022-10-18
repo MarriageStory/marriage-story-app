@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:marriage_story_app/screens/client/add_payment_report/components/background.dart';
-import 'package:marriage_story_app/model/payment_model.dart';
+import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/components/dateTime.dart';
 import 'package:marriage_story_app/service/payment_detail_service.dart';
 import 'package:marriage_story_app/service/payment_service.dart';
@@ -64,18 +64,18 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final payment = ModalRoute.of(context)!.settings.arguments as PaymentModel;
+    final payment = ModalRoute.of(context)!.settings.arguments as EventModel;
     Size size = MediaQuery.of(context).size;
 
-    if (payment != null && inisialisasi == false) {
-      _tunaiKeseluruhanController.text = payment.tunaiKeseluruhan.toString();
-      _statusPaymentController.text = payment.status;
-      _terbayarController.text = payment.terbayar;
-      _tanggalPaymentController.text = payment.tanggal.toString();
-      _eventIdController.text = payment.eventId.toString();
+    // if (payment != null && inisialisasi == false) {
+    //   _tunaiKeseluruhanController.text = payment.tunaiKeseluruhan.toString();
+    //   _statusPaymentController.text = payment.status;
+    //   _terbayarController.text = payment.terbayar;
+    //   _tanggalPaymentController.text = payment.tanggal.toString();
+    //   _eventIdController.text = payment.eventId.toString();
 
-      inisialisasi = true;
-    }
+    //   inisialisasi = true;
+    // }
 
     return Background(
       child: Container(
@@ -234,28 +234,8 @@ class _BodyState extends State<Body> {
 
                         try {
                           await PaymentDetailService.createNewPaymentDetail(
-                              payment.id, data);
-                        } catch (e) {
-                          print(e);
-                        }
-
-                        total = int.parse(_terbayarController.text) +
-                            int.parse(_bayarController.text);
-                        if (total ==
-                            int.parse(_tunaiKeseluruhanController.text)) {
-                          _statusPaymentController.text = "done";
-                        }
-
-                        Map<String, dynamic> body1 = {
-                          'tunai_keseluruhan': payment.tunaiKeseluruhan,
-                          'status': _statusPaymentController.text,
-                          'terbayar': total.toString(),
-                          'tanggal': payment.tanggal.toString(),
-                          'event_id': payment.eventId,
-                        };
-
-                        await PaymentService.updatePayment(payment.id, body1)
-                            .then((response) {
+                                  payment.id, data)
+                              .then((response) {
                           if (response == true) {
                             Get.toNamed(RouteName.navigationClient);
 
@@ -271,6 +251,42 @@ class _BodyState extends State<Body> {
                                     content: Text('Terdapat Kesalahan !')));
                           }
                         });
+                        } catch (e) {
+                          print(e);
+                        }
+
+                        // total = int.parse(_terbayarController.text) +
+                        //     int.parse(_bayarController.text);
+                        // if (total ==
+                        //     int.parse(_tunaiKeseluruhanController.text)) {
+                        //   _statusPaymentController.text = "done";
+                        // }
+
+                        // Map<String, dynamic> body1 = {
+                        //   'tunai_keseluruhan': payment.tunaiKeseluruhan,
+                        //   'status': _statusPaymentController.text,
+                        //   'terbayar': total.toString(),
+                        //   'tanggal': payment.tanggal.toString(),
+                        //   'event_id': payment.eventId,
+                        // };
+
+                        // await PaymentService.updatePayment(payment.id, body1)
+                        //     .then((response) {
+                        //   if (response == true) {
+                        //     Get.toNamed(RouteName.navigationClient);
+
+                        //     ScaffoldMessenger.of(context).showSnackBar(
+                        //         const SnackBar(
+                        //             backgroundColor: Colors.green,
+                        //             content: Text(
+                        //                 'You have successfully create a detail payment')));
+                        //   } else {
+                        //     ScaffoldMessenger.of(context).showSnackBar(
+                        //         const SnackBar(
+                        //             backgroundColor: Colors.red,
+                        //             content: Text('Terdapat Kesalahan !')));
+                        //   }
+                        // });
                       },
                       child: const Text(
                         "Selanjutnya",
