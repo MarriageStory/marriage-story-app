@@ -5,7 +5,7 @@ import 'package:marriage_story_app/screens/wedding_organizer/other/components/ba
 import 'package:marriage_story_app/model/user_model.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/sign_in/sign_in_screen.dart';
+import 'package:marriage_story_app/screens/sign_in/sign_in_screen.dart';
 
 class Body extends StatefulWidget {
   static const routeName = '/other-screen';

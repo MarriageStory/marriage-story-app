@@ -5,6 +5,7 @@ abstract class RouteName {
   static const navigationClient = '/navigation-client';
   static const navigationWo = '/navigation-wo';
   static const welcome = '/welcome';
+  static const auth = '/auth';
   static const login = '/login';
   static const register = '/register';
   static const other = '/other';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/sign_in/components/body.dart';
+import 'package:marriage_story_app/screens/sign_in/components/body.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);

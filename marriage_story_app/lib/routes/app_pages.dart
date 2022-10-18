@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:marriage_story_app/screens/auth/auth_screen.dart';
 import 'package:marriage_story_app/screens/client/add_payment_report/add_payment_report_screen.dart';
 import 'package:marriage_story_app/screens/client/detail_event/detail_event_client_screen.dart';
 import 'package:marriage_story_app/screens/client/detail_task/detail_task_client_screen.dart';
@@ -18,18 +19,18 @@ import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.
 import 'package:marriage_story_app/screens/wedding_organizer/home/home_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/other/other_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/payment/payment_screen.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/sign_in/sign_in_screen.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/sign_up/sign_up_screen.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/splash/splash_screen.dart';
+import 'package:marriage_story_app/screens/sign_in/sign_in_screen.dart';
+import 'package:marriage_story_app/screens/sign_up/sign_up_screen.dart';
+import 'package:marriage_story_app/screens/splash/splash_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/task/task_screen.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/welcome/welcome_screen.dart';
+import 'package:marriage_story_app/screens/welcome/welcome_screen.dart';
 import 'package:marriage_story_app/widgets/navbar/navbar_client.dart';
 import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
 
 part './app_routes.dart';
 
 class AppPages {
-  static const initial = RouteName.splash;
+  static const initial = RouteName.auth;
 
   static final pages = [
     GetPage(
@@ -47,6 +48,10 @@ class AppPages {
       page: () => NavbarWeddingOrganizer(
         index: 0,
       ),
+    ),
+    GetPage(
+      name: RouteName.auth,
+      page: () => const AuthScreen(),
     ),
     GetPage(
       name: RouteName.login,

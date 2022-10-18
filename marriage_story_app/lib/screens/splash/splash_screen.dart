@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marriage_story_app/routes/app_pages.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/splash/components/body.dart';
+import 'package:marriage_story_app/screens/splash/components/body.dart';
 import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {

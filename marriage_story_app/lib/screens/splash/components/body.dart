@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/splash/components/background.dart';
+import 'package:marriage_story_app/screens/splash/components/background.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
