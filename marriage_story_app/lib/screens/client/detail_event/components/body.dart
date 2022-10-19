@@ -38,278 +38,274 @@ class _BodyState extends State<Body> {
       child: ListView(
         children: [
           Container(
-                        // height: size.height,
-                        width: double.infinity,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10,
-                            left: 20,
-                            right: 20,
-                            bottom: 20,
-                          ),
-                          child: Column(
+            // height: size.height,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 10,
+                left: 20,
+                right: 20,
+                bottom: 20,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                        ),
+                        onPressed: () => Get.back(),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.menu,
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Detail",
+                    style: TextStyle(
+                      color: Color(0xff333333),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 25,
+                    ),
+                  ),
+                  Text(
+                    'Acara',
+                    style: TextStyle(
+                      color: Color(0xff333333),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 25,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    width: size.width,
+                    height: 160,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xffFB6C90),
+                          Color(0xffFB8DA0),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.arrow_back,
-                                    ),
-                                    onPressed: () =>Get.back(),
-                                  ),
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.menu,
-                                    ),
-                                    onPressed: () {},
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
+                              // Text(
+                              //   "Kode 170564765",
+                              //   style: TextStyle(
+                              //     color: Color(0xffFFFFFF),
+                              //     fontWeight: FontWeight.w600,
+                              //     fontSize: 14,
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
                               Text(
-                                "Detail",
+                                "Pernikahan",
                                 style: TextStyle(
-                                  color: Color(0xff333333),
+                                  color: Color(0xffFFFFFF),
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 25,
+                                  fontSize: 18,
                                 ),
                               ),
                               Text(
-                                'Acara',
-                                style: TextStyle(
-                                  color: Color(0xff333333),
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 25,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Container(
-                                width: size.width,
-                                height: 160,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      Color(0xffFB6C90),
-                                      Color(0xffFB8DA0),
-                                    ],
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(20),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          // Text(
-                                          //   "Kode 170564765",
-                                          //   style: TextStyle(
-                                          //     color: Color(0xffFFFFFF),
-                                          //     fontWeight: FontWeight.w600,
-                                          //     fontSize: 14,
-                                          //   ),
-                                          // ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 16,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            "Pernikahan",
-                                            style: TextStyle(
-                                              color: Color(0xffFFFFFF),
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                          Text(
                                 "",
                                 // event.nameClient,
-                                            style: TextStyle(
-                                              color: Color(0xffFFFFFF),
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 25,
-                                            ),
-                                          ),
-                                          Text(
-                                "",
-                                // event.date.toString(),
-                                            style: TextStyle(
-                                              color: Color(0xffFFFFFF),
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                style: TextStyle(
+                                  color: Color(0xffFFFFFF),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 25,
                                 ),
                               ),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 3,
-                                      horizontal: 6,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: Color(0xffFB6C90),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Pre-wedding",
-                                        style: TextStyle(
-                                          color: Color(0xffFB6C90),
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 11,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 3,
-                                      horizontal: 6,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: Color(0xffFB6C90),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Engagement",
-                                        style: TextStyle(
-                                          color: Color(0xffFB6C90),
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 11,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 3,
-                                      horizontal: 6,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: Color(0xffFB6C90),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Akad",
-                                        style: TextStyle(
-                                          color: Color(0xffFB6C90),
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 11,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 3,
-                                      horizontal: 6,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: Color(0xffFB6C90),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Panggih",
-                                        style: TextStyle(
-                                          color: Color(0xffFB6C90),
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 11,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 3,
-                                      horizontal: 6,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: Color(0xffFB6C90),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Resepsi",
-                                        style: TextStyle(
-                                          color: Color(0xffFB6C90),
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 11,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
                               Text(
-                                "Waktu Pelaksanaan :",
+                                "",
+                                // event.date.toString(),
                                 style: TextStyle(
-                                  color: Color(0xffBDBDBD),
-                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xffFFFFFF),
+                                  fontWeight: FontWeight.w600,
                                   fontSize: 14,
                                 ),
                               ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 3,
+                          horizontal: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: Color(0xffFB6C90),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Pre-wedding",
+                            style: TextStyle(
+                              color: Color(0xffFB6C90),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 3,
+                          horizontal: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: Color(0xffFB6C90),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Engagement",
+                            style: TextStyle(
+                              color: Color(0xffFB6C90),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 3,
+                          horizontal: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: Color(0xffFB6C90),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Akad",
+                            style: TextStyle(
+                              color: Color(0xffFB6C90),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 3,
+                          horizontal: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: Color(0xffFB6C90),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Panggih",
+                            style: TextStyle(
+                              color: Color(0xffFB6C90),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 3,
+                          horizontal: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            color: Color(0xffFB6C90),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Resepsi",
+                            style: TextStyle(
+                              color: Color(0xffFB6C90),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    "Waktu Pelaksanaan :",
+                    style: TextStyle(
+                      color: Color(0xffBDBDBD),
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14,
+                    ),
+                  ),
                   // Text(
                   //   event.time + " WIB",
                   //   style: TextStyle(
@@ -318,95 +314,94 @@ class _BodyState extends State<Body> {
                   //     fontSize: 16,
                   //   ),
                   // ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text(
-                                        "Total Pembayaran :",
-                                        style: TextStyle(
-                                          color: Color(0xffBDBDBD),
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      // Text(
-                                      //   payment(event.id),
-                                      //   style: TextStyle(
-                                      //     color: Color(0xff333333),
-                                      //     fontWeight: FontWeight.w800,
-                                      //     fontSize: 16,
-                                      //   ),
-                                      // ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            "Total Pembayaran :",
+                            style: TextStyle(
+                              color: Color(0xffBDBDBD),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
+                          ),
+                          // Text(
+                          //   payment(event.id),
+                          //   style: TextStyle(
+                          //     color: Color(0xff333333),
+                          //     fontWeight: FontWeight.w800,
+                          //     fontSize: 16,
+                          //   ),
+                          // ),
 
                           // payment(event.id),
-                                    ],
-                                  ),
-                                  Container(
-                                    width: 170,
-                                    height: 45,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        colors: [
-                                          Color(0xffFB6C90),
-                                          Color(0xffFB8DA0),
-                                        ],
-                                      ),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: TextButton(
-                                      onPressed: () {},
-                                      child: const Text(
-                                        "Lihat  Pembayaran",
-                                        style: TextStyle(
-                                          color: Color(0xffFFFFFF),
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                "Catatan :",
-                                style: TextStyle(
-                                  color: Color(0xffBDBDBD),
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                "MC : Abdul Malik",
-                                style: TextStyle(
-                                  color: Color(0xff333333),
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                "Fotografer : Jono Samsudin",
-                                style: TextStyle(
-                                  color: Color(0xff333333),
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
+                        ],
+                      ),
+                      Container(
+                        width: 170,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color(0xffFB6C90),
+                              Color(0xffFB8DA0),
                             ],
                           ),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            "Lihat  Pembayaran",
+                            style: TextStyle(
+                              color: Color(0xffFFFFFF),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Catatan :",
+                    style: TextStyle(
+                      color: Color(0xffBDBDBD),
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14,
+                    ),
+                  ),
+                  Text(
+                    "MC : Abdul Malik",
+                    style: TextStyle(
+                      color: Color(0xff333333),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    "Fotografer : Jono Samsudin",
+                    style: TextStyle(
+                      color: Color(0xff333333),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
             ),
           ),
           // FutureBuilder(
@@ -860,6 +855,8 @@ class _BodyState extends State<Body> {
     //   },
     // );
     // totalPembayaran = 6;
-    return Text(totalPembayaran.toString());
+    return Text(
+      totalPembayaran.toString(),
+    );
   }
 }

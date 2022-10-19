@@ -77,10 +77,15 @@ class AppPages {
       name: RouteName.addEvent1,
       page: () => const AddEvent1Screen(),
     ),
-    // GetPage(
-    //   name: RouteName.addEvent2,
-    //   page: () => const AddEvent2Screen(),
-    // ),
+    GetPage(
+      name: RouteName.addEvent2,
+      page: () => AddEvent2Screen(paket1: "",
+        paket2: "",
+        paket3: "",
+        paket4: "",
+        paket5: "",
+      ),
+    ),
     GetPage(
       name: RouteName.addEvent3,
       page: () => const AddEvent3Screen(),

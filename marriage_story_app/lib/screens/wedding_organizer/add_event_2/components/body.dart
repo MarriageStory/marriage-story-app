@@ -91,254 +91,259 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Background(
-      child: Container(
-        height: size.height,
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 32,
-            left: 20,
-            right: 20,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                ),
-                onPressed: () => Get.back(),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Tambah",
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
-                ),
-              ),
-              Text(
-                'Acara',
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                'Kelengkapan Acara',
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                ),
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Nama Pengantin",
-                    hintStyle: const TextStyle(
-                      color: Color(0xff828282),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
+      child: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        child: Container(
+          height: size.height,
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 32,
+              left: 20,
+              right: 20,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
                   ),
-                  style: const TextStyle(
-                    color: Color(0xff828282),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                  controller: _nameClientController,
+                  onPressed: () => Get.back(),
                 ),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Container(
-                // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
-                child: Column(children: [
-                  dateTime(
-                    // labelText: "Date",
-                    valueText:
-                        cekTgl != false ? tanggal.toString() : "Tanggal Agenda",
-                    valueStyle: valueStyle,
-                    onPressed: () {
-                      _selectDate(context);
-                    },
-                  ),
-                ]),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Container(
-                // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
-                child: Column(children: [
-                  dateTime(
-                    // labelText: "Date",
-                    valueText:
-                        cekJam != false ? _timeController.text : "Waktu Agenda",
-                    valueStyle: valueStyle,
-                    onPressed: () {
-                      showTime();
-                    },
-                  ),
-                ]),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
+                SizedBox(
+                  height: 10,
                 ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Tempat Agenda",
-                    hintStyle: const TextStyle(
-                      color: Color(0xff828282),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
+                Text(
+                  "Tambah",
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 25,
                   ),
-                  style: const TextStyle(
-                    color: Color(0xff828282),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                  controller: _placeController,
                 ),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Total Pembayaran",
-                    hintStyle: const TextStyle(
-                      color: Color(0xff828282),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
+                Text(
+                  'Acara',
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 25,
                   ),
-                  style: const TextStyle(
-                    color: Color(0xff828282),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                  controller: _totalPembayaranController,
                 ),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
+                SizedBox(
+                  height: 30,
                 ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Catatan",
-                    hintStyle: const TextStyle(
-                      color: Color(0xff828282),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
+                Text(
+                  'Kelengkapan Acara',
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
                   ),
-                  style: const TextStyle(
-                    color: Color(0xff828282),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                  controller: _noteController,
                 ),
-              ),
-              SizedBox(
-                height: 100,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    height: 45,
-                    width: 180,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xffFB6C90),
-                          Color(0xffFB8DA0),
-                        ],
+                SizedBox(
+                  height: 24,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Nama Pengantin",
+                      hintStyle: const TextStyle(
+                        color: Color(0xff828282),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
                       ),
-                      borderRadius: BorderRadius.circular(15),
                     ),
-                    child: TextButton(
+                    style: const TextStyle(
+                      color: Color(0xff828282),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    controller: _nameClientController,
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
+                  child: Column(children: [
+                    dateTime(
+                      // labelText: "Date",
+                      valueText: cekTgl != false
+                          ? tanggal.toString()
+                          : "Tanggal Agenda",
+                      valueStyle: valueStyle,
                       onPressed: () {
-                        // var body = <String, dynamic>{
-                        //   'name_client': _nameClientController.text,
-                        //   'date': _dateController.text,
-                        //   'time': _timeController.text,
-                        //   'tempat': _placeController.text,
-                        //   'total_pembayaran': _totalPembayaranController.text,
-                        //   'note': _noteController.text,
-                        //   'user_id': 5,
-                        // };
-
-                        // await EventService.createNewEvent(body).then((value) {
-                        // Get.toNamed(RouteName.addEvent4);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AddEventDetailScreen(
-                                  paket1: paket1,
-                                  paket2: paket2,
-                                  paket3: paket3,
-                                  paket4: paket4,
-                                  paket5: paket5,
-                                  namaClient: _nameClientController.text,
-                                  tanggal: _dateController.text,
-                                  jam: _timeController.text,
-                                  tempat: _placeController.text,
-                                  totalPembayaran:
-                                      _totalPembayaranController.text,
-                                  catatan: _noteController.text)),
-                        );
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //     const SnackBar(
-                        //         content: Text(
-                        //             'You have successfully create a scedule')));
-                        // });
+                        _selectDate(context);
                       },
-                      child: const Text(
-                        "Selanjutnya",
-                        style: TextStyle(
-                          color: Color(0xffFFFFFF),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
+                    ),
+                  ]),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
+                  child: Column(children: [
+                    dateTime(
+                      // labelText: "Date",
+                      valueText: cekJam != false
+                          ? _timeController.text
+                          : "Waktu Agenda",
+                      valueStyle: valueStyle,
+                      onPressed: () {
+                        showTime();
+                      },
+                    ),
+                  ]),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Tempat Agenda",
+                      hintStyle: const TextStyle(
+                        color: Color(0xff828282),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: Color(0xff828282),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    controller: _placeController,
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Total Pembayaran",
+                      hintStyle: const TextStyle(
+                        color: Color(0xff828282),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: Color(0xff828282),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    controller: _totalPembayaranController,
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Catatan",
+                      hintStyle: const TextStyle(
+                        color: Color(0xff828282),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: Color(0xff828282),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    controller: _noteController,
+                  ),
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 45,
+                      width: 180,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xffFB6C90),
+                            Color(0xffFB8DA0),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          // var body = <String, dynamic>{
+                          //   'name_client': _nameClientController.text,
+                          //   'date': _dateController.text,
+                          //   'time': _timeController.text,
+                          //   'tempat': _placeController.text,
+                          //   'total_pembayaran': _totalPembayaranController.text,
+                          //   'note': _noteController.text,
+                          //   'user_id': 5,
+                          // };
+
+                          // await EventService.createNewEvent(body).then((value) {
+                          // Get.toNamed(RouteName.addEvent4);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddEventDetailScreen(
+                                    paket1: paket1,
+                                    paket2: paket2,
+                                    paket3: paket3,
+                                    paket4: paket4,
+                                    paket5: paket5,
+                                    namaClient: _nameClientController.text,
+                                    tanggal: _dateController.text,
+                                    jam: _timeController.text,
+                                    tempat: _placeController.text,
+                                    totalPembayaran:
+                                        _totalPembayaranController.text,
+                                    catatan: _noteController.text)),
+                          );
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //     const SnackBar(
+                          //         content: Text(
+                          //             'You have successfully create a scedule')));
+                          // });
+                        },
+                        child: const Text(
+                          "Selanjutnya",
+                          style: TextStyle(
+                            color: Color(0xffFFFFFF),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
