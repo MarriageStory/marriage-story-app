@@ -88,6 +88,23 @@ class _BodyState extends State<Body> {
                           );
                         },
                       ),
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () {
+                          // Get.toNamed(RouteName.editEvent2);
+                          Get.toNamed(RouteName.editEvent2, arguments: event);
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) {
+                          //       return NavbarWeddingOrganizer(
+                          //         index: 1,
+                          //       );
+                          //     },
+                          //   ),
+                          // );
+                        },
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -187,133 +204,156 @@ class _BodyState extends State<Body> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 3,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Color(0xffFB6C90),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            event.paket1,
-                            style: TextStyle(
-                              color: Color(0xffFB6C90),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ),
+                      event.paket1 != "-"
+                          ?
+                        Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 3,
+                                horizontal: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Color(0xffFB6C90),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  event.paket1,
+                                  style: TextStyle(
+                                    color: Color(0xffFB6C90),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : SizedBox(),
                       SizedBox(
                         width: 4,
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 3,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Color(0xffFB6C90),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            event.paket2,
-                            style: TextStyle(
-                              color: Color(0xffFB6C90),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ),
+                      event.paket2 != "-"
+                          ?
+                        Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 3,
+                                horizontal: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Color(0xffFB6C90),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  event.paket2,
+                                  style: TextStyle(
+                                    color: Color(0xffFB6C90),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : SizedBox(),
                       SizedBox(
                         width: 4,
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 3,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Color(0xffFB6C90),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            event.paket3,
-                            style: TextStyle(
-                              color: Color(0xffFB6C90),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      event.paket3 != "-"
+                          ?
+                        Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 3,
+                                horizontal: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Color(0xffFB6C90),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  event.paket3,
+                                  style: TextStyle(
+                                    color: Color(0xffFB6C90),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : SizedBox(),
                       SizedBox(
                         width: 4,
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 3,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Color(0xffFB6C90),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            event.paket4,
-                            style: TextStyle(
-                              color: Color(0xffFB6C90),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ),
+                      event.paket4 != "-"
+                          ?
+                        Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 3,
+                                horizontal: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Color(0xffFB6C90),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  event.paket4,
+                                  style: TextStyle(
+                                    color: Color(0xffFB6C90),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : SizedBox(),
                       SizedBox(
                         width: 4,
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 3,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Color(0xffFB6C90),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            event.paket5,
-                            style: TextStyle(
-                              color: Color(0xffFB6C90),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ),
+                      event.paket5 != "-"
+                          ?
+                        Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 3,
+                                horizontal: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                  color: Color(0xffFB6C90),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  event.paket5,
+                                  style: TextStyle(
+                                    color: Color(0xffFB6C90),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : SizedBox(),
                     ],
                   ),
                   SizedBox(
@@ -461,7 +501,9 @@ class _BodyState extends State<Body> {
                                             snapshot.data!.data[index];
                                         if (schedule.eventId == event.id) {
                                           agendaTotal++;
-                                        } else if (count ==
+                                        }
+                                        // else
+                                        if (count ==
                                             snapshot.data!.data.length) {
                                           count = 1;
                                           return Container(
@@ -540,7 +582,8 @@ class _BodyState extends State<Body> {
                                         if (schedule.status == "done" &&
                                             schedule.eventId == event.id) {
                                           agendaSelesai++;
-                                        } else if (count ==
+                                        }
+                                        if (count ==
                                             snapshot.data!.data.length) {
                                           return Container(
                                             child: Row(children: [

@@ -54,7 +54,8 @@ class _BodyState extends State<Body> {
         user = data;
       });
     } catch (e) {
-      Get.offAllNamed(RouteName.splash);
+      // Get.offAllNamed(RouteName.splash);
+      print("e");
       // Navigator.pushReplacementNamed(context, "/base-screen");
     }
   }

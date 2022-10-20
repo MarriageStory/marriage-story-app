@@ -50,11 +50,48 @@ class _BodyState extends State<Body> {
                       onPressed: () => Get.back(),
                     ),
                     IconButton(
-                      icon: Icon(
-                        Icons.menu,
-                      ),
-                      onPressed: () {},
+                      icon: Icon(Icons.delete),
+                      onPressed: () async {
+                        await ScheduleService.deleteSchedule(schedule.id).then(
+                          (value) {
+                            Get.toNamed(RouteName.navigationWo);
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return NavbarWeddingOrganizer(
+                            //         index: 1,
+                            //       );
+                            //     },
+                            //   ),
+                            // );
+                          },
+                        );
+                      },
                     ),
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        // Get.toNamed(RouteName.editEvent2);
+                        Get.toNamed(RouteName.editTaskWo, arguments: schedule);
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) {
+                        //       return NavbarWeddingOrganizer(
+                        //         index: 1,
+                        //       );
+                        //     },
+                        //   ),
+                        // );
+                      },
+                    ),
+                    // IconButton(
+                    //   icon: Icon(
+                    //     Icons.menu,
+                    //   ),
+                    //   onPressed: () {},
+                    // ),
                   ],
                 ),
                 Text(
@@ -104,34 +141,62 @@ class _BodyState extends State<Body> {
                         ],
                       ),
                       onTap: () async {
-                        // Map<String, dynamic> body = {
-                        //   'nama_kegiatan': _nameTaskController.text,
-                        //   'detail_kegiatan': _detailTaskController.text,
-                        //   'tanggal': _dateController.text,
-                        //   'tempat': _placeController.text,
-                        //   'jam': _timeController.text,
-                        //   'status': "pending",
-                        // };
+                        if (schedule.status == "pending") {
+                          var body = <String, dynamic>{
+                            "nama_kegiatan": schedule.namaKegiatan,
+                            "detail_kegiatan": schedule.detailKegiatan,
+                            "tanggal": schedule.tanggal.toString(),
+                            "tempat": schedule.tempat,
+                            "jam": schedule.jam,
+                            'status': "done",
+                          };
 
-                        var body = <String, dynamic>{
-                          'status': "done",
-                        };
+                          await ScheduleService.updateSchedule(
+                                  schedule.id, body)
+                              .then(
+                            (value) {
+                              Get.toNamed(RouteName.navigationWo);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Agenda telah selesai')));
+                            },
+                          );
+                        } else {
+                          var body = <String, dynamic>{
+                            "nama_kegiatan": schedule.namaKegiatan,
+                            "detail_kegiatan": schedule.detailKegiatan,
+                            "tanggal": schedule.tanggal.toString(),
+                            "tempat": schedule.tempat,
+                            "jam": schedule.jam,
+                            'status': "pending",
+                          };
 
-                        await ScheduleService.updateSchedule(schedule.id, body)
+                          await ScheduleService.updateSchedule(
+                                  schedule.id, body)
                             .then(
                           (value) {
-                            Get.toNamed(RouteName.navigationWo);
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => EventScreen()),
-                            // );
+                              Get.toNamed(RouteName.navigationWo);
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                    content: Text(
-                                        'You have successfully update a scedule')));
+                                      content: Text('Agenda belum selesai')));
                           },
                         );
+                        }
+
+                        // await ScheduleService.updateSchedule(schedule.id, body)
+                        //     .then(
+                        //   (value) {
+                        //     Get.toNamed(RouteName.navigationWo);
+                        //     // Navigator.push(
+                        //     //   context,
+                        //     //   MaterialPageRoute(
+                        //     //       builder: (context) => EventScreen()),
+                        //     // );
+                        //     ScaffoldMessenger.of(context).showSnackBar(
+                        //         const SnackBar(
+                        //             content: Text('Agenda telah selesai')));
+                        //   },
+                        // );
                       },
                     ),
                     Container(

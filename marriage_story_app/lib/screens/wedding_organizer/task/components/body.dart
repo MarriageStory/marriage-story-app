@@ -132,7 +132,8 @@ class _BodyState extends State<Body> {
                                         if (schedule.eventId ==
                                             eventDetail.id) {
                                           agendaTotal++;
-                                        } else if (count ==
+                                        }
+                                        if (count ==
                                             snapshot.data!.data.length) {
                                           count = 1;
                                           return Container(
@@ -179,6 +180,9 @@ class _BodyState extends State<Body> {
                           ],
                         ),
                       ),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Container(
                         width: 160,
                         height: 100,
@@ -220,7 +224,8 @@ class _BodyState extends State<Body> {
                                             schedule.eventId ==
                                                 eventDetail.id) {
                                           agendaSelesai++;
-                                        } else if (count ==
+                                        }
+                                        if (count ==
                                             snapshot.data!.data.length) {
                                           return Container(
                                             child: Row(children: [

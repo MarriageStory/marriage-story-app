@@ -18,7 +18,8 @@ class PaymentDetailService {
     };
 
     var response = await http.post(
-        Uri.parse(baseURLAPI + "events2/" + idPayment.toString()),
+        Uri.parse(
+            baseURLAPI + "events/" + idPayment.toString() + "/details-payment"),
         body: jsonEncode(paymentDetail),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',

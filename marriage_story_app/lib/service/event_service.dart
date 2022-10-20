@@ -10,7 +10,7 @@ class EventService {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
 
-    var response = await http.get(Uri.parse(baseURLAPI + "events1"), headers: {
+    var response = await http.get(Uri.parse(baseURLAPI + "events"), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': "Bearer $token",
     });
@@ -42,7 +42,7 @@ class EventService {
       "paket5": data["paket5"],
     };
 
-    var response = await http.post(Uri.parse(baseURLAPI + "events1"),
+    var response = await http.post(Uri.parse(baseURLAPI + "events"),
         body: jsonEncode(event),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
@@ -77,7 +77,7 @@ class EventService {
     };
 
     var response = await http.put(
-        Uri.parse(baseURLAPI + "events1/" + id.toString()),
+        Uri.parse(baseURLAPI + "events/" + id.toString()),
         body: jsonEncode(event),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
@@ -96,7 +96,7 @@ class EventService {
     final token = prefs.getString("token");
 
     var response = await http
-        .delete(Uri.parse(baseURLAPI + "events1/" + id.toString()), headers: {
+        .delete(Uri.parse(baseURLAPI + "events/" + id.toString()), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': "Bearer $token",
     });

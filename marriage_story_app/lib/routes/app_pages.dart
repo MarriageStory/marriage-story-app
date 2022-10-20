@@ -9,8 +9,11 @@ import 'package:marriage_story_app/screens/client/payment/payment_client_screen.
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_1/add_event_1_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_2/add_event_2_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_3/add_event_3_screen.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/edit_event_1/edit_event_1_screen.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/edit_event_2/edit_event_2_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_detail/add_event_detail_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_task/add_task_screen.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/edit_task/edit_task_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_event/detail_event_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_payment/detail_payment_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_task/detail_task_screen.dart';
@@ -77,10 +80,16 @@ class AppPages {
       name: RouteName.addEvent1,
       page: () => const AddEvent1Screen(),
     ),
-    // GetPage(
-    //   name: RouteName.addEvent2,
-    //   page: () => const AddEvent2Screen(),
-    // ),
+    GetPage(
+      name: RouteName.addEvent2,
+      page: () => AddEvent2Screen(
+        paket1: "",
+        paket2: "",
+        paket3: "",
+        paket4: "",
+        paket5: "",
+      ),
+    ),
     GetPage(
       name: RouteName.addEvent3,
       page: () => const AddEvent3Screen(),
@@ -89,6 +98,20 @@ class AppPages {
     //   name: RouteName.addEvent4,
     //   page: () => AddEventDetailScreen(),
     // ),
+    GetPage(
+      name: RouteName.editEvent1,
+      page: () => const EditEvent1Screen(),
+    ),
+    GetPage(
+      name: RouteName.editEvent2,
+      page: () => const EditEvent2Screen(
+        paket1: "",
+        paket2: "",
+        paket3: "",
+        paket4: "",
+        paket5: "",
+      ),
+    ),
     GetPage(
       name: RouteName.detailEventWo,
       page: () => const DetailEventScreen(),
@@ -100,6 +123,10 @@ class AppPages {
     GetPage(
       name: RouteName.addTaskWo,
       page: () => const AddTaskScreen(),
+    ),
+    GetPage(
+      name: RouteName.editTaskWo,
+      page: () => const EditTaskScreen(),
     ),
     GetPage(
       name: RouteName.detailTaskWo,

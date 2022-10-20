@@ -223,10 +223,12 @@ class _BodyState extends State<Body> {
           user = data;
         });
       } catch (e) {
-        Get.offAllNamed(RouteName.splash);
+        // Get.offAllNamed(RouteName.splash);
+        print("e");
         // Navigator.pushReplacementNamed(context, "/base-screen");
       }
-      if (user.roleName == "Client") {
+      try {
+        if (user.roleName == "Client") {
         Get.offAllNamed(RouteName.navigationClient);
         // Navigator.pushNamedAndRemoveUntil(
         //   context,
@@ -236,7 +238,7 @@ class _BodyState extends State<Body> {
 
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Berhasil Login")));
-      } else {
+        } else if (user.roleName == "WeddingOrganize") {
         Get.offAllNamed(RouteName.navigationWo);
         // Navigator.pushNamedAndRemoveUntil(
         //   context,
@@ -247,6 +249,15 @@ class _BodyState extends State<Body> {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Berhasil Login")));
       }
+      else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("email atau password salah")));
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Terdapat Kesalahan")));
+      }
+      
     }
 
     getUserProfile();

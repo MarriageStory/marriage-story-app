@@ -54,7 +54,8 @@ class _BodyState extends State<Body> {
         user = data;
       });
     } catch (e) {
-      Get.offAllNamed(RouteName.splash);
+      // Get.offAllNamed(RouteName.splash);
+      print("e");
       // Navigator.pushReplacementNamed(context, "/base-screen");
     }
   }
@@ -157,8 +158,7 @@ class _BodyState extends State<Body> {
                   height: 20,
                 ),
                 user.gencode == ""
-                    ?
-                  Row(
+                    ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
@@ -244,138 +244,138 @@ class _BodyState extends State<Body> {
                       )
                     : Column(
                         children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Acara",
-                      style: TextStyle(
-                        color: Color(0xff828282),
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                          ),                
-                FutureBuilder(
-                  future: _event,
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Acara",
+                                style: TextStyle(
+                                  color: Color(0xff828282),
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          FutureBuilder(
+                            future: _event,
                             builder:
                                 (context, AsyncSnapshot<EventsModel> snapshot) {
-                    var state = snapshot.connectionState;
-                    if (state != ConnectionState.done) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            // var event = snapshot.data?.data.first;
-                            var event = snapshot.data!.data[index];
+                              var state = snapshot.connectionState;
+                              if (state != ConnectionState.done) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                if (snapshot.hasData) {
+                                  return ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (context, index) {
+                                      // var event = snapshot.data?.data.first;
+                                      var event = snapshot.data!.data[index];
                                       if (event.gencode == user.gencode) {
-                              return InkWell(
-                                  onTap: () {
-                                    // Navigator.pushNamed(context, DetailTask.url,
-                                    //     arguments: schedule);
-                                              // Get.toNamed(
-                                              //     RouteName.detailEventClient,
-                                              //     arguments: event);
-                                  },
-                                  child: listItemEvent(event!));
-                            }
-                            return SizedBox();
-                          },
-                          itemCount: snapshot.data!.data.length,
-                        );
-                      } else if (snapshot.hasError) {
-                        return Center(
-                          child: Text(
-                            snapshot.error.toString(),
+                                        return InkWell(
+                                            onTap: () {
+                                              // Navigator.pushNamed(context, DetailTask.url,
+                                              //     arguments: schedule);
+                                              Get.toNamed(
+                                                  RouteName.detailEventClient,
+                                                  arguments: event);
+                                            },
+                                            child: listItemEvent(event!));
+                                      }
+                                      return SizedBox();
+                                    },
+                                    itemCount: snapshot.data!.data.length,
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text(
+                                      snapshot.error.toString(),
+                                    ),
+                                  );
+                                } else {
+                                  return Text('No Event');
+                                }
+                              }
+                            },
                           ),
-                        );
-                      } else {
-                        return Text('No Event');
-                      }
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Agenda Selanjutnya",
-                      style: TextStyle(
-                        color: Color(0xff828282),
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                FutureBuilder(
-                  future: _schedule,
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Agenda Selanjutnya",
+                                style: TextStyle(
+                                  color: Color(0xff828282),
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          FutureBuilder(
+                            future: _schedule,
                             builder: (context,
                                 AsyncSnapshot<SchedulesModel> snapshot) {
-                    var state = snapshot.connectionState;
-                    if (state != ConnectionState.done) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            // var event = snapshot.data?.data.first;
+                              var state = snapshot.connectionState;
+                              if (state != ConnectionState.done) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                if (snapshot.hasData) {
+                                  return ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (context, index) {
+                                      // var event = snapshot.data?.data.first;
                                       var schedule = snapshot.data!.data[index];
-                            // var schedule_2 = snapshot.data?.data.first;
+                                      // var schedule_2 = snapshot.data?.data.first;
 
                                       if (user.gencode == schedule.gencode) {
-                              return InkWell(
-                                  onTap: () {
-                                    // Navigator.pushNamed(context, DetailTask.url,
-                                    //     arguments: schedule);
+                                        return InkWell(
+                                            onTap: () {
+                                              // Navigator.pushNamed(context, DetailTask.url,
+                                              //     arguments: schedule);
                                               Get.toNamed(
                                                   RouteName.detailTaskClient,
                                                   arguments: schedule);
-                                  },
-                                  child: listItemSchedule(schedule!));
+                                            },
+                                            child: listItemSchedule(schedule!));
                                       }
                                       return SizedBox();
-                          },
-                          itemCount: snapshot.data!.data.length,
-                        );
-                      } else if (snapshot.hasError) {
-                        return Center(
-                          child: Text(
-                            snapshot.error.toString(),
+                                    },
+                                    itemCount: snapshot.data!.data.length,
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text(
+                                      snapshot.error.toString(),
+                                    ),
+                                  );
+                                } else {
+                                  return Text('No Schedule');
+                                }
+                              }
+                            },
                           ),
-                        );
-                      } else {
-                        return Text('No Schedule');
-                      }
-                    }
-                  },
-                ),
-              ],
-            ),
+                        ],
+                      ),
               ],
             ),
           ),
@@ -437,55 +437,61 @@ class _BodyState extends State<Body> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          view.paket1,
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
+                    view.paket1 != "-"
+                        ?
+                        Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Color(0xffFB6C90),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                view.paket1,
+                                style: TextStyle(
+                                  color: Color(0xffFB6C90),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                     SizedBox(
                       width: 4,
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          view.paket2,
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
+                    view.paket2 != "-"
+                        ?
+                        Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Color(0xffFB6C90),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                view.paket2,
+                                style: TextStyle(
+                                  color: Color(0xffFB6C90),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                     SizedBox(
                       width: 4,
                     ),
@@ -497,81 +503,90 @@ class _BodyState extends State<Body> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          view.paket3,
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
+                    view.paket3 != "-"
+                        ?
+                        Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Color(0xffFB6C90),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                view.paket3,
+                                style: TextStyle(
+                                  color: Color(0xffFB6C90),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                     SizedBox(
                       width: 4,
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          view.paket4,
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
+                    view.paket4 != "-"
+                        ?
+                        Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Color(0xffFB6C90),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                view.paket4,
+                                style: TextStyle(
+                                  color: Color(0xffFB6C90),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                     SizedBox(
                       width: 4,
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          view.paket5,
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
+                    view.paket5 != "-"
+                        ?
+                        Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Color(0xffFB6C90),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                view.paket5,
+                                style: TextStyle(
+                                  color: Color(0xffFB6C90),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                   ],
                 )
               ],
@@ -584,54 +599,61 @@ class _BodyState extends State<Body> {
 
   Widget listItemSchedule(ScheduleModel view) {
     String tanggal = DateFormat.yMd().format(view.tanggal);
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Color(0xffFFFFFF),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 3,
-            color: Color(0xff000000).withOpacity(0.25),
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Color(0xffFFFFFF),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 3,
+                color: Color(0xff000000).withOpacity(0.25),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  tanggal,
-                  style: TextStyle(
-                    color: Color(0xffBDBDBD),
-                    fontWeight: FontWeight.normal,
-                    fontSize: 12,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tanggal,
+                      style: TextStyle(
+                        color: Color(0xffBDBDBD),
+                        fontWeight: FontWeight.normal,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      view.namaKegiatan,
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
                 ),
                 Text(
-                  view.namaKegiatan,
+                  view.jam,
                   style: TextStyle(
-                    color: Color(0xff333333),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
+                    color: Color(0xffFB5490),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
                   ),
                 ),
               ],
             ),
-            Text(
-              view.jam,
-              style: TextStyle(
-                color: Color(0xffFB5490),
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+        SizedBox(
+          height: 10,
+        )
+      ],
     );
   }
 }

@@ -15,9 +15,12 @@ abstract class RouteName {
   static const addEvent2 = '/add-event-2';
   static const addEvent3 = '/add-event-3';
   static const addEvent4 = '/add-event-4';
+  static const editEvent1 = '/edit-event-1';
+  static const editEvent2 = '/edit-event-2';
   static const detailEventWo = '/detail-event-wo';
   static const taskWo = '/task-wo';
   static const addTaskWo = '/add-task-wo';
+  static const editTaskWo = '/edit-task-wo';
   static const detailTaskWo = '/detail-task-wo';
   static const paymentWo = '/payment-wo';
   static const detailPaymentWo = '/detail-payment-wo';

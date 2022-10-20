@@ -11,6 +11,7 @@ import 'package:marriage_story_app/service/auth_service.dart';
 import 'package:marriage_story_app/screens/client/home/home_client_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_event/detail_event_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -54,7 +55,8 @@ class _BodyState extends State<Body> {
         user = data;
       });
     } catch (e) {
-      Get.offAllNamed(RouteName.splash);
+      // Get.offAllNamed(RouteName.splash);
+      print("e");
       // Navigator.pushReplacementNamed(context, "/base-screen");
     }
   }
@@ -290,142 +292,6 @@ class _BodyState extends State<Body> {
                     ),
                   ],
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Container(
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(15),
-                //         color: const Color(0xffFFFFFF),
-                //         boxShadow: [
-                //           BoxShadow(
-                //             blurRadius: 4,
-                //             offset: const Offset(0, 0),
-                //             color: const Color(0xff000000).withOpacity(0.1),
-                //           ),
-                //         ],
-                //       ),
-                //       child: SizedBox(
-                //         width: 40.w,
-                //         height: 10.h,
-                //         child: Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: [
-                //             Text(
-                //               "Acara",
-                //               style: TextStyle(
-                //                 color: Color(0xff333333),
-                //                 fontWeight: FontWeight.w500,
-                //                 fontSize: 14,
-                //               ),
-                //             ),
-                //             SizedBox(
-                //               height: 8,
-                //             ),
-                //             FutureBuilder(
-                //               future: _event,
-                //               builder: (context,
-                //                   AsyncSnapshot<EventsModel> snapshot) {
-                //                 var state = snapshot.connectionState;
-                //                 if (state != ConnectionState.done) {
-                //                   return Center(
-                //                     child: CircularProgressIndicator(),
-                //                   );
-                //                 } else {
-                //                   if (snapshot.hasData) {
-                //                     int totalAcara = snapshot.data!.data.length;
-                //                     return Text(
-                //                       totalAcara.toString(),
-                //                       style: TextStyle(
-                //                         color: Color(0xffFB6C90),
-                //                         fontWeight: FontWeight.w800,
-                //                         fontSize: 14,
-                //                       ),
-                //                     );
-                //                   } else if (snapshot.hasError) {
-                //                     return Center(
-                //                       child: Text(
-                //                         snapshot.error.toString(),
-                //                       ),
-                //                     );
-                //                   } else {
-                //                     return Text('No Event');
-                //                   }
-                //                 }
-                //               },
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //     Container(
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(15),
-                //         color: Color(0xffFFFFFF),
-                //         boxShadow: [
-                //           BoxShadow(
-                //             blurRadius: 4,
-                //             offset: Offset(1, 1),
-                //             color: Color(0xff000000).withOpacity(0.25),
-                //           ),
-                //         ],
-                //       ),
-                //       child: Padding(
-                //         padding: const EdgeInsets.fromLTRB(25, 30, 100, 20),
-                //         child: Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: [
-                //             Text(
-                //               "Agenda",
-                //               style: TextStyle(
-                //                 color: Color(0xff333333),
-                //                 fontWeight: FontWeight.w500,
-                //                 fontSize: 14,
-                //               ),
-                //             ),
-                //             SizedBox(
-                //               height: 8,
-                //             ),
-                //             FutureBuilder(
-                //               future: _schedule,
-                //               builder: (context,
-                //                   AsyncSnapshot<SchedulesModel> snapshot) {
-                //                 var state = snapshot.connectionState;
-                //                 if (state != ConnectionState.done) {
-                //                   return Center(
-                //                     child: CircularProgressIndicator(),
-                //                   );
-                //                 } else {
-                //                   if (snapshot.hasData) {
-                //                     int totalAgenda =
-                //                         snapshot.data!.data.length;
-                //                     return Text(
-                //                       totalAgenda.toString(),
-                //                       style: TextStyle(
-                //                         color: Color(0xffFB6C90),
-                //                         fontWeight: FontWeight.w800,
-                //                         fontSize: 14,
-                //                       ),
-                //                     );
-                //                   } else if (snapshot.hasError) {
-                //                     return Center(
-                //                       child: Text(
-                //                         snapshot.error.toString(),
-                //                       ),
-                //                     );
-                //                   } else {
-                //                     return Text('No Event');
-                //                   }
-                //                 }
-                //               },
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     )
-                //   ],
-                // ),
-
                 SizedBox(
                   height: 5.h,
                 ),
@@ -496,196 +362,218 @@ class _BodyState extends State<Body> {
   }
 
   Widget listItem(EventModel view) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Color(0xffFFFFFF),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 4,
-            offset: Offset(1, 1),
-            color: Color(0xff000000).withOpacity(0.25),
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Color(0xffFFFFFF),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 4,
+                offset: Offset(1, 1),
+                color: Color(0xff000000).withOpacity(0.25),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Image.asset(
-              "assets/images/poster-1.png",
-              height: 95,
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
               children: [
-                Text(
-                  view.nameClient,
-                  style: TextStyle(
-                    color: Color(0xff333333),
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                  ),
-                ),
-                Text(
-                  view.date.toIso8601String(),
-                  style: TextStyle(
-                    color: Color(0xffBDBDBD),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                  ),
+                Image.asset(
+                  "assets/images/poster-1.png",
+                  height: 95,
                 ),
                 SizedBox(
-                  height: 10,
+                  width: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
+                    Text(
+                      view.nameClient,
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
                       ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Pre-wedding",
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
+                    ),
+                    Text(
+                      DateFormat.yMd().format(view.date),
+                      style: TextStyle(
+                        color: Color(0xffBDBDBD),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
                       ),
                     ),
                     SizedBox(
-                      width: 4,
+                      height: 10,
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        view.paket1 != "-"
+                            ?
+                        Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 3,
+                                  horizontal: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Color(0xffFB6C90),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    view.paket1,
+                                    style: TextStyle(
+                                      color: Color(0xffFB6C90),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
+                        SizedBox(
+                          width: 4,
                         ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Engagement",
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
+                        view.paket2 != "-"
+                            ?
+                        Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 3,
+                                  horizontal: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Color(0xffFB6C90),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    view.paket2,
+                                    style: TextStyle(
+                                      color: Color(0xffFB6C90),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
+                        SizedBox(
+                          width: 4,
                         ),
-                      ),
+                      ],
                     ),
                     SizedBox(
-                      width: 4,
+                      height: 4,
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        view.paket3 != "-"
+                            ?
+                        Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 3,
+                                  horizontal: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Color(0xffFB6C90),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    view.paket3,
+                                    style: TextStyle(
+                                      color: Color(0xffFB6C90),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        view.paket4 != "-"
+                            ?
+                        Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 3,
+                                  horizontal: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Color(0xffFB6C90),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    view.paket4,
+                                    style: TextStyle(
+                                      color: Color(0xffFB6C90),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        view.paket5 != "-"
+                            ?
+                        Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 3,
+                                  horizontal: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Color(0xffFB6C90),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    view.paket5,
+                                    style: TextStyle(
+                                      color: Color(0xffFB6C90),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
+                      ],
+                    )
                   ],
                 ),
-                SizedBox(
-                  height: 4,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Akad",
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 4,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Panggih",
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 4,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Resepsi",
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
               ],
             ),
-          ],
+          ),
         ),
-      ),
+        SizedBox(
+          height: 10,
+        )
+      ],
     );
   }
 }

@@ -79,22 +79,22 @@
 //     }
 //   }
 
-//   static Future<bool> deleteSchedule(int id) async {
-//     final prefs = await SharedPreferences.getInstance();
-//     final token = prefs.getString("token");
+// static Future<bool> deleteSchedule(int id) async {
+//   final prefs = await SharedPreferences.getInstance();
+//   final token = prefs.getString("token");
 
-//     var response = await http
-//         .delete(Uri.parse(baseURLAPI + "schedules/" + id.toString()), headers: {
-//       'Content-Type': 'application/json; charset=UTF-8',
-//       'Authorization': "Bearer $token",
-//     });
+//   var response = await http
+//       .delete(Uri.parse(baseURLAPI + "schedules/" + id.toString()), headers: {
+//     'Content-Type': 'application/json; charset=UTF-8',
+//     'Authorization': "Bearer $token",
+//   });
 
-//     if (response.statusCode == 200) {
-//       return true;
-//     } else {
-//       throw Exception("Gagal Terhubung ke Server");
-//     }
+//   if (response.statusCode == 200) {
+//     return true;
+//   } else {
+//     throw Exception("Gagal Terhubung ke Server");
 //   }
+// }
 // }
 
 
@@ -139,7 +139,7 @@ class ScheduleService {
     };
 
     var response = await http.post(
-        Uri.parse(baseURLAPI + "events1/" + idEvent.toString()),
+        Uri.parse(baseURLAPI + "events/" + idEvent.toString() + "/schedule"),
         body: jsonEncode(schedule),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
@@ -158,6 +158,11 @@ class ScheduleService {
     final token = prefs.getString("token");
 
     var schedule = <String, dynamic>{
+      "nama_kegiatan": data["nama_kegiatan"],
+      "detail_kegiatan": data["detail_kegiatan"],
+      "tanggal": data["tanggal"],
+      "tempat": data["tempat"],
+      "jam": data["jam"], 
       "status": data["status"],
     };
 
@@ -168,6 +173,24 @@ class ScheduleService {
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': "Bearer $token",
         });
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      // throw Exception("Gagal Terhubung ke Server");
+      throw Exception(id.toString());
+    }
+  }
+
+  static Future<bool> deleteSchedule(int id) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token");
+
+    var response = await http
+        .delete(Uri.parse(baseURLAPI + "schedules/" + id.toString()), headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': "Bearer $token",
+    });
 
     if (response.statusCode == 200) {
       return true;

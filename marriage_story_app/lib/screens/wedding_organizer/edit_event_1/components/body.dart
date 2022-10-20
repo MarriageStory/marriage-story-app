@@ -172,9 +172,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/add_event_1/components/background.dart';
-
-import 'package:marriage_story_app/screens/wedding_organizer/add_event_2/add_event_2_screen.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/edit_event_1/components/background.dart';
+import 'package:marriage_story_app/model/event_model.dart';
+import 'package:marriage_story_app/screens/wedding_organizer/edit_event_2/edit_event_2_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -189,10 +189,21 @@ class _BodyState extends State<Body> {
   String paket3 = "-";
   String paket4 = "-";
   String paket5 = "-";
+  bool inisialisasi = false;
 
   @override
   Widget build(BuildContext context) {
+    final event = ModalRoute.of(context)!.settings.arguments as EventModel;
     Size size = MediaQuery.of(context).size;
+    if (event != Null && inisialisasi == false) {
+      paket1 = event.paket1;
+      paket2 = event.paket2;
+      paket3 = event.paket3;
+      paket4 = event.paket4;
+      paket5 = event.paket5;
+      inisialisasi = true;
+    }
+
     return Background(
       child: Container(
         height: size.height,
@@ -216,7 +227,7 @@ class _BodyState extends State<Body> {
                 height: 10,
               ),
               Text(
-                "Tambah",
+                "Edit",
                 style: TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w700,
@@ -398,17 +409,24 @@ class _BodyState extends State<Body> {
                     child: TextButton(
                       // onPressed: ()=>Get.toNamed(RouteName.addEvent2),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AddEvent2Screen(
-                                    paket1: paket1,
-                                    paket2: paket2,
-                                    paket3: paket3,
-                                    paket4: paket4,
-                                    paket5: paket5,
-                                  )),
-                        );
+                        Navigator.pushNamed(
+                            context,
+                            // MaterialPageRoute(
+                            //     builder: (context) => EditEvent2Screen(
+                            //           paket1: paket1,
+                            //           paket2: paket2,
+                            //           paket3: paket3,
+                            //           paket4: paket4,
+                            //           paket5: paket5,
+                            //         )), arguments: event
+                            EditEvent2Screen(
+                              paket1: paket1,
+                              paket2: paket2,
+                              paket3: paket3,
+                              paket4: paket4,
+                              paket5: paket5,
+                            ).url,
+                            arguments: event);
                       },
                       child: const Text(
                         "Selanjutnya",

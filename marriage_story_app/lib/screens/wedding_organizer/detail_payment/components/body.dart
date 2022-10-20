@@ -37,372 +37,374 @@ class _BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
 
     return Background(
-      child: Container(
-        height: size.height,
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 32,
-            left: 20,
-            right: 20,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                    ),
-                    onPressed: () => Get.back(),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.menu,
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Detail",
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
-                ),
-              ),
-              Text(
-                'Pembayaran',
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                width: size.width,
-                height: 160,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Text(
-                          //   "Kode 170564765",
-                          //   style: TextStyle(
-                          //     color: Color(0xffFFFFFF),
-                          //     fontWeight: FontWeight.w600,
-                          //     fontSize: 14,
-                          //   ),
-                          // ),
-                        ],
+      child: SingleChildScrollView(
+        child: Container(
+          height: size.height,
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 32,
+              left: 20,
+              right: 20,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
                       ),
-                      SizedBox(
-                        height: 16,
+                      onPressed: () => Get.back(),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.menu,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            "Pernikahan",
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Detail",
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 25,
+                  ),
+                ),
+                Text(
+                  'Pembayaran',
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 25,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  width: size.width,
+                  height: 160,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Text(
+                            //   "Kode 170564765",
+                            //   style: TextStyle(
+                            //     color: Color(0xffFFFFFF),
+                            //     fontWeight: FontWeight.w600,
+                            //     fontSize: 14,
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              "Pernikahan",
+                              style: TextStyle(
+                                color: Color(0xffFFFFFF),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                              ),
                             ),
-                          ),
-                          FutureBuilder(
-                            future: _event,
-                            builder:
-                                (context, AsyncSnapshot<EventsModel> snapshot) {
-                              var state = snapshot.connectionState;
-                              if (state != ConnectionState.done) {
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              } else {
-                                if (snapshot.hasData) {
-                                  return ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemBuilder: (context, index) {
-                                      // var event = snapshot.data?.data.first;
-                                      var event = snapshot.data!.data[index];
-                                      // namaClient = event.nameClient;
-                                      return Column(
-                                        children: [
-                                          Text(
-                                            event.nameClient,
-                                            style: TextStyle(
-                                              color: Color(0xffFFFFFF),
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 25,
-                                            ),
-                                          ),
-                                          Text(
-                                            tanggal,
-                                            style: TextStyle(
-                                              color: Color(0xffFFFFFF),
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                    itemCount: snapshot.data!.data.length,
-                                  );
-                                } else if (snapshot.hasError) {
+                            FutureBuilder(
+                              future: _event,
+                              builder: (context,
+                                  AsyncSnapshot<EventsModel> snapshot) {
+                                var state = snapshot.connectionState;
+                                if (state != ConnectionState.done) {
                                   return Center(
-                                    child: Text(
-                                      snapshot.error.toString(),
-                                    ),
+                                    child: CircularProgressIndicator(),
                                   );
                                 } else {
-                                  return Text('No Schedule');
+                                  if (snapshot.hasData) {
+                                    return ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        // var event = snapshot.data?.data.first;
+                                        var event = snapshot.data!.data[index];
+                                        // namaClient = event.nameClient;
+                                        return Column(
+                                          children: [
+                                            Text(
+                                              event.nameClient,
+                                              style: TextStyle(
+                                                color: Color(0xffFFFFFF),
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 25,
+                                              ),
+                                            ),
+                                            Text(
+                                              tanggal,
+                                              style: TextStyle(
+                                                color: Color(0xffFFFFFF),
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                      itemCount: snapshot.data!.data.length,
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return Center(
+                                      child: Text(
+                                        snapshot.error.toString(),
+                                      ),
+                                    );
+                                  } else {
+                                    return Text('No Schedule');
+                                  }
                                 }
-                              }
-                            },
+                              },
+                            ),
+                            // Text(
+                            //   event.nameClient,
+                            //   style: TextStyle(
+                            //     color: Color(0xffFFFFFF),
+                            //     fontWeight: FontWeight.w700,
+                            //     fontSize: 25,
+                            //   ),
+                            // ),
+                            // Text(
+                            //   event.date.toString(),
+                            //   style: TextStyle(
+                            //     color: Color(0xffFFFFFF),
+                            //     fontWeight: FontWeight.w600,
+                            //     fontSize: 14,
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xffFB6C90),
+                        Color(0xffFB8DA0),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 3,
+                        horizontal: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          color: Color(0xffFB6C90),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Pre-wedding",
+                          style: TextStyle(
+                            color: Color(0xffFB6C90),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 11,
                           ),
-                          // Text(
-                          //   event.nameClient,
-                          //   style: TextStyle(
-                          //     color: Color(0xffFFFFFF),
-                          //     fontWeight: FontWeight.w700,
-                          //     fontSize: 25,
-                          //   ),
-                          // ),
-                          // Text(
-                          //   event.date.toString(),
-                          //   style: TextStyle(
-                          //     color: Color(0xffFFFFFF),
-                          //     fontWeight: FontWeight.w600,
-                          //     fontSize: 14,
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color(0xffFB6C90),
-                      Color(0xffFB8DA0),
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 3,
-                      horizontal: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Color(0xffFB6C90),
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Pre-wedding",
-                        style: TextStyle(
-                          color: Color(0xffFB6C90),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 11,
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 3,
-                      horizontal: 6,
+                    SizedBox(
+                      width: 4,
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Color(0xffFB6C90),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 3,
+                        horizontal: 6,
                       ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Engagement",
-                        style: TextStyle(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
                           color: Color(0xffFB6C90),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 11,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Engagement",
+                          style: TextStyle(
+                            color: Color(0xffFB6C90),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 11,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 3,
-                      horizontal: 6,
+                    SizedBox(
+                      width: 4,
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Color(0xffFB6C90),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 3,
+                        horizontal: 6,
                       ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Akad",
-                        style: TextStyle(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
                           color: Color(0xffFB6C90),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 11,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Akad",
+                          style: TextStyle(
+                            color: Color(0xffFB6C90),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 11,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 3,
-                      horizontal: 6,
+                    SizedBox(
+                      width: 4,
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Color(0xffFB6C90),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 3,
+                        horizontal: 6,
                       ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Panggih",
-                        style: TextStyle(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
                           color: Color(0xffFB6C90),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 11,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Panggih",
+                          style: TextStyle(
+                            color: Color(0xffFB6C90),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 11,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 3,
-                      horizontal: 6,
+                    SizedBox(
+                      width: 4,
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Color(0xffFB6C90),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 3,
+                        horizontal: 6,
                       ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Resepsi",
-                        style: TextStyle(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
                           color: Color(0xffFB6C90),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 11,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Resepsi",
+                          style: TextStyle(
+                            color: Color(0xffFB6C90),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 11,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                "Total Pembayaran :",
-                style: TextStyle(
-                  color: Color(0xffBDBDBD),
-                  fontWeight: FontWeight.normal,
-                  fontSize: 14,
+                  ],
                 ),
-              ),
-              Text(
-                formatAngka.convertToIdr(
-                    int.parse(payment.totalPembayaran.toString()), 2),
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16,
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                "Transaksi Pembayaran",
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.normal,
-                  fontSize: 14,
+                Text(
+                  "Total Pembayaran :",
+                  style: TextStyle(
+                    color: Color(0xffBDBDBD),
+                    fontWeight: FontWeight.normal,
+                    fontSize: 14,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
+                Text(
+                  formatAngka.convertToIdr(
+                      int.parse(payment.totalPembayaran.toString()), 2),
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontWeight: FontWeight.w800,
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  "Transaksi Pembayaran",
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontWeight: FontWeight.normal,
+                    fontSize: 14,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
 
-              // payment.paymentDetail.length != 0
-              //     ? ListView.builder(
-              //         physics: NeverScrollableScrollPhysics(),
-              //         shrinkWrap: true,
-              //         scrollDirection: Axis.vertical,
-              //         itemBuilder: (context, index) {
-              //           var payment_detail = payment.paymentDetail[index];
+                // payment.paymentDetail.length != 0
+                //     ? ListView.builder(
+                //         physics: NeverScrollableScrollPhysics(),
+                //         shrinkWrap: true,
+                //         scrollDirection: Axis.vertical,
+                //         itemBuilder: (context, index) {
+                //           var payment_detail = payment.paymentDetail[index];
 
-              //           return listItem(payment_detail);
-              //         },
-              //         itemCount: payment.paymentDetail.length,
-              //       )
-              //     : Container(
-              //         margin: const EdgeInsets.only(top: 20),
-              //         child: const Center(
-              //           child: Text("Detail Pembayaran Masih Kosong"),
-              //         ),
-              //       ),
-              //siniiiii
+                //           return listItem(payment_detail);
+                //         },
+                //         itemCount: payment.paymentDetail.length,
+                //       )
+                //     : Container(
+                //         margin: const EdgeInsets.only(top: 20),
+                //         child: const Center(
+                //           child: Text("Detail Pembayaran Masih Kosong"),
+                //         ),
+                //       ),
+                //siniiiii
 
-              //siniiiiii
-            ],
+                //siniiiiii
+              ],
+            ),
           ),
         ),
       ),

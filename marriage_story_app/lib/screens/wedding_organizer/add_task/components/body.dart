@@ -7,6 +7,7 @@ import 'package:marriage_story_app/screens/wedding_organizer/home/home_screen.da
 import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -64,253 +65,257 @@ class _BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
 
     return Background(
-      child: Container(
-        height: size.height,
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 32,
-            left: 20,
-            right: 20,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                ),
-                onPressed: () => Get.back(),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Tambah",
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
-                ),
-              ),
-              Text(
-                'Agenda',
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Nama Tugas",
-                    hintStyle: const TextStyle(
-                      color: Color(0xff828282),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
+      child: SingleChildScrollView(
+        child: Container(
+          height: size.height,
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 32,
+              left: 20,
+              right: 20,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
                   ),
-                  style: const TextStyle(
-                    color: Color(0xff828282),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                  controller: _nameTaskController,
+                  onPressed: () => Get.back(),
                 ),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              // Container(
-              //   decoration: BoxDecoration(
-              //     color: Colors.transparent,
-              //   ),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //       hintText: "Tanggal",
-              //       hintStyle: const TextStyle(
-              //         color: Color(0xff828282),
-              //         fontWeight: FontWeight.w500,
-              //         fontSize: 14,
-              //       ),
-              //     ),
-              //     style: const TextStyle(
-              //       color: Color(0xff828282),
-              //       fontWeight: FontWeight.w500,
-              //       fontSize: 14,
-              //     ),
-              //     controller: _dateController,
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 16,
-              // ),
-              Container(
-                // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
-                child: Column(children: [
-                  dateTime(
-                    // labelText: "Date",
-                    valueText: cekTgl != false ? tanggal.toString() : "Tanggal",
-                    valueStyle: valueStyle,
-                    onPressed: () {
-                      _selectDate(context);
-                    },
-                  ),
-                ]),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Container(
-                // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
-                child: Column(children: [
-                  dateTime(
-                    // labelText: "Date",
-                    valueText: cekJam != false ? _timeController.text : "Waktu",
-                    valueStyle: valueStyle,
-                    onPressed: () {
-                      showTime();
-                    },
-                  ),
-                ]),
-              ),
-              // SizedBox(
-              //   height: 16,
-              // ),
-              // Container(
-              //   decoration: BoxDecoration(
-              //     color: Colors.transparent,
-              //   ),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //       hintText: "Waktu",
-              //       hintStyle: const TextStyle(
-              //         color: Color(0xff828282),
-              //         fontWeight: FontWeight.w500,
-              //         fontSize: 14,
-              //       ),
-              //     ),
-              //     style: const TextStyle(
-              //       color: Color(0xff828282),
-              //       fontWeight: FontWeight.w500,
-              //       fontSize: 14,
-              //     ),
-              //     controller: _timeController,
-              //   ),
-              // ),
-              SizedBox(
-                height: 16,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
+                SizedBox(
+                  height: 10,
                 ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Tempat",
-                    hintStyle: const TextStyle(
-                      color: Color(0xff828282),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
+                Text(
+                  "Tambah",
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 25,
                   ),
-                  style: const TextStyle(
-                    color: Color(0xff828282),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                  controller: _placeController,
                 ),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Detail Tugas",
-                    hintStyle: const TextStyle(
-                      color: Color(0xff828282),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
+                Text(
+                  'Agenda',
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 25,
                   ),
-                  style: const TextStyle(
-                    color: Color(0xff828282),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                  controller: _detailTaskController,
                 ),
-              ),
-              SizedBox(
-                height: 100,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    width: 180,
-                    height: 45,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xffFB6C90),
-                          Color(0xffFB8DA0),
-                        ],
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Nama Tugas",
+                      hintStyle: const TextStyle(
+                        color: Color(0xff828282),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
                       ),
-                      borderRadius: BorderRadius.circular(15),
                     ),
-                    child: TextButton(
-                      onPressed: () async {
-                        var body = <String, dynamic>{
-                          'nama_kegiatan': _nameTaskController.text,
-                          'detail_kegiatan': _detailTaskController.text,
-                          'tanggal': _dateController.text,
-                          'tempat': _placeController.text,
-                          'jam': _timeController.text,
-                          'status': "pending",
-                          'gencode': event.gencode,
-                        };
+                    style: const TextStyle(
+                      color: Color(0xff828282),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    controller: _nameTaskController,
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                // Container(
+                //   decoration: BoxDecoration(
+                //     color: Colors.transparent,
+                //   ),
+                //   child: TextFormField(
+                //     decoration: InputDecoration(
+                //       hintText: "Tanggal",
+                //       hintStyle: const TextStyle(
+                //         color: Color(0xff828282),
+                //         fontWeight: FontWeight.w500,
+                //         fontSize: 14,
+                //       ),
+                //     ),
+                //     style: const TextStyle(
+                //       color: Color(0xff828282),
+                //       fontWeight: FontWeight.w500,
+                //       fontSize: 14,
+                //     ),
+                //     controller: _dateController,
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 16,
+                // ),
+                Container(
+                  // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
+                  child: Column(children: [
+                    dateTime(
+                      // labelText: "Date",
+                      valueText: cekTgl != false
+                          ? DateFormat.yMd().format(tanggal)
+                          : "Tanggal",
+                      valueStyle: valueStyle,
+                      onPressed: () {
+                        _selectDate(context);
+                      },
+                    ),
+                  ]),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
+                  child: Column(children: [
+                    dateTime(
+                      // labelText: "Date",
+                      valueText:
+                          cekJam != false ? _timeController.text : "Waktu",
+                      valueStyle: valueStyle,
+                      onPressed: () {
+                        showTime();
+                      },
+                    ),
+                  ]),
+                ),
+                // SizedBox(
+                //   height: 16,
+                // ),
+                // Container(
+                //   decoration: BoxDecoration(
+                //     color: Colors.transparent,
+                //   ),
+                //   child: TextFormField(
+                //     decoration: InputDecoration(
+                //       hintText: "Waktu",
+                //       hintStyle: const TextStyle(
+                //         color: Color(0xff828282),
+                //         fontWeight: FontWeight.w500,
+                //         fontSize: 14,
+                //       ),
+                //     ),
+                //     style: const TextStyle(
+                //       color: Color(0xff828282),
+                //       fontWeight: FontWeight.w500,
+                //       fontSize: 14,
+                //     ),
+                //     controller: _timeController,
+                //   ),
+                // ),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Tempat",
+                      hintStyle: const TextStyle(
+                        color: Color(0xff828282),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: Color(0xff828282),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    controller: _placeController,
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Detail Tugas",
+                      hintStyle: const TextStyle(
+                        color: Color(0xff828282),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: Color(0xff828282),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    controller: _detailTaskController,
+                  ),
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: 180,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xffFB6C90),
+                            Color(0xffFB8DA0),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: TextButton(
+                        onPressed: () async {
+                          var body = <String, dynamic>{
+                            'nama_kegiatan': _nameTaskController.text,
+                            'detail_kegiatan': _detailTaskController.text,
+                            'tanggal': _dateController.text,
+                            'tempat': _placeController.text,
+                            'jam': _timeController.text,
+                            'status': "pending",
+                            'gencode': event.gencode,
+                          };
 
-                        try {
-                          await ScheduleService.createNewSchedule(
-                                  event.id, body)
-                              .then((response) {
-                            if (response == true) {
-                              Get.toNamed(RouteName.navigationWo);
+                          try {
+                            await ScheduleService.createNewSchedule(
+                                    event.id, body)
+                                .then((response) {
+                              if (response == true) {
+                                Get.toNamed(RouteName.navigationWo);
 
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      backgroundColor: Colors.green,
-                                      content: Text(
-                                          'You have successfully create a detail payment')));
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      backgroundColor: Colors.red,
-                                      content: Text('Terdapat Kesalahan !')));
-                            }
-                          });
-                        } catch (e) {
-                          print(e);
-                        }
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        backgroundColor: Colors.green,
+                                        content: Text(
+                                            'You have successfully create a detail payment')));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content: Text('Terdapat Kesalahan !')));
+                              }
+                            });
+                          } catch (e) {
+                            print(e);
+                          }
 
-                        // await ScheduleService.createNewSchedule(event.id, body)
-                        //     .then((value) {
-                        //   Get.toNamed(RouteName.navigationWo);
+                          // await ScheduleService.createNewSchedule(event.id, body)
+                          //     .then((value) {
+                          //   Get.toNamed(RouteName.navigationWo);
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(
@@ -319,25 +324,26 @@ class _BodyState extends State<Body> {
                           //     ),
                           //   ),
                           // );
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //       const SnackBar(
-                        //           content: Text(
-                        //               'You have successfully create a scedule')));
-                        // });
-                      },
-                      child: const Text(
-                        "Tambah",
-                        style: TextStyle(
-                          color: Color(0xffFFFFFF),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
+                          //   ScaffoldMessenger.of(context).showSnackBar(
+                          //       const SnackBar(
+                          //           content: Text(
+                          //               'You have successfully create a scedule')));
+                          // });
+                        },
+                        child: const Text(
+                          "Tambah",
+                          style: TextStyle(
+                            color: Color(0xffFFFFFF),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
