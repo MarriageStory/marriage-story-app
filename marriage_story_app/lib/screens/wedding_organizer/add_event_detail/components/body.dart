@@ -35,11 +35,6 @@ class Body extends StatelessWidget {
       required this.catatan})
       : super(key: key);
 
-//   @override
-//   State<Body> createState() => _BodyState();
-// }
-
-// class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -62,16 +57,19 @@ class Body extends StatelessWidget {
                     Icons.arrow_back,
                   ),
                   onPressed: () => Get.back(),
+
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
                   "Tambah",
+
                   style: TextStyle(
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w700,
                     fontSize: 25,
+
                   ),
                 ),
                 Text(
@@ -138,9 +136,11 @@ class Body extends StatelessWidget {
                               ),
                             ),
                           ],
+
                         ),
                       ],
                     ),
+
                   ),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -160,133 +160,149 @@ class Body extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    paket1 != "-"
+                        ?
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          paket1,
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Color(0xffFB6C90),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                paket1,
+                                style: TextStyle(
+                                  color: Color(0xffFB6C90),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                     SizedBox(
                       width: 4,
                     ),
+                    paket2 != "-"
+                        ?
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          paket2,
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Color(0xffFB6C90),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                paket2,
+                                style: TextStyle(
+                                  color: Color(0xffFB6C90),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                     SizedBox(
                       width: 4,
                     ),
+                    paket3 != "-"
+                        ?
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          paket3,
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Color(0xffFB6C90),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                paket3,
+                                style: TextStyle(
+                                  color: Color(0xffFB6C90),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                     SizedBox(
                       width: 4,
                     ),
+                    paket4 != "-"
+                        ?
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          paket4,
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Color(0xffFB6C90),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                paket4,
+                                style: TextStyle(
+                                  color: Color(0xffFB6C90),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                     SizedBox(
                       width: 4,
                     ),
+                    paket5 != "-"
+                        ?
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Color(0xffFB6C90),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          paket5,
-                          style: TextStyle(
-                            color: Color(0xffFB6C90),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: Color(0xffFB6C90),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                paket5,
+                                style: TextStyle(
+                                  color: Color(0xffFB6C90),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
+
                   ],
                 ),
                 SizedBox(
@@ -306,6 +322,7 @@ class Body extends StatelessWidget {
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w800,
                     fontSize: 16,
+
                   ),
                 ),
                 SizedBox(
@@ -319,6 +336,7 @@ class Body extends StatelessWidget {
                     fontSize: 14,
                   ),
                 ),
+
                 Text(
                   formatAngka.convertToIdr(int.parse(totalPembayaran), 2),
                   style: TextStyle(

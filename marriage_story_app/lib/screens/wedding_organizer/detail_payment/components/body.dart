@@ -127,8 +127,10 @@ class _BodyState extends State<Body> {
                             ),
                             FutureBuilder(
                               future: _event,
-                              builder:
-                                  (context, AsyncSnapshot<EventsModel> snapshot) {
+
+                              builder: (context,
+                                  AsyncSnapshot<EventsModel> snapshot) {
+
                                 var state = snapshot.connectionState;
                                 if (state != ConnectionState.done) {
                                   return Center(

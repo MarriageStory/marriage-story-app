@@ -5,6 +5,7 @@ import 'package:marriage_story_app/screens/wedding_organizer/add_event_2/compone
 import 'package:marriage_story_app/components/dateTime.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_detail/add_event_detail_screen.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   final String paket1;
@@ -174,7 +175,9 @@ class _BodyState extends State<Body> {
                     dateTime(
                       // labelText: "Date",
                       valueText: cekTgl != false
-                          ? tanggal.toString()
+
+                          ? DateFormat.yMd().format(tanggal)
+
                           : "Tanggal Agenda",
                       valueStyle: valueStyle,
                       onPressed: () {

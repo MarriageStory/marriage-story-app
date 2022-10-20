@@ -54,7 +54,8 @@ class _BodyState extends State<Body> {
         user = data;
       });
     } catch (e) {
-      Get.offAllNamed(RouteName.splash);
+      // Get.offAllNamed(RouteName.splash);
+      print("e");
       // Navigator.pushReplacementNamed(context, "/base-screen");
     }
   }
@@ -107,144 +108,6 @@ class _BodyState extends State<Body> {
                       fontSize: 25,
                     ),
                   ),
-                  // SizedBox(
-                  //   height: 30,
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     Container(
-                  //       padding: const EdgeInsets.symmetric(
-                  //         vertical: 3,
-                  //         horizontal: 6,
-                  //       ),
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.transparent,
-                  //         borderRadius: BorderRadius.circular(5),
-                  //         border: Border.all(
-                  //           color: Colors.white,
-                  //         ),
-                  //       ),
-                  //       child: Center(
-                  //         child: Text(
-                  //           "Pre-wedding",
-                  //           style: TextStyle(
-                  //             color: Colors.white,
-                  //             fontWeight: FontWeight.w500,
-                  //             fontSize: 11,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     SizedBox(
-                  //       width: 4,
-                  //     ),
-                  //     Container(
-                  //       padding: const EdgeInsets.symmetric(
-                  //         vertical: 3,
-                  //         horizontal: 6,
-                  //       ),
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.transparent,
-                  //         borderRadius: BorderRadius.circular(5),
-                  //         border: Border.all(
-                  //           color: Colors.white,
-                  //         ),
-                  //       ),
-                  //       child: Center(
-                  //         child: Text(
-                  //           "Engagement",
-                  //           style: TextStyle(
-                  //             color: Colors.white,
-                  //             fontWeight: FontWeight.w500,
-                  //             fontSize: 11,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     SizedBox(
-                  //       width: 4,
-                  //     ),
-                  //     Container(
-                  //       padding: const EdgeInsets.symmetric(
-                  //         vertical: 3,
-                  //         horizontal: 6,
-                  //       ),
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.transparent,
-                  //         borderRadius: BorderRadius.circular(5),
-                  //         border: Border.all(
-                  //           color: Colors.white,
-                  //         ),
-                  //       ),
-                  //       child: Center(
-                  //         child: Text(
-                  //           "Akad",
-                  //           style: TextStyle(
-                  //             color: Colors.white,
-                  //             fontWeight: FontWeight.w500,
-                  //             fontSize: 11,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     SizedBox(
-                  //       width: 4,
-                  //     ),
-                  //     Container(
-                  //       padding: const EdgeInsets.symmetric(
-                  //         vertical: 3,
-                  //         horizontal: 6,
-                  //       ),
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.transparent,
-                  //         borderRadius: BorderRadius.circular(5),
-                  //         border: Border.all(
-                  //           color: Colors.white,
-                  //         ),
-                  //       ),
-                  //       child: Center(
-                  //         child: Text(
-                  //           "Panggih",
-                  //           style: TextStyle(
-                  //             color: Colors.white,
-                  //             fontWeight: FontWeight.w500,
-                  //             fontSize: 11,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     SizedBox(
-                  //       width: 4,
-                  //     ),
-                  //     Container(
-                  //       padding: const EdgeInsets.symmetric(
-                  //         vertical: 3,
-                  //         horizontal: 6,
-                  //       ),
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.transparent,
-                  //         borderRadius: BorderRadius.circular(5),
-                  //         border: Border.all(
-                  //           color: Colors.white,
-                  //         ),
-                  //       ),
-                  //       child: Center(
-                  //         child: Text(
-                  //           "Resepsi",
-                  //           style: TextStyle(
-                  //             color: Colors.white,
-                  //             fontWeight: FontWeight.w500,
-                  //             fontSize: 11,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  // SizedBox(
-                  //   height: 60,
-                  // ),
                   FutureBuilder(
                     future: _event,
                     builder: (context, AsyncSnapshot<EventsModel> snapshot) {
@@ -289,20 +152,6 @@ class _BodyState extends State<Body> {
                   SizedBox(
                     height: 50,
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.end,
-                  //   crossAxisAlignment: CrossAxisAlignment.end,
-                  //   children: [
-                  //     Text(
-                  //       "Kode 12312314",
-                  //       style: TextStyle(
-                  //         color: Colors.white,
-                  //         fontSize: 14,
-                  //         fontWeight: FontWeight.w700,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                 ],
               ),
             ),
@@ -377,6 +226,8 @@ class _BodyState extends State<Body> {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            view.paket1 != "-"
+                ?
             Container(
               padding: const EdgeInsets.symmetric(
                 vertical: 3,
@@ -399,10 +250,13 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
-            ),
+                  )
+                : SizedBox(),
             SizedBox(
               width: 4,
             ),
+            view.paket2 != "-"
+                ?
             Container(
               padding: const EdgeInsets.symmetric(
                 vertical: 3,
@@ -425,10 +279,13 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
-            ),
+                  )
+                : SizedBox(),
             SizedBox(
               width: 4,
             ),
+            view.paket3 != "-"
+                ?
             Container(
               padding: const EdgeInsets.symmetric(
                 vertical: 3,
@@ -451,10 +308,13 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
-            ),
+                  )
+                : SizedBox(),
             SizedBox(
               width: 4,
             ),
+            view.paket4 != "-"
+                ?
             Container(
               padding: const EdgeInsets.symmetric(
                 vertical: 3,
@@ -477,10 +337,13 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
-            ),
+                  )
+                : SizedBox(),
             SizedBox(
               width: 4,
             ),
+            view.paket5 != "-"
+                ?
             Container(
               padding: const EdgeInsets.symmetric(
                 vertical: 3,
@@ -503,7 +366,8 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
-            ),
+                  )
+                : SizedBox(),
           ],
         ),
         SizedBox(

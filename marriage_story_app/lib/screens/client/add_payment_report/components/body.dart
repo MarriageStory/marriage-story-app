@@ -238,21 +238,23 @@ class _BodyState extends State<Body> {
                             await PaymentDetailService.createNewPaymentDetail(
                                     payment.id, data)
                                 .then((response) {
-                            if (response == true) {
-                              Get.toNamed(RouteName.navigationClient);
 
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      backgroundColor: Colors.green,
-                                      content: Text(
-                                          'You have successfully create a detail payment')));
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      backgroundColor: Colors.red,
-                                      content: Text('Terdapat Kesalahan !')));
-                            }
-                          });
+                              if (response == true) {
+                                Get.toNamed(RouteName.navigationClient);
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        backgroundColor: Colors.green,
+                                        content: Text(
+                                            'You have successfully create a detail payment')));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content: Text('Terdapat Kesalahan !')));
+                              }
+                            });
+
                           } catch (e) {
                             print(e);
                           }

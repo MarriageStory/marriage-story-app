@@ -7,6 +7,7 @@ import 'package:marriage_story_app/screens/wedding_organizer/home/home_screen.da
 import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -158,7 +159,11 @@ class _BodyState extends State<Body> {
                   child: Column(children: [
                     dateTime(
                       // labelText: "Date",
-                      valueText: cekTgl != false ? tanggal.toString() : "Tanggal",
+
+                      valueText: cekTgl != false
+                          ? DateFormat.yMd().format(tanggal)
+                          : "Tanggal",
+
                       valueStyle: valueStyle,
                       onPressed: () {
                         _selectDate(context);
@@ -174,7 +179,10 @@ class _BodyState extends State<Body> {
                   child: Column(children: [
                     dateTime(
                       // labelText: "Date",
-                      valueText: cekJam != false ? _timeController.text : "Waktu",
+
+                      valueText:
+                          cekJam != false ? _timeController.text : "Waktu",
+
                       valueStyle: valueStyle,
                       onPressed: () {
                         showTime();
@@ -312,14 +320,16 @@ class _BodyState extends State<Body> {
                           // await ScheduleService.createNewSchedule(event.id, body)
                           //     .then((value) {
                           //   Get.toNamed(RouteName.navigationWo);
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => NavbarWeddingOrganizer(
-                            //       index: 0,
-                            //     ),
-                            //   ),
-                            // );
+
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => NavbarWeddingOrganizer(
+                          //       index: 0,
+                          //     ),
+                          //   ),
+                          // );
+
                           //   ScaffoldMessenger.of(context).showSnackBar(
                           //       const SnackBar(
                           //           content: Text(
