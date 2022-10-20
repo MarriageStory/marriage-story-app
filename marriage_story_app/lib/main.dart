@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Nunito',
           ),
           // initialRoute: AppPages.initial,
-          initialRoute: RouteName.homeClient,
+          initialRoute: AppPages.initial,
           getPages: AppPages.pages,
         );
       },

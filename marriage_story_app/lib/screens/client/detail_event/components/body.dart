@@ -117,7 +117,6 @@ class _BodyState extends State<Body> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-
                               Text(
                                 "Kode " + event.gencode,
                                 style: TextStyle(
@@ -126,7 +125,6 @@ class _BodyState extends State<Body> {
                                   fontSize: 14,
                                 ),
                               ),
-
                             ],
                           ),
                           SizedBox(
@@ -144,9 +142,7 @@ class _BodyState extends State<Body> {
                                 ),
                               ),
                               Text(
-
                                 event.nameClient,
-
                                 style: TextStyle(
                                   color: Color(0xffFFFFFF),
                                   fontWeight: FontWeight.w700,
@@ -154,14 +150,11 @@ class _BodyState extends State<Body> {
                                 ),
                               ),
                               Text(
-
                                 tanggal,
-
                                 style: TextStyle(
                                   color: Color(0xffFFFFFF),
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14,
-Z
                                 ),
                               ),
                             ],
@@ -290,7 +283,7 @@ Z
                                   child: Center(
                                     child: Text(
                                       event.paket4,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color(0xffFB6C90),
                                         fontWeight: FontWeight.w500,
                                         fontSize: 11,
@@ -298,7 +291,7 @@ Z
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 4,
                                 )
                               ],
@@ -406,7 +399,6 @@ Z
                               color: Color(0xffFFFFFF),
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
-
                             ),
                           ),
                         ),
@@ -414,12 +406,10 @@ Z
                     ],
                   ),
                   SizedBox(
-
                     height: 20,
                   ),
                   Text(
                     "Catatan :",
-
                     style: TextStyle(
                       color: Color(0xffBDBDBD),
                       fontWeight: FontWeight.normal,
@@ -445,7 +435,6 @@ Z
                   //   ),
                   // ),
                   SizedBox(
-
                     height: 30,
                   ),
                 ],
@@ -456,5 +445,4 @@ Z
       ),
     );
   }
-
 }
