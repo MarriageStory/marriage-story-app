@@ -175,7 +175,9 @@ class _BodyState extends State<Body> {
                     dateTime(
                       // labelText: "Date",
                       valueText: cekTgl != false
+
                           ? DateFormat.yMd().format(tanggal)
+
                           : "Tanggal Agenda",
                       valueStyle: valueStyle,
                       onPressed: () {

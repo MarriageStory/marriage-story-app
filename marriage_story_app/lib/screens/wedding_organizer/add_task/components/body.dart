@@ -159,9 +159,11 @@ class _BodyState extends State<Body> {
                   child: Column(children: [
                     dateTime(
                       // labelText: "Date",
+
                       valueText: cekTgl != false
                           ? DateFormat.yMd().format(tanggal)
                           : "Tanggal",
+
                       valueStyle: valueStyle,
                       onPressed: () {
                         _selectDate(context);
@@ -177,8 +179,10 @@ class _BodyState extends State<Body> {
                   child: Column(children: [
                     dateTime(
                       // labelText: "Date",
+
                       valueText:
                           cekJam != false ? _timeController.text : "Waktu",
+
                       valueStyle: valueStyle,
                       onPressed: () {
                         showTime();
@@ -316,6 +320,7 @@ class _BodyState extends State<Body> {
                           // await ScheduleService.createNewSchedule(event.id, body)
                           //     .then((value) {
                           //   Get.toNamed(RouteName.navigationWo);
+
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(
@@ -324,6 +329,7 @@ class _BodyState extends State<Body> {
                           //     ),
                           //   ),
                           // );
+
                           //   ScaffoldMessenger.of(context).showSnackBar(
                           //       const SnackBar(
                           //           content: Text(

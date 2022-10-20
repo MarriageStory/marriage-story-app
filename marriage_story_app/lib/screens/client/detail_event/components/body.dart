@@ -117,6 +117,7 @@ class _BodyState extends State<Body> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+
                               Text(
                                 "Kode " + event.gencode,
                                 style: TextStyle(
@@ -125,6 +126,7 @@ class _BodyState extends State<Body> {
                                   fontSize: 14,
                                 ),
                               ),
+
                             ],
                           ),
                           SizedBox(
@@ -142,7 +144,9 @@ class _BodyState extends State<Body> {
                                 ),
                               ),
                               Text(
+
                                 event.nameClient,
+
                                 style: TextStyle(
                                   color: Color(0xffFFFFFF),
                                   fontWeight: FontWeight.w700,
@@ -150,11 +154,14 @@ class _BodyState extends State<Body> {
                                 ),
                               ),
                               Text(
+
                                 tanggal,
+
                                 style: TextStyle(
                                   color: Color(0xffFFFFFF),
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14,
+Z
                                 ),
                               ),
                             ],
@@ -399,6 +406,7 @@ class _BodyState extends State<Body> {
                               color: Color(0xffFFFFFF),
                               fontWeight: FontWeight.w500,
                               fontSize: 14,
+
                             ),
                           ),
                         ),
@@ -406,16 +414,19 @@ class _BodyState extends State<Body> {
                     ],
                   ),
                   SizedBox(
+
                     height: 20,
                   ),
                   Text(
                     "Catatan :",
+
                     style: TextStyle(
                       color: Color(0xffBDBDBD),
                       fontWeight: FontWeight.normal,
                       fontSize: 14,
                     ),
                   ),
+
                   Text(
                     event.note,
                     style: TextStyle(
@@ -424,6 +435,7 @@ class _BodyState extends State<Body> {
                       fontSize: 12,
                     ),
                   ),
+
                   // Text(
                   //   "Fotografer : Jono Samsudin",
                   //   style: TextStyle(
@@ -433,6 +445,7 @@ class _BodyState extends State<Body> {
                   //   ),
                   // ),
                   SizedBox(
+
                     height: 30,
                   ),
                 ],
@@ -443,4 +456,5 @@ class _BodyState extends State<Body> {
       ),
     );
   }
+
 }

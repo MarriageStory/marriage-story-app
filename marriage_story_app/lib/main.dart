@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             fontFamily: 'Nunito',
           ),
-          initialRoute: AppPages.initial,
+          // initialRoute: AppPages.initial,
+          initialRoute: RouteName.homeClient,
           getPages: AppPages.pages,
         );
       },

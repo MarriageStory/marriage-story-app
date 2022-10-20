@@ -238,6 +238,7 @@ class _BodyState extends State<Body> {
                             await PaymentDetailService.createNewPaymentDetail(
                                     payment.id, data)
                                 .then((response) {
+
                               if (response == true) {
                                 Get.toNamed(RouteName.navigationClient);
 
@@ -253,6 +254,7 @@ class _BodyState extends State<Body> {
                                         content: Text('Terdapat Kesalahan !')));
                               }
                             });
+
                           } catch (e) {
                             print(e);
                           }

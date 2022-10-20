@@ -82,6 +82,7 @@ class AppPages {
     ),
     GetPage(
       name: RouteName.addEvent2,
+
       page: () => AddEvent2Screen(
         paket1: "",
         paket2: "",

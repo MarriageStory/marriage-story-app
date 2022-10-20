@@ -57,16 +57,19 @@ class Body extends StatelessWidget {
                     Icons.arrow_back,
                   ),
                   onPressed: () => Get.back(),
+
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
                   "Tambah",
+
                   style: TextStyle(
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w700,
                     fontSize: 25,
+
                   ),
                 ),
                 Text(
@@ -133,9 +136,11 @@ class Body extends StatelessWidget {
                               ),
                             ),
                           ],
+
                         ),
                       ],
                     ),
+
                   ),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -297,6 +302,7 @@ class Body extends StatelessWidget {
                             ),
                           )
                         : SizedBox(),
+
                   ],
                 ),
                 SizedBox(
@@ -316,6 +322,7 @@ class Body extends StatelessWidget {
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w800,
                     fontSize: 16,
+
                   ),
                 ),
                 SizedBox(
@@ -329,6 +336,7 @@ class Body extends StatelessWidget {
                     fontSize: 14,
                   ),
                 ),
+
                 Text(
                   formatAngka.convertToIdr(int.parse(totalPembayaran), 2),
                   style: TextStyle(
