@@ -433,22 +433,22 @@ class _BodyState extends State<Body> {
                       fontSize: 14,
                     ),
                   ),
-                  const Text(
-                    "MC : Abdul Malik",
+                  Text(
+                    event.note,
                     style: TextStyle(
                       color: Color(0xff333333),
                       fontWeight: FontWeight.w500,
                       fontSize: 12,
                     ),
                   ),
-                  const Text(
-                    "Fotografer : Jono Samsudin",
-                    style: TextStyle(
-                      color: Color(0xff333333),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                    ),
-                  ),
+                  // const Text(
+                  //   "Fotografer : Jono Samsudin",
+                  //   style: TextStyle(
+                  //     color: Color(0xff333333),
+                  //     fontWeight: FontWeight.w500,
+                  //     fontSize: 12,
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 3.h,
                   ),
