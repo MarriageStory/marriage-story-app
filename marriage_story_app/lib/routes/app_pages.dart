@@ -8,7 +8,6 @@ import 'package:marriage_story_app/screens/client/home/home_client_screen.dart';
 import 'package:marriage_story_app/screens/client/payment/payment_client_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_1/add_event_1_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_2/add_event_2_screen.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/add_event_3/add_event_3_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/edit_event_1/edit_event_1_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/edit_event_2/edit_event_2_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_detail/add_event_detail_screen.dart';
@@ -82,7 +81,6 @@ class AppPages {
     ),
     GetPage(
       name: RouteName.addEvent2,
-
       page: () => AddEvent2Screen(
         paket1: "",
         paket2: "",
@@ -91,14 +89,6 @@ class AppPages {
         paket5: "",
       ),
     ),
-    GetPage(
-      name: RouteName.addEvent3,
-      page: () => const AddEvent3Screen(),
-    ),
-    // GetPage(
-    //   name: RouteName.addEvent4,
-    //   page: () => AddEventDetailScreen(),
-    // ),
     GetPage(
       name: RouteName.editEvent1,
       page: () => const EditEvent1Screen(),

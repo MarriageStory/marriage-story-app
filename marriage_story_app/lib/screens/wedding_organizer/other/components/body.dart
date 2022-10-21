@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/other/components/background.dart';
 import 'package:marriage_story_app/model/user_model.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:marriage_story_app/screens/sign_in/sign_in_screen.dart';
 
 class Body extends StatefulWidget {
   static const routeName = '/other-screen';
@@ -53,13 +52,13 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Background(
-      child: Container(
+    return Scaffold(
+      body: SizedBox(
         height: size.height,
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 64,
+          padding: EdgeInsets.only(
+            top: 10.h,
             left: 20,
             right: 20,
           ),
@@ -67,7 +66,7 @@ class _BodyState extends State<Body> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [
+                children: const [
                   Text(
                     "Lainnya",
                     style: TextStyle(
@@ -79,18 +78,18 @@ class _BodyState extends State<Body> {
                 ],
               ),
               SizedBox(
-                height: 60,
+                height: 7.h,
               ),
               Image.asset(
                 "assets/images/user-profile.png",
-                width: 100,
+                width: 25.w,
               ),
               SizedBox(
-                height: 16,
+                height: 2.h,
               ),
               Text(
                 user.name,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w700,
                   fontSize: 20,
@@ -98,23 +97,23 @@ class _BodyState extends State<Body> {
               ),
               Text(
                 role,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xffBDBDBD),
                   fontWeight: FontWeight.w500,
                   fontSize: 15,
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 5.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    height: 45,
+                    height: 5.h,
                     width: size.width * 0.43,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
@@ -137,10 +136,10 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                   Container(
-                    height: 45,
+                    height: 5.h,
                     width: size.width * 0.43,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [

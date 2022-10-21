@@ -2,12 +2,10 @@ import 'package:get/get.dart';
 import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/edit_event_detail/components/background.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.dart';
 import 'package:marriage_story_app/service/event_service.dart';
-import 'package:marriage_story_app/service/payment_service.dart';
-import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
 import 'package:marriage_story_app/components/formatAngka.dart';
 import 'package:intl/intl.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Body extends StatelessWidget {
   final String paket1;
@@ -46,13 +44,12 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Background(
-      child: Container(
-        height: size.height,
-        width: double.infinity,
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 32,
+          padding: EdgeInsets.only(
+            top: 5.h,
             left: 20,
             right: 20,
           ),
@@ -60,92 +57,46 @@ class Body extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back,
                 ),
                 onPressed: () => Get.back(),
               ),
               SizedBox(
-                height: 10,
+                height: 1.h,
               ),
-              Text(
-                "Edit",
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
-                ),
-              ),
-              Text(
-                'Acara',
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
+              Padding(
+                padding: EdgeInsets.only(left: 5.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Edit",
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
+                      ),
+                    ),
+                    Text(
+                      'Acara',
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 10.h,
               ),
               Container(
-                width: size.width,
-                height: 160,
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Text(
-                          //   "Kode 170564765",
-                          //   style: TextStyle(
-                          //     color: Color(0xffFFFFFF),
-                          //     fontWeight: FontWeight.w600,
-                          //     fontSize: 14,
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            "Pernikahan",
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                            ),
-                          ),
-                          Text(
-                            namaClient,
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontWeight: FontWeight.w700,
-                              fontSize: 25,
-                            ),
-                          ),
-                          Text(
-                            DateFormat.yMd().format(tanggal),
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                width: 100.w,
+                height: 20.h,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
@@ -155,9 +106,42 @@ class Body extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(15),
                 ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const Text(
+                        "Pernikahan",
+                        style: TextStyle(
+                          color: Color(0xffFFFFFF),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        namaClient,
+                        style: const TextStyle(
+                          color: Color(0xffFFFFFF),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 25,
+                        ),
+                      ),
+                      Text(
+                        DateFormat.yMd().format(tanggal),
+                        style: const TextStyle(
+                          color: Color(0xffFFFFFF),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
               SizedBox(
-                height: 16,
+                height: 2.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -177,7 +161,7 @@ class Body extends StatelessWidget {
                     child: Center(
                       child: Text(
                         paket1,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xffFB6C90),
                           fontWeight: FontWeight.w500,
                           fontSize: 11,
@@ -186,7 +170,7 @@ class Body extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 4,
+                    width: 2.w,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -203,7 +187,7 @@ class Body extends StatelessWidget {
                     child: Center(
                       child: Text(
                         paket2,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xffFB6C90),
                           fontWeight: FontWeight.w500,
                           fontSize: 11,
@@ -212,7 +196,7 @@ class Body extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 4,
+                    width: 2.w,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -229,7 +213,7 @@ class Body extends StatelessWidget {
                     child: Center(
                       child: Text(
                         paket3,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xffFB6C90),
                           fontWeight: FontWeight.w500,
                           fontSize: 11,
@@ -238,7 +222,7 @@ class Body extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 4,
+                    width: 2.w,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -255,7 +239,7 @@ class Body extends StatelessWidget {
                     child: Center(
                       child: Text(
                         paket4,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xffFB6C90),
                           fontWeight: FontWeight.w500,
                           fontSize: 11,
@@ -264,7 +248,7 @@ class Body extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 4,
+                    width: 2.w,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -281,7 +265,7 @@ class Body extends StatelessWidget {
                     child: Center(
                       child: Text(
                         paket5,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xffFB6C90),
                           fontWeight: FontWeight.w500,
                           fontSize: 11,
@@ -292,9 +276,9 @@ class Body extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 30,
+                height: 5.h,
               ),
-              Text(
+              const Text(
                 "Waktu Pelaksanaan :",
                 style: TextStyle(
                   color: Color(0xffBDBDBD),
@@ -304,16 +288,16 @@ class Body extends StatelessWidget {
               ),
               Text(
                 jam,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w800,
                   fontSize: 16,
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 2.h,
               ),
-              Text(
+              const Text(
                 "Total Pembayaran :",
                 style: TextStyle(
                   color: Color(0xffBDBDBD),
@@ -323,16 +307,16 @@ class Body extends StatelessWidget {
               ),
               Text(
                 formatAngka.convertToIdr(int.parse(totalPembayaran), 2),
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w800,
                   fontSize: 16,
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 2.h,
               ),
-              Text(
+              const Text(
                 "Catatan :",
                 style: TextStyle(
                   color: Color(0xffBDBDBD),
@@ -342,31 +326,23 @@ class Body extends StatelessWidget {
               ),
               Text(
                 catatan,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xff333333),
                   fontWeight: FontWeight.w500,
                   fontSize: 12,
                 ),
               ),
-              // Text(
-              //   "Fotografer : Jono Samsudin",
-              //   style: TextStyle(
-              //     color: Color(0xff333333),
-              //     fontWeight: FontWeight.w500,
-              //     fontSize: 12,
-              //   ),
-              // ),
               SizedBox(
-                height: 60,
+                height: 10.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    height: 45,
-                    width: 180,
+                    height: 5.h,
+                    width: 45.w,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [

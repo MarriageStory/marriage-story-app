@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:marriage_story_app/components/navbar_components.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/event/event_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/payment/payment_screen.dart';
@@ -65,7 +64,7 @@ class _NavbarWeddingOrganizerState extends State<NavbarWeddingOrganizer> {
         });
       },
       child: Container(
-        height: 60,
+        height: 10.h,
         width: MediaQuery.of(context).size.width / 4,
         decoration: index == _selectedIndex
             ? const BoxDecoration(

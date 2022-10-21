@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
-import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/edit_event_2/components/background.dart';
 import 'package:marriage_story_app/components/dateTime.dart';
-import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/edit_event_detail/add_event_detail_screen.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:intl/intl.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Body extends StatefulWidget {
   // Body({Key? key}) : super(key: key);
@@ -107,13 +106,13 @@ class _BodyState extends State<Body> {
       inisialisasi = true;
     }
 
-    return Background(
-      child: Container(
-        height: size.height,
-        width: double.infinity,
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 32,
+          padding: EdgeInsets.only(
+            top: 5.h,
             left: 20,
             right: 20,
           ),
@@ -121,34 +120,42 @@ class _BodyState extends State<Body> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back,
                 ),
                 onPressed: () => Get.back(),
               ),
               SizedBox(
-                height: 10,
+                height: 1.h,
               ),
-              Text(
-                "Edit",
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
-                ),
-              ),
-              Text(
-                'Acara',
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
+              Padding(
+                padding: EdgeInsets.only(left: 5.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Edit",
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
+                      ),
+                    ),
+                    Text(
+                      'Acara',
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 10.h,
               ),
-              Text(
+              const Text(
                 'Kelengkapan Acara',
                 style: TextStyle(
                   color: Color(0xff333333),
@@ -157,16 +164,16 @@ class _BodyState extends State<Body> {
                 ),
               ),
               SizedBox(
-                height: 24,
+                height: 2.h,
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Nama Pengantin",
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       color: Color(0xff828282),
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -181,11 +188,10 @@ class _BodyState extends State<Body> {
                 ),
               ),
               SizedBox(
-                height: 16,
+                height: 1.h,
               ),
-              Container(
-                // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
-                child: Column(children: [
+              Column(
+                children: [
                   dateTime(
                     // labelText: "Date",
                     valueText: cekTgl != true
@@ -196,14 +202,13 @@ class _BodyState extends State<Body> {
                       _selectDate(context, event.date);
                     },
                   ),
-                ]),
+                ],
               ),
               SizedBox(
-                height: 16,
+                height: 1.h,
               ),
-              Container(
-                // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
-                child: Column(children: [
+              Column(
+                children: [
                   dateTime(
                     // labelText: "Date",
                     valueText: _timeController.text,
@@ -212,19 +217,19 @@ class _BodyState extends State<Body> {
                       showTime();
                     },
                   ),
-                ]),
+                ],
               ),
               SizedBox(
-                height: 16,
+                height: 1.h,
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Tempat Agenda",
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       color: Color(0xff828282),
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -239,16 +244,16 @@ class _BodyState extends State<Body> {
                 ),
               ),
               SizedBox(
-                height: 16,
+                height: 1.h,
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Total Pembayaran",
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       color: Color(0xff828282),
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -263,16 +268,16 @@ class _BodyState extends State<Body> {
                 ),
               ),
               SizedBox(
-                height: 16,
+                height: 1.h,
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Catatan",
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       color: Color(0xff828282),
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -287,16 +292,16 @@ class _BodyState extends State<Body> {
                 ),
               ),
               SizedBox(
-                height: 100,
+                height: 10.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    height: 45,
-                    width: 180,
+                    height: 5.h,
+                    width: 45.w,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [

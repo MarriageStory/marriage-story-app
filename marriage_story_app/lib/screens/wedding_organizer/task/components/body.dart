@@ -6,9 +6,8 @@ import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/model/schedule_model.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/detail_task/detail_task_screen.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/add_task/add_task_screen.dart';
 import 'package:intl/intl.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -41,15 +40,13 @@ class _BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
     final eventDetail =
         ModalRoute.of(context)!.settings.arguments as EventModel;
-
     return Background(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 400,
-            width: double.infinity,
-            decoration: BoxDecoration(
+            height: 50.h,
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -60,8 +57,8 @@ class _BodyState extends State<Body> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: 64,
+              padding: EdgeInsets.only(
+                top: 5.h,
                 left: 20,
                 right: 20,
               ),
@@ -69,40 +66,48 @@ class _BodyState extends State<Body> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back,
                     ),
                     color: Color(0xffFFFFFF),
                     onPressed: () => Get.back(),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 1.h,
                   ),
-                  Text(
-                    "Semua",
-                    style: TextStyle(
-                      color: Color(0xffFFFFFF),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 25,
-                    ),
-                  ),
-                  Text(
-                    'Agenda',
-                    style: TextStyle(
-                      color: Color(0xffFFFFFF),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 25,
+                  Padding(
+                    padding: EdgeInsets.only(left: 5.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Semua",
+                          style: TextStyle(
+                            color: Color(0xffFFFFFF),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 25,
+                          ),
+                        ),
+                        Text(
+                          'Agenda',
+                          style: TextStyle(
+                            color: Color(0xffFFFFFF),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 5.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: 160,
-                        height: 100,
+                        width: 43.w,
+                        height: 15.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Color(0xffFFFFFF),
@@ -116,13 +121,15 @@ class _BodyState extends State<Body> {
                                   AsyncSnapshot<SchedulesModel> snapshot) {
                                 var state = snapshot.connectionState;
                                 if (state != ConnectionState.done) {
-                                  return Center(
+                                  return const Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 } else {
                                   if (snapshot.hasData) {
                                     return ListView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
+                                      padding: const EdgeInsets.all(0),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemBuilder: (context, index) {
@@ -136,24 +143,25 @@ class _BodyState extends State<Body> {
                                         if (count ==
                                             snapshot.data!.data.length) {
                                           count = 1;
-                                          return Container(
-                                            child: Row(children: [
-                                              SizedBox(
-                                                width: 75,
-                                              ),
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
                                               Text(
                                                 agendaTotal.toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Color(0xffFB5490),
                                                   fontWeight: FontWeight.w700,
                                                   fontSize: 20,
                                                 ),
                                               ),
-                                            ]),
+                                            ],
                                           );
                                         }
                                         count++;
-                                        return SizedBox();
+                                        return const SizedBox();
                                       },
                                       itemCount: snapshot.data!.data.length,
                                     );
@@ -164,12 +172,12 @@ class _BodyState extends State<Body> {
                                       ),
                                     );
                                   } else {
-                                    return Text('No Schedule');
+                                    return const Text('No Schedule');
                                   }
                                 }
                               },
                             ),
-                            Text(
+                            const Text(
                               "Jumlah Agenda",
                               style: TextStyle(
                                 color: Color(0xff333333),
@@ -180,12 +188,9 @@ class _BodyState extends State<Body> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
                       Container(
-                        width: 160,
-                        height: 100,
+                        width: 43.w,
+                        height: 15.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Color(0xffFFFFFF),
@@ -193,27 +198,21 @@ class _BodyState extends State<Body> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // Text(
-                            //   "3",
-                            //   style: TextStyle(
-                            //     color: Color(0xffFB5490),
-                            //     fontWeight: FontWeight.w700,
-                            //     fontSize: 20,
-                            //   ),
-                            // ),
                             FutureBuilder(
                               future: _schedule,
                               builder: (context,
                                   AsyncSnapshot<SchedulesModel> snapshot) {
                                 var state = snapshot.connectionState;
                                 if (state != ConnectionState.done) {
-                                  return Center(
+                                  return const Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 } else {
                                   if (snapshot.hasData) {
                                     return ListView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
+                                      padding: const EdgeInsets.all(0),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemBuilder: (context, index) {
@@ -227,24 +226,25 @@ class _BodyState extends State<Body> {
                                         }
                                         if (count ==
                                             snapshot.data!.data.length) {
-                                          return Container(
-                                            child: Row(children: [
-                                              SizedBox(
-                                                width: 75,
-                                              ),
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
                                               Text(
                                                 agendaSelesai.toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Color(0xffFB5490),
                                                   fontWeight: FontWeight.w700,
                                                   fontSize: 20,
                                                 ),
                                               ),
-                                            ]),
+                                            ],
                                           );
                                         }
                                         count++;
-                                        return SizedBox();
+                                        return const SizedBox();
                                       },
                                       itemCount: snapshot.data!.data.length,
                                     );
@@ -255,12 +255,12 @@ class _BodyState extends State<Body> {
                                       ),
                                     );
                                   } else {
-                                    return Text('No Schedule');
+                                    return const Text('No Schedule');
                                   }
                                 }
                               },
                             ),
-                            Text(
+                            const Text(
                               "Agenda Selesai",
                               style: TextStyle(
                                 color: Color(0xff333333),
@@ -274,36 +274,29 @@ class _BodyState extends State<Body> {
                     ],
                   ),
                   SizedBox(
-                    height: 16,
+                    height: 1.h,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 45,
-                        width: 335,
-                        decoration: BoxDecoration(
-                          color: Color(0xffFFFFFF).withOpacity(0.30),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            Get.toNamed(RouteName.addTaskWo,
-                                arguments: eventDetail);
-                            // Navigator.pushNamed(context, AddTaskScreen.url,
-                            //     arguments: eventDetail);
-                          },
-                          child: const Text(
-                            "Tambah Agenda",
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                            ),
-                          ),
+                  Container(
+                    height: 5.h,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                      color: const Color(0xffFFFFFF).withOpacity(0.30),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        Get.toNamed(RouteName.addTaskWo,
+                            arguments: eventDetail);
+                      },
+                      child: const Text(
+                        "Tambah Agenda",
+                        style: TextStyle(
+                          color: Color(0xffFFFFFF),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
@@ -314,28 +307,31 @@ class _BodyState extends State<Body> {
             builder: (context, AsyncSnapshot<SchedulesModel> snapshot) {
               var state = snapshot.connectionState;
               if (state != ConnectionState.done) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else {
                 if (snapshot.hasData) {
-                  return ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      var schedule = snapshot.data!.data[index];
-
-                      return InkWell(
-                          onTap: () {
-                            // Navigator.pushNamed(context, DetailTaskScreen.url,
-                            //     arguments: schedule);
-                            Get.toNamed(RouteName.detailTaskWo,
-                                arguments: schedule);
-                          },
-                          child: listItemSchedule(eventDetail, schedule!));
-                    },
-                    itemCount: snapshot.data!.data.length,
+                  return SizedBox(
+                    height: 50.h,
+                    child: ListView.builder(
+                      padding: const EdgeInsets.only(top: 5),
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        var schedule = snapshot.data!.data[index];
+                        return GestureDetector(
+                            onTap: () {
+                              // Navigator.pushNamed(context, DetailTaskScreen.url,
+                              //     arguments: schedule);
+                              Get.toNamed(RouteName.detailTaskWo,
+                                  arguments: schedule);
+                            },
+                            child: listItemSchedule(eventDetail, schedule!));
+                      },
+                      itemCount: snapshot.data!.data.length,
+                    ),
                   );
                 } else if (snapshot.hasError) {
                   return Center(
@@ -344,7 +340,7 @@ class _BodyState extends State<Body> {
                     ),
                   );
                 } else {
-                  return Text('No Schedule');
+                  return const Text('No Schedule');
                 }
               }
             },
@@ -357,58 +353,56 @@ class _BodyState extends State<Body> {
   Widget listItemSchedule(EventModel viewEvent, ScheduleModel viewSchedule) {
     String tanggal = DateFormat.yMd().format(viewSchedule.tanggal);
     if (viewEvent.id == viewSchedule.eventId) {
-      return Container(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-            left: 20,
-            right: 20,
-          ),
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        tanggal,
-                        style: TextStyle(
-                          color: Color(0xffBDBDBD),
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Text(
-                        viewSchedule.namaKegiatan,
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    viewSchedule.jam,
-                    style: TextStyle(
-                      color: Color(0xffFB5490),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
+      return Padding(
+        padding: const EdgeInsets.only(
+          top: 10,
+          left: 20,
+          right: 20,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Color(0xffFFFFFF),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 3,
+                color: Color(0xff000000).withOpacity(0.1),
               ),
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Color(0xffFFFFFF),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 3,
-                  color: Color(0xff000000).withOpacity(0.25),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tanggal,
+                      style: const TextStyle(
+                        color: Color(0xffBDBDBD),
+                        fontWeight: FontWeight.normal,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      viewSchedule.namaKegiatan,
+                      style: const TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  viewSchedule.jam,
+                  style: const TextStyle(
+                    color: Color(0xffFB5490),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
+                  ),
                 ),
               ],
             ),
@@ -416,6 +410,6 @@ class _BodyState extends State<Body> {
         ),
       );
     }
-    return Text("");
+    return const Text("");
   }
 }

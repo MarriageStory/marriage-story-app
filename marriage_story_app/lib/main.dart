@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marriage_story_app/service/material_color.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:get/get.dart';
 import 'package:marriage_story_app/routes/routes.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
           title: 'Marriage Story Apps',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: pink,
             fontFamily: 'Nunito',
           ),
           // initialRoute: AppPages.initial,

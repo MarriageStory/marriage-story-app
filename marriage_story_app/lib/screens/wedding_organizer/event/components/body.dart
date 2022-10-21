@@ -7,6 +7,7 @@ import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/detail_event/detail_event_screen.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/add_event_2/add_event_2_screen.dart';
 import 'package:intl/intl.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -31,21 +32,22 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Background(
-      child: Container(
-        height: size.height,
-        width: double.infinity,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 64,
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: 10.h,
               left: 20,
               right: 20,
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Agenda",
                   style: TextStyle(
                     color: Color(0xff333333),
@@ -53,7 +55,7 @@ class _BodyState extends State<Body> {
                     fontSize: 25,
                   ),
                 ),
-                Text(
+                const Text(
                   'Acara',
                   style: TextStyle(
                     color: Color(0xff333333),
@@ -62,113 +64,135 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 5.h,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Color(0xffFFFFFF),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 20,
-                          horizontal: 60,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            FutureBuilder(
-                              future: _event,
-                              builder: (context,
-                                  AsyncSnapshot<EventsModel> snapshot) {
-                                var state = snapshot.connectionState;
-                                if (state != ConnectionState.done) {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else {
-                                  if (snapshot.hasData) {
-                                    int totalAcara = snapshot.data!.data.length;
-                                    return Text(
-                                      totalAcara.toString(),
-                                      style: TextStyle(
-                                        color: Color(0xffFB6C90),
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 35,
-                                      ),
-                                    );
-                                  } else if (snapshot.hasError) {
-                                    return Center(
-                                      child: Text(
-                                        snapshot.error.toString(),
-                                      ),
-                                    );
-                                  } else {
-                                    return Text('No Event');
-                                  }
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                              "Jumlah Acara",
-                              style: TextStyle(
-                                color: Color(0xff333333),
-                                fontWeight: FontWeight.w700,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 40,
-                    ),
-                    Container(
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xffFB6C90),
-                            Color(0xffFB8DA0),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          size: 30,
-                          color: Color(0xffFFFFFF),
-                        ),
-                        onPressed: () {
-                          Get.toNamed(RouteName.addEvent1);
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) =>
-                          //           AddEvent2Screen()),
-                          // );
-                        },
-                      ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 15.h,
+                width: 65.w,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 2,
+                      offset: const Offset(0, 0),
+                      color: Colors.black.withOpacity(0.1),
                     ),
                   ],
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+                  color: Color(0xffFFFFFF),
                 ),
-                SizedBox(
-                  height: 30,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 60,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FutureBuilder(
+                        future: _event,
+                        builder:
+                            (context, AsyncSnapshot<EventsModel> snapshot) {
+                          var state = snapshot.connectionState;
+                          if (state != ConnectionState.done) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            if (snapshot.hasData) {
+                              int totalAcara = snapshot.data!.data.length;
+                              return Text(
+                                totalAcara.toString(),
+                                style: const TextStyle(
+                                  color: Color(0xffFB6C90),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 35,
+                                ),
+                              );
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                child: Text(
+                                  snapshot.error.toString(),
+                                ),
+                              );
+                            } else {
+                              return Text('No Event');
+                            }
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      const Text(
+                        "Jumlah Acara",
+                        style: TextStyle(
+                          color: Color(0xff333333),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                Row(
+              ),
+              SizedBox(
+                width: 5.w,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xffFB6C90),
+                      Color(0xffFB8DA0),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.add,
+                    size: 30,
+                    color: Color(0xffFFFFFF),
+                  ),
+                  onPressed: () {
+                    Get.toNamed(RouteName.addEvent1);
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) =>
+                    //           AddEvent2Screen()),
+                    // );
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 3.h,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Semua Acara",
                       style: TextStyle(
                         color: Color(0xff828282),
@@ -176,59 +200,63 @@ class _BodyState extends State<Body> {
                         fontSize: 14,
                       ),
                     ),
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    FutureBuilder(
+                      future: _event,
+                      builder: (context, AsyncSnapshot<EventsModel> snapshot) {
+                        var state = snapshot.connectionState;
+                        if (state != ConnectionState.done) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          if (snapshot.hasData) {
+                            return SizedBox(
+                              height: 45.h,
+                              child: ListView.builder(
+                                padding: const EdgeInsets.symmetric(),
+                                physics: const BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) {
+                                  // var event = snapshot.data?.data.first;
+                                  var event = snapshot.data!.data[index];
+                                  return GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(RouteName.detailEventWo,
+                                            arguments: event);
+                                        // Navigator.pushNamed(
+                                        //     context, DetailEventScreen.url,
+                                        //     arguments: event);
+                                      },
+                                      child: listItem(event!));
+                                },
+                                itemCount: snapshot.data!.data.length,
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Center(
+                              child: Text(
+                                snapshot.error.toString(),
+                              ),
+                            );
+                          } else {
+                            return const Text('No Schedule');
+                          }
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 1.h,
+                    ),
                   ],
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                FutureBuilder(
-                  future: _event,
-                  builder: (context, AsyncSnapshot<EventsModel> snapshot) {
-                    var state = snapshot.connectionState;
-                    if (state != ConnectionState.done) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            // var event = snapshot.data?.data.first;
-                            var event = snapshot.data!.data[index];
-                            return InkWell(
-                                onTap: () {
-                                  Get.toNamed(RouteName.detailEventWo,
-                                      arguments: event);
-                                  // Navigator.pushNamed(
-                                  //     context, DetailEventScreen.url,
-                                  //     arguments: event);
-                                },
-                                child: listItem(event!));
-                          },
-                          itemCount: snapshot.data!.data.length,
-                        );
-                      } else if (snapshot.hasError) {
-                        return Center(
-                          child: Text(
-                            snapshot.error.toString(),
-                          ),
-                        );
-                      } else {
-                        return Text('No Schedule');
-                      }
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
+              )
+            ],
           ),
-        ),
+        ],
       ),
     );
   }
@@ -237,8 +265,11 @@ class _BodyState extends State<Body> {
     String tanggal = DateFormat.yMd().format(view.date);
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
+          margin: EdgeInsets.symmetric(vertical: 0.8.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Color(0xffFFFFFF),
@@ -280,8 +311,7 @@ class _BodyState extends State<Body> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         view.paket1 != "-"
-                            ?
-                        Container(
+                            ? Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 3,
                                   horizontal: 6,
@@ -309,8 +339,7 @@ class _BodyState extends State<Body> {
                           width: 4,
                         ),
                         view.paket2 != "-"
-                            ?
-                        Container(
+                            ? Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 3,
                                   horizontal: 6,
@@ -346,8 +375,7 @@ class _BodyState extends State<Body> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         view.paket3 != "-"
-                            ?
-                        Container(
+                            ? Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 3,
                                   horizontal: 6,
@@ -375,8 +403,7 @@ class _BodyState extends State<Body> {
                           width: 4,
                         ),
                         view.paket4 != "-"
-                            ?
-                        Container(
+                            ? Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 3,
                                   horizontal: 6,
@@ -404,8 +431,7 @@ class _BodyState extends State<Body> {
                           width: 4,
                         ),
                         view.paket5 != "-"
-                            ?
-                        Container(
+                            ? Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 3,
                                   horizontal: 6,
@@ -436,9 +462,6 @@ class _BodyState extends State<Body> {
               ],
             ),
           ),
-        ),
-        SizedBox(
-          height: 10,
         ),
       ],
     );

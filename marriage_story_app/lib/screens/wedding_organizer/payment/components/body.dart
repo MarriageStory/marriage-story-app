@@ -1,14 +1,11 @@
 import 'package:get/get.dart';
 import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/payment/components/background.dart';
-import 'package:marriage_story_app/model/payment_model.dart';
-import 'package:marriage_story_app/service/payment_service.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/detail_payment/detail_payment_screen.dart';
 import 'package:marriage_story_app/components/formatAngka.dart';
 import 'package:intl/intl.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -37,80 +34,14 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     String namaClient = "";
     Size size = MediaQuery.of(context).size;
-    return Background(
-      child: Column(
+    return Scaffold(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 300,
+            height: 37.h,
             width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 64,
-                left: 20,
-                right: 20,
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Pembayaran",
-                        style: TextStyle(
-                          color: Color(0xffFFFFFF),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 60,
-                  ),
-                  FutureBuilder(
-                    future: _event,
-                    builder: (context, AsyncSnapshot<EventsModel> snapshot) {
-                      var state = snapshot.connectionState;
-                      if (state != ConnectionState.done) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        if (snapshot.hasData) {
-                          int totalPayment = snapshot.data!.data.length;
-                          return Text(
-                            totalPayment.toString(),
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontWeight: FontWeight.w700,
-                              fontSize: 35,
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          return Center(
-                            child: Text(
-                              snapshot.error.toString(),
-                            ),
-                          );
-                        } else {
-                          return Text('No Event');
-                        }
-                      }
-                    },
-                  ),
-                  Text(
-                    "Total Pembayaran",
-                    style: TextStyle(
-                      color: Color(0xffFFFFFF),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -120,117 +51,116 @@ class _BodyState extends State<Body> {
                 ],
               ),
             ),
-          ),
-          Container(
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: 30,
+              padding: EdgeInsets.only(
+                top: 10.h,
                 left: 20,
                 right: 20,
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const Text(
+                    "Pembayaran",
+                    style: TextStyle(
+                      color: Color(0xffFFFFFF),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 25,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6.h,
+                  ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Semua Pembayaran",
-                        style: TextStyle(
-                          color: Color(0xff000000),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
+                      Column(
+                        children: [
+                          FutureBuilder(
+                            future: _event,
+                            builder:
+                                (context, AsyncSnapshot<EventsModel> snapshot) {
+                              var state = snapshot.connectionState;
+                              if (state != ConnectionState.done) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                if (snapshot.hasData) {
+                                  int totalPayment = snapshot.data!.data.length;
+                                  return Text(
+                                    totalPayment.toString(),
+                                    style: const TextStyle(
+                                      color: Color(0xffFFFFFF),
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 35,
+                                    ),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text(
+                                      snapshot.error.toString(),
+                                    ),
+                                  );
+                                } else {
+                                  return Text('No Event');
+                                }
+                              }
+                            },
+                          ),
+                          const Text(
+                            "Total Pembayaran",
+                            style: TextStyle(
+                              color: Color(0xffFFFFFF),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: 5.h,
+              left: 20,
+              right: 20,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Semua Pembayaran",
+                  style: TextStyle(
+                    color: Color(0xff000000),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
                   ),
-                  // FutureBuilder(
-                  //   future: _event,
-                  //   builder: (context, AsyncSnapshot<EventsModel> snapshot) {
-                  //     var state = snapshot.connectionState;
-                  //     if (state != ConnectionState.done) {
-                  //       return Center(
-                  //         child: CircularProgressIndicator(),
-                  //       );
-                  //     } else {
-                  //       if (snapshot.hasData) {
-                  //         return ListView.builder(
-                  //           physics: NeverScrollableScrollPhysics(),
-                  //           shrinkWrap: true,
-                  //           scrollDirection: Axis.vertical,
-                  //           itemBuilder: (context, index) {
-                  //             // var event = snapshot.data?.data.first;
-                  //             var event = snapshot.data!.data[index];
-                  //             return InkWell(
-                  //                 onTap: () {
-                  //                   // Navigator.pushNamed(context, DetailTask.url,
-                  //                   //     arguments: schedule);
-                  //                 },
-                  //                 child: listItem(event!));
-                  //           },
-                  //           itemCount: snapshot.data!.data.length,
-                  //         );
-                  //       } else if (snapshot.hasError) {
-                  //         return Center(
-                  //           child: Text(
-                  //             snapshot.error.toString(),
-                  //           ),
-                  //         );
-                  //       } else {
-                  //         return Text('No Schedule');
-                  //       }
-                  //     }
-                  //   },
-                  // ),
-
-                  // FutureBuilder(
-                  //   future: _event,
-                  //   builder: (context, AsyncSnapshot<EventsModel> snapshot) {
-                  //     var state = snapshot.connectionState;
-                  //     if (state != ConnectionState.done) {
-                  //       return Center(
-                  //         child: CircularProgressIndicator(),
-                  //       );
-                  //     } else {
-                  //       if (snapshot.hasData) {
-                  //         return ListView.builder(
-                  //           physics: NeverScrollableScrollPhysics(),
-                  //           shrinkWrap: true,
-                  //           scrollDirection: Axis.vertical,
-                  //           itemBuilder: (context, index) {
-                  //             // var event = snapshot.data?.data.first;
-                  //             var event = snapshot.data!.data.first;
-                  //             namaClient = event.nameClient;
-                  //             return SizedBox();
-                  //           },
-                  //           itemCount: snapshot.data!.data.length,
-                  //         );
-                  //       } else if (snapshot.hasError) {
-                  //         return Center(
-                  //           child: Text(
-                  //             snapshot.error.toString(),
-                  //           ),
-                  //         );
-                  //       } else {
-                  //         return Text('No Schedule');
-                  //       }
-                  //     }
-                  //   },
-                  // ),
-                  FutureBuilder(
-                    future: _event,
-                    builder: (context, AsyncSnapshot<EventsModel> snapshot) {
-                      var state = snapshot.connectionState;
-                      if (state != ConnectionState.done) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        if (snapshot.hasData) {
-                          return ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                FutureBuilder(
+                  future: _event,
+                  builder: (context, AsyncSnapshot<EventsModel> snapshot) {
+                    var state = snapshot.connectionState;
+                    if (state != ConnectionState.done) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      if (snapshot.hasData) {
+                        return SizedBox(
+                          height: 44.h,
+                          child: ListView.builder(
+                            padding: const EdgeInsets.all(0),
+                            physics: const BouncingScrollPhysics(),
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context, index) {
@@ -251,21 +181,21 @@ class _BodyState extends State<Body> {
                               // return Text(namaClient);
                             },
                             itemCount: snapshot.data!.data.length,
-                          );
-                        } else if (snapshot.hasError) {
-                          return Center(
-                            child: Text(
-                              snapshot.error.toString(),
-                            ),
-                          );
-                        } else {
-                          return Text('No Schedule');
-                        }
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text(
+                            snapshot.error.toString(),
+                          ),
+                        );
+                      } else {
+                        return const Text('No Schedule');
                       }
-                    },
-                  ),
-                ],
-              ),
+                    }
+                  },
+                ),
+              ],
             ),
           ),
         ],
@@ -277,10 +207,22 @@ class _BodyState extends State<Body> {
     String tanggal = DateFormat.yMd().format(view.date);
 
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 0.5.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: const Color(0xffFFFFFF),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 2,
+            offset: const Offset(0, 0),
+            color: Colors.black.withOpacity(0.25),
+          ),
+        ],
+      ),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(15),
             child: Row(
               children: [
                 Image.asset(
@@ -288,14 +230,14 @@ class _BodyState extends State<Body> {
                   height: 95,
                 ),
                 SizedBox(
-                  width: 20,
+                  width: 4.w,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       view.nameClient,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xff333333),
                         fontWeight: FontWeight.w700,
                         fontSize: 14,
@@ -303,14 +245,14 @@ class _BodyState extends State<Body> {
                     ),
                     Text(
                       tanggal,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xffBDBDBD),
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 1.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -330,7 +272,7 @@ class _BodyState extends State<Body> {
                           child: Center(
                             child: Text(
                               view.paket1,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color(0xffFB6C90),
                                 fontWeight: FontWeight.w500,
                                 fontSize: 11,
@@ -339,7 +281,7 @@ class _BodyState extends State<Body> {
                           ),
                         ),
                         SizedBox(
-                          width: 4,
+                          width: 1.w,
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(
@@ -356,7 +298,7 @@ class _BodyState extends State<Body> {
                           child: Center(
                             child: Text(
                               view.paket2,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color(0xffFB6C90),
                                 fontWeight: FontWeight.w500,
                                 fontSize: 11,
@@ -365,12 +307,12 @@ class _BodyState extends State<Body> {
                           ),
                         ),
                         SizedBox(
-                          width: 4,
+                          width: 1.w,
                         ),
                       ],
                     ),
                     SizedBox(
-                      height: 4,
+                      height: 1.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -390,7 +332,7 @@ class _BodyState extends State<Body> {
                           child: Center(
                             child: Text(
                               view.paket3,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color(0xffFB6C90),
                                 fontWeight: FontWeight.w500,
                                 fontSize: 11,
@@ -399,7 +341,7 @@ class _BodyState extends State<Body> {
                           ),
                         ),
                         SizedBox(
-                          width: 4,
+                          width: 1.w,
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(
@@ -416,7 +358,7 @@ class _BodyState extends State<Body> {
                           child: Center(
                             child: Text(
                               view.paket4,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color(0xffFB6C90),
                                 fontWeight: FontWeight.w500,
                                 fontSize: 11,
@@ -425,7 +367,7 @@ class _BodyState extends State<Body> {
                           ),
                         ),
                         SizedBox(
-                          width: 4,
+                          width: 1.w,
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(
@@ -442,7 +384,7 @@ class _BodyState extends State<Body> {
                           child: Center(
                             child: Text(
                               view.paket5,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color(0xffFB6C90),
                                 fontWeight: FontWeight.w500,
                                 fontSize: 11,
@@ -458,20 +400,8 @@ class _BodyState extends State<Body> {
             ),
           ),
           Container(
-            height: 60,
-            width: double.infinity,
-            child: Center(
-              child: Text(
-                formatAngka.convertToIdr(
-                    int.parse(view.totalPembayaran.toString()), 2),
-                style: TextStyle(
-                  color: Color(0xffFFFFFF),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            decoration: BoxDecoration(
+            height: 6.h,
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.vertical(
                 bottom: Radius.circular(15),
               ),
@@ -484,12 +414,19 @@ class _BodyState extends State<Body> {
                 ],
               ),
             ),
+            child: Center(
+              child: Text(
+                formatAngka.convertToIdr(
+                    int.parse(view.totalPembayaran.toString()), 2),
+                style: const TextStyle(
+                  color: Color(0xffFFFFFF),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                ),
+              ),
+            ),
           )
         ],
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Color(0xffFFFFFF),
       ),
     );
   }

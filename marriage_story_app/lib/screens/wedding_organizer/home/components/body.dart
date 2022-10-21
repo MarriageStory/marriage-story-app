@@ -63,18 +63,20 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return Background(
-      child: SizedBox(
-        height: 100.h,
-        width: 100.w,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 64,
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: 10.h,
               left: 20,
               right: 20,
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,12 +109,12 @@ class _BodyState extends State<Body> {
                   ],
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 5.h,
                 ),
                 Container(
-                  height: 15.h,
+                  height: 14.h,
                   width: 100.w,
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(25),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       begin: Alignment.topLeft,
@@ -162,7 +164,7 @@ class _BodyState extends State<Body> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      width: 42.w,
+                      width: 43.w,
                       height: 12.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -176,7 +178,7 @@ class _BodyState extends State<Body> {
                         ],
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(20),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,7 +228,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Container(
-                      width: 42.w,
+                      width: 43.w,
                       height: 12.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -240,7 +242,7 @@ class _BodyState extends State<Body> {
                         ],
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(20),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -259,7 +261,7 @@ class _BodyState extends State<Body> {
                                   AsyncSnapshot<SchedulesModel> snapshot) {
                                 var state = snapshot.connectionState;
                                 if (state != ConnectionState.done) {
-                                  return Center(
+                                  return const Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 } else {
@@ -268,7 +270,7 @@ class _BodyState extends State<Body> {
                                         snapshot.data!.data.length;
                                     return Text(
                                       totalAgenda.toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color(0xffFB6C90),
                                         fontWeight: FontWeight.w800,
                                         fontSize: 14,
@@ -281,7 +283,7 @@ class _BodyState extends State<Body> {
                                       ),
                                     );
                                   } else {
-                                    return Text('No Event');
+                                    return const Text('Tidak Ada Event');
                                   }
                                 }
                               },
@@ -293,7 +295,7 @@ class _BodyState extends State<Body> {
                   ],
                 ),
                 SizedBox(
-                  height: 5.h,
+                  height: 3.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -308,38 +310,38 @@ class _BodyState extends State<Body> {
                     ),
                   ],
                 ),
-
-                SizedBox(
-                  height: 10,
-                ),
                 FutureBuilder(
                   future: _event,
                   builder: (context, AsyncSnapshot<EventsModel> snapshot) {
                     var state = snapshot.connectionState;
                     if (state != ConnectionState.done) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else {
                       if (snapshot.hasData) {
-                        return ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            // var event = snapshot.data?.data.first;
-                            var event = snapshot.data!.data[index];
-                            return InkWell(
-                                onTap: () {
-                                  Get.toNamed(RouteName.detailEventWo,
-                                      arguments: event);
-                                  // Navigator.pushNamed(
-                                  //     context, DetailEventScreen.url,
-                                  //     arguments: event);
-                                },
-                                child: listItem(event!));
-                          },
-                          itemCount: snapshot.data!.data.length,
+                        return SizedBox(
+                          height: 36.h,
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.all(5),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) {
+                              // var event = snapshot.data?.data.first;
+                              var event = snapshot.data!.data[index];
+                              return GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(RouteName.detailEventWo,
+                                        arguments: event);
+                                    // Navigator.pushNamed(
+                                    //     context, DetailEventScreen.url,
+                                    //     arguments: event);
+                                  },
+                                  child: listItem(event!));
+                            },
+                            itemCount: snapshot.data!.data.length,
+                          ),
                         );
                       } else if (snapshot.hasError) {
                         return Center(
@@ -348,7 +350,7 @@ class _BodyState extends State<Body> {
                           ),
                         );
                       } else {
-                        return Text('No Schedule');
+                        return const Text('Tidak Ada Acara');
                       }
                     }
                   },
@@ -356,28 +358,31 @@ class _BodyState extends State<Body> {
               ],
             ),
           ),
-        ),
+        ],
       ),
     );
   }
 
   Widget listItem(EventModel view) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
+          margin: EdgeInsets.symmetric(vertical: 0.5.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: Color(0xffFFFFFF),
+            color: const Color(0xffFFFFFF),
             boxShadow: [
               BoxShadow(
                 blurRadius: 4,
-                offset: Offset(1, 1),
-                color: Color(0xff000000).withOpacity(0.25),
+                offset: const Offset(0, 0),
+                color: const Color(0xff000000).withOpacity(0.1),
               ),
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(15),
             child: Row(
               children: [
                 Image.asset(
@@ -385,14 +390,14 @@ class _BodyState extends State<Body> {
                   height: 95,
                 ),
                 SizedBox(
-                  width: 20,
+                  width: 2.w,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       view.nameClient,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xff333333),
                         fontWeight: FontWeight.w700,
                         fontSize: 14,
@@ -400,21 +405,20 @@ class _BodyState extends State<Body> {
                     ),
                     Text(
                       DateFormat.yMd().format(view.date),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xffBDBDBD),
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 1.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         view.paket1 != "-"
-                            ?
-                        Container(
+                            ? Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 3,
                                   horizontal: 6,
@@ -429,7 +433,7 @@ class _BodyState extends State<Body> {
                                 child: Center(
                                   child: Text(
                                     view.paket1,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color(0xffFB6C90),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 11,
@@ -437,13 +441,12 @@ class _BodyState extends State<Body> {
                                   ),
                                 ),
                               )
-                            : SizedBox(),
-                        SizedBox(
+                            : const SizedBox(),
+                        const SizedBox(
                           width: 4,
                         ),
                         view.paket2 != "-"
-                            ?
-                        Container(
+                            ? Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 3,
                                   horizontal: 6,
@@ -458,7 +461,7 @@ class _BodyState extends State<Body> {
                                 child: Center(
                                   child: Text(
                                     view.paket2,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color(0xffFB6C90),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 11,
@@ -466,21 +469,21 @@ class _BodyState extends State<Body> {
                                   ),
                                 ),
                               )
-                            : SizedBox(),
+                            : const SizedBox(),
+                        // ignore: prefer_const_constructors
                         SizedBox(
                           width: 4,
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 4,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         view.paket3 != "-"
-                            ?
-                        Container(
+                            ? Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 3,
                                   horizontal: 6,
@@ -495,7 +498,7 @@ class _BodyState extends State<Body> {
                                 child: Center(
                                   child: Text(
                                     view.paket3,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color(0xffFB6C90),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 11,
@@ -503,13 +506,12 @@ class _BodyState extends State<Body> {
                                   ),
                                 ),
                               )
-                            : SizedBox(),
-                        SizedBox(
+                            : const SizedBox(),
+                        const SizedBox(
                           width: 4,
                         ),
                         view.paket4 != "-"
-                            ?
-                        Container(
+                            ? Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 3,
                                   horizontal: 6,
@@ -518,13 +520,13 @@ class _BodyState extends State<Body> {
                                   color: Colors.transparent,
                                   borderRadius: BorderRadius.circular(5),
                                   border: Border.all(
-                                    color: Color(0xffFB6C90),
+                                    color: const Color(0xffFB6C90),
                                   ),
                                 ),
                                 child: Center(
                                   child: Text(
                                     view.paket4,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color(0xffFB6C90),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 11,
@@ -532,13 +534,12 @@ class _BodyState extends State<Body> {
                                   ),
                                 ),
                               )
-                            : SizedBox(),
-                        SizedBox(
+                            : const SizedBox(),
+                        const SizedBox(
                           width: 4,
                         ),
                         view.paket5 != "-"
-                            ?
-                        Container(
+                            ? Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 3,
                                   horizontal: 6,
@@ -553,7 +554,7 @@ class _BodyState extends State<Body> {
                                 child: Center(
                                   child: Text(
                                     view.paket5,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color(0xffFB6C90),
                                       fontWeight: FontWeight.w500,
                                       fontSize: 11,
@@ -561,7 +562,7 @@ class _BodyState extends State<Body> {
                                   ),
                                 ),
                               )
-                            : SizedBox(),
+                            : const SizedBox(),
                       ],
                     )
                   ],
@@ -570,9 +571,6 @@ class _BodyState extends State<Body> {
             ),
           ),
         ),
-        SizedBox(
-          height: 10,
-        )
       ],
     );
   }

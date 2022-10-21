@@ -3,11 +3,10 @@ import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:marriage_story_app/screens/wedding_organizer/edit_task/components/background.dart';
 import 'package:marriage_story_app/components/dateTime.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/home/home_screen.dart';
 import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/model/schedule_model.dart';
-import 'package:marriage_story_app/widgets/navbar/navbar_wo.dart';
 import 'package:intl/intl.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -75,13 +74,12 @@ class _BodyState extends State<Body> {
       inisialisasi = true;
     }
 
-    return Background(
-      child: Container(
-        height: size.height,
-        width: double.infinity,
+    return Scaffold(
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 32,
+          padding: EdgeInsets.only(
+            top: 5.h,
             left: 20,
             right: 20,
           ),
@@ -89,41 +87,50 @@ class _BodyState extends State<Body> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back,
                 ),
                 onPressed: () => Get.back(),
               ),
               SizedBox(
-                height: 10,
+                height: 1.h,
               ),
-              Text(
-                "Edit",
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
-                ),
-              ),
-              Text(
-                'Agenda',
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
+              Padding(
+                padding: EdgeInsets.only(left: 5.w),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Edit",
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
+                      ),
+                    ),
+                    Text(
+                      'Agenda',
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 10.h,
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Nama Tugas",
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       color: Color(0xff828282),
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -138,11 +145,10 @@ class _BodyState extends State<Body> {
                 ),
               ),
               SizedBox(
-                height: 16,
+                height: 2.h,
               ),
-              Container(
-                // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
-                child: Column(children: [
+              Column(
+                children: [
                   dateTime(
                     // labelText: "Date",
                     valueText: cekTgl != true
@@ -153,14 +159,13 @@ class _BodyState extends State<Body> {
                       _selectDate(context, schedule.tanggal);
                     },
                   ),
-                ]),
+                ],
               ),
               SizedBox(
-                height: 16,
+                height: 2.h,
               ),
-              Container(
-                // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
-                child: Column(children: [
+              Column(
+                children: [
                   dateTime(
                     // labelText: "Date",
                     valueText: _timeController.text,
@@ -169,19 +174,19 @@ class _BodyState extends State<Body> {
                       showTime();
                     },
                   ),
-                ]),
+                ],
               ),
               SizedBox(
-                height: 16,
+                height: 2.h,
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Tempat",
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       color: Color(0xff828282),
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -196,16 +201,16 @@ class _BodyState extends State<Body> {
                 ),
               ),
               SizedBox(
-                height: 16,
+                height: 2.h,
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: TextFormField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Detail Tugas",
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       color: Color(0xff828282),
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -220,16 +225,16 @@ class _BodyState extends State<Body> {
                 ),
               ),
               SizedBox(
-                height: 100,
+                height: 10.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    width: 180,
-                    height: 45,
+                    width: 45.w,
+                    height: 5.h,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
