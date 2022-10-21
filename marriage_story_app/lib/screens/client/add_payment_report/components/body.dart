@@ -5,6 +5,7 @@ import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/components/dateTime.dart';
 import 'package:marriage_story_app/service/payment_detail_service.dart';
 import 'package:marriage_story_app/service/payment_service.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:marriage_story_app/widgets/navbar/navbar_client.dart';
 import 'package:marriage_story_app/routes/routes.dart';
@@ -77,235 +78,193 @@ class _BodyState extends State<Body> {
     //   inisialisasi = true;
     // }
 
-    return Background(
-      child: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        child: Container(
-          height: size.height,
-          width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 32,
-              left: 20,
-              right: 20,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                  ),
-                  onPressed: () => Get.back(),
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10.h,
+            left: 20,
+            right: 20,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Unggah",
-                  style: TextStyle(
-                    color: Color(0xff333333),
-                    fontWeight: FontWeight.w700,
-                    fontSize: 25,
-                  ),
-                ),
-                Text(
-                  'Pembayaran',
-                  style: TextStyle(
-                    color: Color(0xff333333),
-                    fontWeight: FontWeight.w700,
-                    fontSize: 25,
-                  ),
-                ),
-                SizedBox(
-                  height: 58,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                  ),
-                  child: Container(
-                    // margin: const EdgeInsets.only(top: 30, right: 16, left: 16),
-                    child: Column(children: [
-                      dateTime(
-                        // labelText: "Date",
-                        valueText:
-                            cekTgl != false ? tanggal.toString() : "Tanggal",
-                        valueStyle: valueStyle,
-                        onPressed: () {
-                          _selectDate(context);
-                        },
-                      ),
-                    ]),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                  ),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Total Payment",
-                      hintStyle: const TextStyle(
-                        color: Color(0xff828282),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                      ),
-                    ),
-                    style: const TextStyle(
-                      color: Color(0xff828282),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
-                    controller: _bayarController,
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Upload Gambar",
-                  style: TextStyle(
-                      fontSize: 14, color: Colors.black.withOpacity(0.25)),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 40,
-                  width: 145,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Color(0xffFB6C90),
-                        Color(0xffFB8DA0),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: TextButton(
-                    onPressed: () async {
-                      const url =
-                          'https://drive.google.com/drive/folders/1x8Xm3ZZsXvXXshcj3p47pBiNMb0Eqme1?usp=sharing';
-                      launchURL(url);
-                    },
-                    child: const Text(
-                      "Upload  ",
+                onPressed: () => Get.back(),
+              ),
+              SizedBox(
+                height: 1.h,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 5.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Unggah",
                       style: TextStyle(
-                        color: Color(0xffFFFFFF),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 45,
-                      width: 180,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xffFB6C90),
-                            Color(0xffFB8DA0),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: TextButton(
-                        onPressed: () async {
-                          var data = <String, dynamic>{
-                            "nama_payment": "-",
-                            "bayar": int.parse(_bayarController.text),
-                            "tanggal": _dateController.text,
-                            "detail": "-",
-                          };
-
-                          try {
-                            await PaymentDetailService.createNewPaymentDetail(
-                                    payment.id, data)
-                                .then((response) {
-
-                              if (response == true) {
-                                Get.toNamed(RouteName.navigationClient);
-
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        backgroundColor: Colors.green,
-                                        content: Text(
-                                            'You have successfully create a detail payment')));
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        backgroundColor: Colors.red,
-                                        content: Text('Terdapat Kesalahan !')));
-                              }
-                            });
-
-                          } catch (e) {
-                            print(e);
-                          }
-
-                          // total = int.parse(_terbayarController.text) +
-                          //     int.parse(_bayarController.text);
-                          // if (total ==
-                          //     int.parse(_tunaiKeseluruhanController.text)) {
-                          //   _statusPaymentController.text = "done";
-                          // }
-
-                          // Map<String, dynamic> body1 = {
-                          //   'tunai_keseluruhan': payment.tunaiKeseluruhan,
-                          //   'status': _statusPaymentController.text,
-                          //   'terbayar': total.toString(),
-                          //   'tanggal': payment.tanggal.toString(),
-                          //   'event_id': payment.eventId,
-                          // };
-
-                          // await PaymentService.updatePayment(payment.id, body1)
-                          //     .then((response) {
-                          //   if (response == true) {
-                          //     Get.toNamed(RouteName.navigationClient);
-
-                          //     ScaffoldMessenger.of(context).showSnackBar(
-                          //         const SnackBar(
-                          //             backgroundColor: Colors.green,
-                          //             content: Text(
-                          //                 'You have successfully create a detail payment')));
-                          //   } else {
-                          //     ScaffoldMessenger.of(context).showSnackBar(
-                          //         const SnackBar(
-                          //             backgroundColor: Colors.red,
-                          //             content: Text('Terdapat Kesalahan !')));
-                          //   }
-                          // });
-                        },
-                        child: const Text(
-                          "Selanjutnya",
-                          style: TextStyle(
-                            color: Color(0xffFFFFFF),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
-                        ),
+                    Text(
+                      'Pembayaran',
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
                       ),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: Column(children: [
+                  dateTime(
+                    // labelText: "Date",
+                    valueText: cekTgl != false ? tanggal.toString() : "Tanggal",
+                    valueStyle: valueStyle,
+                    onPressed: () {
+                      _selectDate(context);
+                    },
+                  ),
+                ]),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: "Total Payment",
+                    hintStyle: TextStyle(
+                      color: Color(0xff828282),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                  ),
+                  style: const TextStyle(
+                    color: Color(0xff828282),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                  controller: _bayarController,
+                ),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                "Upload Gambar",
+                style: TextStyle(
+                    fontSize: 14, color: Colors.black.withOpacity(0.25)),
+              ),
+              SizedBox(
+                height: 1.h,
+              ),
+              Container(
+                width: 30.w,
+                decoration: BoxDecoration(
+                  color: Color(0xffFB6C90).withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: TextButton(
+                  onPressed: () async {
+                    const url =
+                        'https://drive.google.com/drive/folders/1x8Xm3ZZsXvXXshcj3p47pBiNMb0Eqme1?usp=sharing';
+                    launchURL(url);
+                  },
+                  child: const Text(
+                    "Upload  ",
+                    style: TextStyle(
+                      color: Color(0xffFFFFFF),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: 45.w,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xffFB6C90),
+                          Color(0xffFB8DA0),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: TextButton(
+                      onPressed: () async {
+                        var data = <String, dynamic>{
+                          "nama_payment": "-",
+                          "bayar": int.parse(_bayarController.text),
+                          "tanggal": _dateController.text,
+                          "detail": "-",
+                        };
+
+                        try {
+                          await PaymentDetailService.createNewPaymentDetail(
+                                  payment.id, data)
+                              .then((response) {
+                            if (response == true) {
+                              Get.toNamed(RouteName.navigationClient);
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor: Colors.green,
+                                      content: Text(
+                                          'You have successfully create a detail payment')));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor: Colors.red,
+                                      content: Text('Terdapat Kesalahan !')));
+                            }
+                          });
+                        } catch (e) {
+                          print(e);
+                        }
+                      },
+                      child: const Text(
+                        "Selanjutnya",
+                        style: TextStyle(
+                          color: Color(0xffFFFFFF),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

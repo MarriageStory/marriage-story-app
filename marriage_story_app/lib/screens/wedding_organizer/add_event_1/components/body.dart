@@ -25,6 +25,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.only(
             top: 5.h,
