@@ -1,13 +1,15 @@
 import 'package:get/get.dart';
+import 'package:http/retry.dart';
 import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:marriage_story_app/screens/client/payment/components/background.dart';
+import 'package:marriage_story_app/model/payment_model.dart';
+import 'package:marriage_story_app/service/payment_service.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/service/event_service.dart';
 import 'package:marriage_story_app/model/user_model.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
 import 'package:marriage_story_app/components/formatAngka.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Body extends StatefulWidget {
   // static const routeName = '/payment-client-screen';
@@ -61,15 +63,16 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     int idPayment;
+    Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: Column(
+    return Background(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            height: 50.h,
-            decoration: const BoxDecoration(
+            height: 365,
+            width: double.infinity,
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -80,8 +83,8 @@ class _BodyState extends State<Body> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.only(
-                top: 10.h,
+              padding: const EdgeInsets.only(
+                top: 64,
                 left: 20,
                 right: 20,
               ),
@@ -90,14 +93,13 @@ class _BodyState extends State<Body> {
                 builder: (context, AsyncSnapshot<EventsModel> snapshot) {
                   var state = snapshot.connectionState;
                   if (state != ConnectionState.done) {
-                    return const Center(
+                    return Center(
                       child: CircularProgressIndicator(),
                     );
                   } else {
                     if (snapshot.hasData) {
                       return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        padding: const EdgeInsets.all(0),
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) {
@@ -105,7 +107,7 @@ class _BodyState extends State<Body> {
                           // idPayment = payment.id;
 
                           if (payment.gencode == user.gencode) {
-                            return GestureDetector(
+                            return InkWell(
                                 onTap: () {
                                   // Navigator.pushNamed(
                                   //     context, DetailTaskClientScreen.url,
@@ -113,7 +115,7 @@ class _BodyState extends State<Body> {
                                 },
                                 child: listItemPayment(payment!));
                           }
-                          return const SizedBox();
+                          return SizedBox();
                         },
                         itemCount: snapshot.data!.data.length,
                       );
@@ -124,7 +126,7 @@ class _BodyState extends State<Body> {
                         ),
                       );
                     } else {
-                      return const Text('No Payment');
+                      return Text('No Payment');
                     }
                   }
                 },
@@ -147,70 +149,72 @@ class _BodyState extends State<Body> {
               //disini woiiii
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 2.h,
-              left: 20,
-              right: 20,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Jumlah Terbayar",
-                  style: TextStyle(
-                    color: Color(0xff000000).withOpacity(0.25),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
+          Container(
+            child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 30,
+                  left: 20,
+                  right: 20,
                 ),
-              ],
-            ),
-          ),
-          FutureBuilder(
-            future: _event,
-            builder: (context, AsyncSnapshot<EventsModel> snapshot) {
-              var state = snapshot.connectionState;
-              if (state != ConnectionState.done) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                if (snapshot.hasData) {
-                  return Expanded(
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) {
-                        var payment = snapshot.data!.data[index];
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Jumlah Terbayar",
+                          style: TextStyle(
+                            color: Color(0xff000000).withOpacity(0.25),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                    FutureBuilder(
+                      future: _event,
+                      builder: (context, AsyncSnapshot<EventsModel> snapshot) {
+                        var state = snapshot.connectionState;
+                        if (state != ConnectionState.done) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) {
+                                var payment = snapshot.data!.data[index];
 
-                        if (payment.gencode == user.gencode) {
-                          return GestureDetector(
-                              onTap: () {
-                                // Navigator.pushNamed(
-                                //     context, DetailTaskClientScreen.url,
-                                //     arguments: payment);
+                                if (payment.gencode == user.gencode) {
+                                  return InkWell(
+                                      onTap: () {
+                                        // Navigator.pushNamed(
+                                        //     context, DetailTaskClientScreen.url,
+                                        //     arguments: payment);
+                                      },
+                                      child: listItemPaymentDetail(payment!));
+                                }
+                                return SizedBox();
                               },
-                              child: listItemPaymentDetail(payment!));
+                              itemCount: snapshot.data!.data.length,
+                            );
+                          } else if (snapshot.hasError) {
+                            return Center(
+                              child: Text(
+                                snapshot.error.toString(),
+                              ),
+                            );
+                          } else {
+                            return Text('No Payment');
+                          }
                         }
-                        return const SizedBox();
                       },
-                      itemCount: snapshot.data!.data.length,
                     ),
-                  );
-                } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text(
-                      snapshot.error.toString(),
-                    ),
-                  );
-                } else {
-                  return const Text('No Payment');
-                }
-              }
-            },
+                  ],
+                )),
           ),
         ],
       ),
@@ -222,7 +226,7 @@ class _BodyState extends State<Body> {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
+          children: [
             Text(
               "Pembayaran",
               style: TextStyle(
@@ -234,9 +238,9 @@ class _BodyState extends State<Body> {
           ],
         ),
         SizedBox(
-          height: 10.h,
+          height: 64,
         ),
-        const Text(
+        Text(
           "Total Pembayarannn :",
           style: TextStyle(
             color: Color(0xffFFFFFF),
@@ -245,7 +249,7 @@ class _BodyState extends State<Body> {
           ),
         ),
         SizedBox(
-          height: 2.h,
+          height: 30,
         ),
         Text(
           formatAngka.convertToIdr(
@@ -256,23 +260,23 @@ class _BodyState extends State<Body> {
               fontWeight: FontWeight.bold,
               shadows: <Shadow>[
                 Shadow(
-                  offset: const Offset(0, 0),
+                  offset: Offset(0, 3),
                   blurRadius: 5.0,
-                  color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.1),
+                  color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
                 )
               ]),
         ),
         SizedBox(
-          height: 1.h,
+          height: 30,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 5.h,
-              width: 50.w,
+              height: 45,
+              width: 200,
               decoration: BoxDecoration(
-                color: const Color(0xffFFFFFF).withOpacity(0.30),
+                color: Color(0xffFFFFFF).withOpacity(0.30),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: TextButton(
@@ -303,30 +307,36 @@ class _BodyState extends State<Body> {
 
   Widget listItemPaymentDetail(EventModel view) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        SizedBox(
+          height: 10,
+        ),
         Container(
-          margin: EdgeInsets.only(top: 1.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Color(0xffFFFFFF),
             boxShadow: [
               BoxShadow(
                 blurRadius: 3,
-                color: Color(0xff000000).withOpacity(0.1),
+                color: Color(0xff000000).withOpacity(0.25),
               ),
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: EdgeInsets.only(right: 5.w),
-                  padding: const EdgeInsets.all(5),
+                  child: Icon(
+                    Icons.add,
+                    color: Color(0xffFFFFFF),
+                    size: 20,
+                  ),
+                  height: 30,
+                  width: 30,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
+                    gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
@@ -336,38 +346,33 @@ class _BodyState extends State<Body> {
                     ),
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  child: const Icon(
-                    Icons.add,
-                    color: Color(0xffFFFFFF),
-                    size: 20,
-                  ),
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Kirim Uang",
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Kirim Uang",
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
                       ),
-                      Text(
-                        view.statusPembayaran,
-                        style: const TextStyle(
-                          color: Color(0xffBDBDBD),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                        ),
+                    ),
+                    Text(
+                      view.statusPembayaran,
+                      style: TextStyle(
+                        color: Color(0xffBDBDBD),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 Text(
-                  "+ ${formatAngka.convertToIdr(int.parse(view.jumlahTerbayar), 2)}",
-                  style: const TextStyle(
+                  "+ " +
+                      formatAngka.convertToIdr(
+                          int.parse(view.jumlahTerbayar), 2),
+                  style: TextStyle(
                     color: Color(0xff333333),
                     fontWeight: FontWeight.w700,
                     fontSize: 12,

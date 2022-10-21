@@ -25,7 +25,6 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.only(
             top: 5.h,
@@ -83,145 +82,9 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 2.h,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: ButtonTheme(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (paket1 == "-") {
-                            paket1 = "Akad";
-                          } else {
-                            paket1 = "-";
-                          }
-                        },
-                        child: const Text(
-                          "Pre-Wedding",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 2.w,
-                  ),
-                  Expanded(
-                    child: ButtonTheme(
-                      child: ElevatedButton(
-                        // color: Color(0xffFFFFFF),
-                        onPressed: () {
-                          if (paket2 == "-") {
-                            paket2 = "Akad";
-                          } else {
-                            paket2 = "-";
-                          }
-                        },
-                        child: const Text(
-                          "Engagement",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 0.5.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: ButtonTheme(
-                      child: ElevatedButton(
-                        // color: Color(0xffFFFFFF),
-                        onPressed: () {
-                          if (paket3 == "-") {
-                            paket3 = "Akad";
-                          } else {
-                            paket3 = "-";
-                          }
-                        },
-                        child: const Text(
-                          "Akad",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 2.w,
-                  ),
-                  Expanded(
-                    child: ButtonTheme(
-                      child: ElevatedButton(
-                        // color: Color(0xffFFFFFF),
-                        onPressed: () {
-                          if (paket4 == "-") {
-                            paket4 = "Akad";
-                          } else {
-                            paket4 = "-";
-                          }
-                        },
-                        child: const Text(
-                          "Panggih",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 0.1.h,
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: 45.w,
-                    child: ButtonTheme(
-                      child: ElevatedButton(
-                        // color: Color(0xffFFFFFF),
-                        onPressed: () {
-                          if (paket5 == "-") {
-                            paket5 = "Akad";
-                          } else {
-                            paket5 = "-";
-                          }
-                        },
-                        child: const Text(
-                          "Resepsi",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
+              // SizedBox(
+              //   height: 10.h,
+              // ),
               Center(
                 child: MultiSelectContainer(
                   textStyles: const MultiSelectTextStyles(
@@ -289,6 +152,38 @@ class _BodyState extends State<Body> {
                     // } else {
                     //   selectedPackage.add(selectedItem);
                     // }
+                    if (selectedItem == "Pre wedding") {
+                      print(selectedItem);
+                      if (paket1 == "-") {
+                        paket1 = "Pre wedding";
+                      } else {
+                        paket1 = "-";
+                      }
+                    } else if (selectedItem == "Engagement") {
+                      if (paket2 == "-") {
+                        paket2 = "Engagement";
+                      } else {
+                        paket2 = "-";
+                      }
+                    } else if (selectedItem == "Akad") {
+                      if (paket3 == "-") {
+                        paket3 = "Akad";
+                      } else {
+                        paket3 = "-";
+                      }
+                    } else if (selectedItem == "Panggih") {
+                      if (paket4 == "-") {
+                        paket4 = "Panggih";
+                      } else {
+                        paket4 = "-";
+                      }
+                    } else if (selectedItem == "Resepsi") {
+                      if (paket5 == "-") {
+                        paket5 = "Resepsi";
+                      } else {
+                        paket5 = "-";
+                      }
+                    }
                   }),
                 ),
               ),

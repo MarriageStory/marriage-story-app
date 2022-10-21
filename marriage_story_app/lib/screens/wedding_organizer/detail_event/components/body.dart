@@ -69,7 +69,7 @@ class _BodyState extends State<Body> {
                             icon: const Icon(Icons.edit, color: Colors.blue),
                             onPressed: () {
                               // Get.toNamed(RouteName.editEvent2);
-                              Get.toNamed(RouteName.editEvent2,
+                              Get.toNamed(RouteName.editEvent1,
                                   arguments: event);
                             },
                           ),

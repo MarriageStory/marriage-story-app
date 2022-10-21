@@ -21,6 +21,7 @@ class _BodyState extends State<Body> {
   String paket3 = "-";
   String paket4 = "-";
   String paket5 = "-";
+
   bool inisialisasi = false;
 
   @override
@@ -95,136 +96,6 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 2.h,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ButtonTheme(
-                    minWidth: 160,
-                    height: 100,
-                    child: ElevatedButton(
-                      // color: Color(0xffFFFFFF),
-                      onPressed: () {
-                        if (paket1 == "-") {
-                          paket1 = "Akad";
-                        } else {
-                          paket1 = "-";
-                        }
-                      },
-                      child: Text(
-                        "Pre-Wedding",
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                  ButtonTheme(
-                    minWidth: 160,
-                    height: 100,
-                    child: ElevatedButton(
-                      // color: Color(0xffFFFFFF),
-                      onPressed: () {
-                        if (paket2 == "-") {
-                          paket2 = "Akad";
-                        } else {
-                          paket2 = "-";
-                        }
-                      },
-                      child: Text(
-                        "Engagement",
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ButtonTheme(
-                    minWidth: 160,
-                    height: 100,
-                    child: ElevatedButton(
-                      // color: Color(0xffFFFFFF),
-                      onPressed: () {
-                        if (paket3 == "-") {
-                          paket3 = "Akad";
-                        } else {
-                          paket3 = "-";
-                        }
-                      },
-                      child: Text(
-                        "Akad",
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                  ButtonTheme(
-                    minWidth: 160,
-                    height: 100,
-                    child: ElevatedButton(
-                      // color: Color(0xffFFFFFF),
-                      onPressed: () {
-                        if (paket4 == "-") {
-                          paket4 = "Akad";
-                        } else {
-                          paket4 = "-";
-                        }
-                      },
-                      child: Text(
-                        "Panggih",
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Row(
-                children: [
-                  ButtonTheme(
-                    minWidth: 160,
-                    height: 100,
-                    child: ElevatedButton(
-                      // color: Color(0xffFFFFFF),
-                      onPressed: () {
-                        if (paket5 == "-") {
-                          paket5 = "Akad";
-                        } else {
-                          paket5 = "-";
-                        }
-                      },
-                      child: Text(
-                        "Resepsi",
-                        style: TextStyle(
-                          color: Color(0xff333333),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               Center(
                 child: MultiSelectContainer(
                   textStyles: const MultiSelectTextStyles(
@@ -254,30 +125,35 @@ class _BodyState extends State<Body> {
                   ),
                   items: [
                     MultiSelectCard(
+                      selected: event.paket1 != "-" ? true : false,
                       value: 'Pre wedding',
                       child: const SelectedCardVendor(
                         title: 'Pre Wedding',
                       ),
                     ),
                     MultiSelectCard(
+                      selected: event.paket2 != "-" ? true : false,
                       value: 'Engagement',
                       child: const SelectedCardVendor(
                         title: 'Engagement',
                       ),
                     ),
                     MultiSelectCard(
+                      selected: event.paket3 != "-" ? true : false,
                       value: 'Akad',
                       child: const SelectedCardVendor(
                         title: 'Akad',
                       ),
                     ),
                     MultiSelectCard(
+                      selected: event.paket4 != "-" ? true : false,
                       value: 'Panggih',
                       child: const SelectedCardVendor(
                         title: 'Panggih',
                       ),
                     ),
                     MultiSelectCard(
+                      selected: event.paket5 != "-" ? true : false,
                       value: 'Resepsi',
                       child: const SelectedCardVendor(
                         title: 'Resepsi',
@@ -292,6 +168,38 @@ class _BodyState extends State<Body> {
                     // } else {
                     //   selectedPackage.add(selectedItem);
                     // }
+                    if (selectedItem == "Pre wedding") {
+                      print(selectedItem);
+                      if (paket1 == "-") {
+                        paket1 = "Pre wedding";
+                      } else {
+                        paket1 = "-";
+                      }
+                    } else if (selectedItem == "Engagement") {
+                      if (paket2 == "-") {
+                        paket2 = "Engagement";
+                      } else {
+                        paket2 = "-";
+                      }
+                    } else if (selectedItem == "Akad") {
+                      if (paket3 == "-") {
+                        paket3 = "Akad";
+                      } else {
+                        paket3 = "-";
+                      }
+                    } else if (selectedItem == "Panggih") {
+                      if (paket4 == "-") {
+                        paket4 = "Panggih";
+                      } else {
+                        paket4 = "-";
+                      }
+                    } else if (selectedItem == "Resepsi") {
+                      if (paket5 == "-") {
+                        paket5 = "Resepsi";
+                      } else {
+                        paket5 = "-";
+                      }
+                    }
                   }),
                 ),
               ),
@@ -318,24 +226,24 @@ class _BodyState extends State<Body> {
                     child: TextButton(
                       // onPressed: ()=>Get.toNamed(RouteName.addEvent2),
                       onPressed: () {
-                        Navigator.pushNamed(
-                            context,
-                            // MaterialPageRoute(
-                            //     builder: (context) => EditEvent2Screen(
-                            //           paket1: paket1,
-                            //           paket2: paket2,
-                            //           paket3: paket3,
-                            //           paket4: paket4,
-                            //           paket5: paket5,
-                            //         )), arguments: event
-                            EditEvent2Screen(
-                              paket1: paket1,
-                              paket2: paket2,
-                              paket3: paket3,
-                              paket4: paket4,
-                              paket5: paket5,
-                            ).url,
-                            arguments: event);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditEvent2Screen(
+                                    paket1: paket1,
+                                    paket2: paket2,
+                                    paket3: paket3,
+                                    paket4: paket4,
+                                    paket5: paket5,
+                                    nameClient: event.nameClient,
+                                    totalPembayaran: event.totalPembayaran,
+                                    date: event.date,
+                                    tempat: event.tempat,
+                                    jam: event.time,
+                                    note: event.note,
+                                    eventId: event.id,
+                                  )),
+                        );
                       },
                       child: const Text(
                         "Selanjutnya",

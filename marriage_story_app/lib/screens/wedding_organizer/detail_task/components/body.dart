@@ -17,14 +17,18 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   bool _isSelected = false;
+  // bool isChecked = false;
+  bool inisialisasi = false;
   @override
   Widget build(BuildContext context) {
     final schedule =
         ModalRoute.of(context)!.settings.arguments as ScheduleModel;
     String tanggal = DateFormat.yMd().format(schedule.tanggal);
-    bool isChecked = false;
-    if (schedule.status == "done") {
-      isChecked = true;
+
+    if (schedule.status == "done" && inisialisasi == false) {
+      _isSelected = true;
+      // isChecked = true;
+      inisialisasi = true;
     }
     Size size = MediaQuery.of(context).size;
 
@@ -105,31 +109,84 @@ class _BodyState extends State<Body> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
-                  child: Column(
-                    children: [
-                      Checkbox(
-                        checkColor: Colors.white,
-                        fillColor: MaterialStateProperty.resolveWith(getColor),
-                        value: isChecked,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            isChecked = true;
-                          });
-                        },
-                      ),
-                      const Text(
-                        "Selesai",
-                        style: TextStyle(
-                          color: Color(0xffFB6C90),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14,
-                        ),
-                      )
-                    ],
-                  ),
-                  onTap: () async {
-                    if (schedule.status == "pending") {
+                // GestureDetector(
+                //   child: Column(
+                //     children: [
+                //       Checkbox(
+                //         checkColor: Colors.white,
+                //         fillColor: MaterialStateProperty.resolveWith(getColor),
+                //         value: isChecked,
+                //         onChanged: (bool? value) {
+                //           setState(() {
+                //             isChecked = value!;
+                //           });
+                //         },
+                //       ),
+                //       const Text(
+                //         "Selesai",
+                //         style: TextStyle(
+                //           color: Color(0xffFB6C90),
+                //           fontWeight: FontWeight.w700,
+                //           fontSize: 14,
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                //   onTap: () async {
+                //     if (schedule.status == "pending") {
+                //       var body = <String, dynamic>{
+                //         "nama_kegiatan": schedule.namaKegiatan,
+                //         "detail_kegiatan": schedule.detailKegiatan,
+                //         "tanggal": schedule.tanggal.toString(),
+                //         "tempat": schedule.tempat,
+                //         "jam": schedule.jam,
+                //         'status': "done",
+                //       };
+
+                //       await ScheduleService.updateSchedule(schedule.id, body)
+                //           .then(
+                //         (value) {
+                //           // Get.toNamed(RouteName.navigationWo);
+                //           ScaffoldMessenger.of(context).showSnackBar(
+                //               const SnackBar(
+                //                   content: Text('Agenda telah selesai')));
+                //         },
+                //       );
+                //     } else {
+                //       var body = <String, dynamic>{
+                //         "nama_kegiatan": schedule.namaKegiatan,
+                //         "detail_kegiatan": schedule.detailKegiatan,
+                //         "tanggal": schedule.tanggal.toString(),
+                //         "tempat": schedule.tempat,
+                //         "jam": schedule.jam,
+                //         'status': "pending",
+                //       };
+
+                //       await ScheduleService.updateSchedule(schedule.id, body)
+                //           .then(
+                //         (value) {
+                //           // Get.toNamed(RouteName.navigationWo);
+                //           ScaffoldMessenger.of(context).showSnackBar(
+                //               const SnackBar(
+                //                   content: Text('Agenda belum selesai')));
+                //         },
+                //       );
+                //     }
+                //   },
+                // ),
+                LabeledSwitch(
+                  label: 'Selesai',
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  value: _isSelected,
+                  onChanged: (bool newValue) async {
+                    setState(
+                      () {
+                        _isSelected = newValue;
+                        print(_isSelected);
+                      },
+                    );
+
+                    if (newValue == true) {
                       var body = <String, dynamic>{
                         "nama_kegiatan": schedule.namaKegiatan,
                         "detail_kegiatan": schedule.detailKegiatan,
@@ -142,7 +199,7 @@ class _BodyState extends State<Body> {
                       await ScheduleService.updateSchedule(schedule.id, body)
                           .then(
                         (value) {
-                          Get.toNamed(RouteName.navigationWo);
+                          // Get.toNamed(RouteName.navigationWo);
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Agenda telah selesai')));
@@ -161,7 +218,7 @@ class _BodyState extends State<Body> {
                       await ScheduleService.updateSchedule(schedule.id, body)
                           .then(
                         (value) {
-                          Get.toNamed(RouteName.navigationWo);
+                          // Get.toNamed(RouteName.navigationWo);
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Agenda belum selesai')));
@@ -212,18 +269,6 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ],
-            ),
-            LabeledSwitch(
-              label: 'Selesai',
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              value: _isSelected,
-              onChanged: (bool newValue) {
-                setState(
-                  () {
-                    _isSelected = newValue;
-                  },
-                );
-              },
             ),
             SizedBox(
               height: 5.h,

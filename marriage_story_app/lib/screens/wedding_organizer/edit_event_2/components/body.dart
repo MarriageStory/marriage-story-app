@@ -14,14 +14,28 @@ class Body extends StatefulWidget {
   final String paket3;
   final String paket4;
   final String paket5;
-  Body(
-      {Key? key,
-      required this.paket1,
-      required this.paket2,
-      required this.paket3,
-      required this.paket4,
-      required this.paket5})
-      : super(key: key);
+  final String nameClient;
+  final int totalPembayaran;
+  final DateTime date;
+  final String tempat;
+  final String jam;
+  final String note;
+  final int eventId;
+  Body({
+    Key? key,
+    required this.paket1,
+    required this.paket2,
+    required this.paket3,
+    required this.paket4,
+    required this.paket5,
+    required this.nameClient,
+    required this.totalPembayaran,
+    required this.date,
+    required this.tempat,
+    required this.jam,
+    required this.note,
+    required this.eventId,
+  }) : super(key: key);
 
   @override
   State<Body> createState() => _BodyState(
@@ -29,7 +43,14 @@ class Body extends StatefulWidget {
       paket2: paket2,
       paket3: paket3,
       paket4: paket4,
-      paket5: paket5);
+      paket5: paket5,
+      nameClient: nameClient,
+      totalPembayaran: totalPembayaran,
+      date: date,
+      tempat: tempat,
+      jam: jam,
+      note: note,
+      eventId: eventId);
 }
 
 class _BodyState extends State<Body> {
@@ -39,13 +60,28 @@ class _BodyState extends State<Body> {
   String paket3;
   String paket4;
   String paket5;
-  _BodyState(
-      {Key? key,
-      required this.paket1,
-      required this.paket2,
-      required this.paket3,
-      required this.paket4,
-      required this.paket5});
+  String nameClient;
+  int totalPembayaran;
+  DateTime date;
+  String tempat;
+  String jam;
+  String note;
+  int eventId;
+  _BodyState({
+    Key? key,
+    required this.paket1,
+    required this.paket2,
+    required this.paket3,
+    required this.paket4,
+    required this.paket5,
+    required this.nameClient,
+    required this.totalPembayaran,
+    required this.date,
+    required this.tempat,
+    required this.jam,
+    required this.note,
+    required this.eventId,
+  });
 
   //controller
   TextEditingController _nameClientController = TextEditingController();
@@ -93,16 +129,16 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final event = ModalRoute.of(context)!.settings.arguments as EventModel;
+    // final event = ModalRoute.of(context)!.settings.arguments as EventModel;
     Size size = MediaQuery.of(context).size;
 
-    if (event != Null && inisialisasi == false) {
-      _nameClientController.text = event.nameClient;
-      _totalPembayaranController.text = event.totalPembayaran.toString();
-      _dateController.text = event.date.toString();
-      _placeController.text = event.tempat;
-      _timeController.text = event.time;
-      _noteController.text = event.note;
+    if (inisialisasi == false) {
+      _nameClientController.text = nameClient;
+      _totalPembayaranController.text = totalPembayaran.toString();
+      _dateController.text = date.toString();
+      _placeController.text = tempat;
+      _timeController.text = jam;
+      _noteController.text = note;
       inisialisasi = true;
     }
 
@@ -195,11 +231,11 @@ class _BodyState extends State<Body> {
                   dateTime(
                     // labelText: "Date",
                     valueText: cekTgl != true
-                        ? DateFormat.yMd().format(event.date)
+                        ? DateFormat.yMd().format(date)
                         : DateFormat.yMd().format(tanggal),
                     valueStyle: valueStyle,
                     onPressed: () {
-                      _selectDate(context, event.date);
+                      _selectDate(context, date);
                     },
                   ),
                 ],
@@ -317,11 +353,11 @@ class _BodyState extends State<Body> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => EditEventDetailScreen(
-                                    paket1: event.paket1,
-                                    paket2: event.paket2,
-                                    paket3: event.paket3,
-                                    paket4: event.paket4,
-                                    paket5: event.paket5,
+                                    paket1: paket1,
+                                    paket2: paket2,
+                                    paket3: paket3,
+                                    paket4: paket4,
+                                    paket5: paket5,
                                     namaClient: _nameClientController.text,
                                     tanggal: tanggal,
                                     jam: _timeController.text,
@@ -329,7 +365,7 @@ class _BodyState extends State<Body> {
                                     totalPembayaran:
                                         _totalPembayaranController.text,
                                     catatan: _noteController.text,
-                                    eventId: event.id,
+                                    eventId: eventId,
                                   )),
                         );
                       },

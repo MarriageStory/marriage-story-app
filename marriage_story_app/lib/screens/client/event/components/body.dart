@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:marriage_story_app/screens/client/event/components/background.dart';
+import 'package:marriage_story_app/screens/client/detail_task/detail_task_client_screen.dart';
 import 'package:marriage_story_app/service/schedule_service.dart';
 import 'package:marriage_story_app/model/schedule_model.dart';
 import 'package:marriage_story_app/service/event_service.dart';
@@ -9,7 +10,6 @@ import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/model/user_model.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
 import 'package:intl/intl.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 class Body extends StatefulWidget {
   static const routeName = '/event-client-screen';
@@ -62,13 +62,14 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    Size size = MediaQuery.of(context).size;
+    return Background(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            height: 50.h,
+            height: 435,
+            width: double.infinity,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -80,15 +81,18 @@ class _BodyState extends State<Body> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.only(
-                top: 10.h,
+              padding: const EdgeInsets.only(
+                top: 64,
                 left: 20,
                 right: 20,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
                     "Agneda",
                     style: TextStyle(
                       color: Color(0xffFFFFFF),
@@ -96,7 +100,7 @@ class _BodyState extends State<Body> {
                       fontSize: 25,
                     ),
                   ),
-                  const Text(
+                  Text(
                     'Acara',
                     style: TextStyle(
                       color: Color(0xffFFFFFF),
@@ -109,14 +113,13 @@ class _BodyState extends State<Body> {
                     builder: (context, AsyncSnapshot<EventsModel> snapshot) {
                       var state = snapshot.connectionState;
                       if (state != ConnectionState.done) {
-                        return const Center(
+                        return Center(
                           child: CircularProgressIndicator(),
                         );
                       } else {
                         if (snapshot.hasData) {
                           return ListView.builder(
-                            padding: EdgeInsets.only(top: 1.h),
-                            physics: const NeverScrollableScrollPhysics(),
+                            physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context, index) {
@@ -130,7 +133,7 @@ class _BodyState extends State<Body> {
                                     },
                                     child: listItemEvent(event!));
                               }
-                              return const SizedBox();
+                              return SizedBox();
                             },
                             itemCount: snapshot.data!.data.length,
                           );
@@ -141,20 +144,20 @@ class _BodyState extends State<Body> {
                             ),
                           );
                         } else {
-                          return const Text('No Event');
+                          return Text('No Event');
                         }
                       }
                     },
                   ),
                   SizedBox(
-                    height: 1.h,
+                    height: 50,
                   ),
                 ],
               ),
             ),
           ),
-          SizedBox(
-            height: 2.h,
+          const SizedBox(
+            height: 30,
           ),
           const Padding(
             padding: EdgeInsets.only(
@@ -175,31 +178,29 @@ class _BodyState extends State<Body> {
             builder: (context, AsyncSnapshot<SchedulesModel> snapshot) {
               var state = snapshot.connectionState;
               if (state != ConnectionState.done) {
-                return const Center(
+                return Center(
                   child: CircularProgressIndicator(),
                 );
               } else {
                 if (snapshot.hasData) {
-                  return Expanded(
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) {
-                        var schedule = snapshot.data!.data[index];
-                        if (schedule.gencode == user.gencode) {
-                          return GestureDetector(
-                              onTap: () {
-                                Get.toNamed(RouteName.detailTaskClient,
-                                    arguments: schedule);
-                              },
-                              child: listItemSchedule(schedule!));
-                        }
-                        return const SizedBox();
-                      },
-                      itemCount: snapshot.data!.data.length,
-                    ),
+                  return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      var schedule = snapshot.data!.data[index];
+
+                      if (schedule.gencode == user.gencode) {
+                        return InkWell(
+                            onTap: () {
+                              Get.toNamed(RouteName.detailTaskClient,
+                                  arguments: schedule);
+                            },
+                            child: listItemSchedule(schedule!));
+                      }
+                      return SizedBox();
+                    },
+                    itemCount: snapshot.data!.data.length,
                   );
                 } else if (snapshot.hasError) {
                   return Center(
@@ -208,7 +209,7 @@ class _BodyState extends State<Body> {
                     ),
                   );
                 } else {
-                  return const Text('No Schedule');
+                  return Text('No Schedule');
                 }
               }
             },
@@ -221,153 +222,156 @@ class _BodyState extends State<Body> {
   Widget listItemEvent(EventModel view) {
     String tanggal = DateFormat.yMd().format(view.date);
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             view.paket1 != "-"
-                ? Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 3,
-                      horizontal: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Colors.white,
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        view.paket1,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
+                ?
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: 6,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: Colors.white,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  view.paket1,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
                   )
-                : const SizedBox(),
+                : SizedBox(),
             SizedBox(
-              width: 1.w,
+              width: 4,
             ),
             view.paket2 != "-"
-                ? Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 3,
-                      horizontal: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Colors.white,
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        view.paket2,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
+                ?
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: 6,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: Colors.white,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  view.paket2,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
                   )
-                : const SizedBox(),
+                : SizedBox(),
             SizedBox(
-              width: 1.w,
+              width: 4,
             ),
             view.paket3 != "-"
-                ? Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 3,
-                      horizontal: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Colors.white,
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        view.paket3,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
+                ?
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: 6,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: Colors.white,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  view.paket3,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
                   )
-                : const SizedBox(),
+                : SizedBox(),
             SizedBox(
-              width: 1.w,
+              width: 4,
             ),
             view.paket4 != "-"
-                ? Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 3,
-                      horizontal: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Colors.white,
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        view.paket4,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
+                ?
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: 6,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: Colors.white,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  view.paket4,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
                   )
-                : const SizedBox(),
+                : SizedBox(),
             SizedBox(
-              width: 1.w,
+              width: 4,
             ),
             view.paket5 != "-"
-                ? Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 3,
-                      horizontal: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Colors.white,
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        view.paket5,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
+                ?
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: 6,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: Colors.white,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  view.paket5,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
                   )
-                : const SizedBox(),
+                : SizedBox(),
           ],
         ),
         SizedBox(
-          height: 7.h,
+          height: 60,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -378,17 +382,16 @@ class _BodyState extends State<Body> {
                 Text(
                   "Pernikahan",
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    shadows: <Shadow>[
-                      Shadow(
-                        offset: Offset(0, 0),
-                        blurRadius: 5.0,
-                        color: Colors.black.withOpacity(0.1),
-                      )
-                    ],
-                  ),
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(0, 3),
+                          blurRadius: 5.0,
+                          color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
+                        )
+                      ]),
                 ),
                 Text(
                   view.nameClient,
@@ -398,29 +401,28 @@ class _BodyState extends State<Body> {
                       fontWeight: FontWeight.bold,
                       shadows: <Shadow>[
                         Shadow(
-                          offset: Offset(0, 0),
+                          offset: Offset(0, 3),
                           blurRadius: 5.0,
-                          color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.1),
+                          color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
                         )
                       ]),
                 ),
                 SizedBox(
-                  height: 1.h,
+                  height: 4,
                 ),
                 Text(
                   tanggal,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w800,
-                    shadows: <Shadow>[
-                      Shadow(
-                        offset: Offset(0, 0),
-                        blurRadius: 5.0,
-                        color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.1),
-                      )
-                    ],
-                  ),
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(0, 3),
+                          blurRadius: 5.0,
+                          color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.20),
+                        )
+                      ]),
                 ),
               ],
             ),
@@ -433,8 +435,8 @@ class _BodyState extends State<Body> {
   Widget listItemSchedule(ScheduleModel view) {
     String tanggal = DateFormat.yMd().format(view.tanggal);
     return Padding(
-      padding: EdgeInsets.only(
-        top: 1.h,
+      padding: const EdgeInsets.only(
+        top: 10,
         left: 20,
         right: 20,
       ),
@@ -445,7 +447,7 @@ class _BodyState extends State<Body> {
           boxShadow: [
             BoxShadow(
               blurRadius: 3,
-              color: Color(0xff000000).withOpacity(0.1),
+              color: Color(0xff000000).withOpacity(0.25),
             ),
           ],
         ),
@@ -459,7 +461,7 @@ class _BodyState extends State<Body> {
                 children: [
                   Text(
                     tanggal,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Color(0xffBDBDBD),
                       fontWeight: FontWeight.normal,
                       fontSize: 12,
@@ -467,7 +469,7 @@ class _BodyState extends State<Body> {
                   ),
                   Text(
                     view.namaKegiatan,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Color(0xff333333),
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -477,7 +479,7 @@ class _BodyState extends State<Body> {
               ),
               Text(
                 view.jam,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Color(0xffFB5490),
                   fontWeight: FontWeight.w700,
                   fontSize: 16,

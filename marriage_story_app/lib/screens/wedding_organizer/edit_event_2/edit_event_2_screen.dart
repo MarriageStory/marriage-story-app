@@ -5,21 +5,34 @@ import 'package:marriage_story_app/screens/wedding_organizer/edit_event_2/compon
 
 class EditEvent2Screen extends StatelessWidget {
   // const EditEvent2Screen({Key? key}) : super(key: key);
-  final url = "/edit-event2";
 
-  final String paket1;
-  final String paket2;
-  final String paket3;
-  final String paket4;
-  final String paket5;
-  const EditEvent2Screen(
-      {Key? key,
-      required this.paket1,
-      required this.paket2,
-      required this.paket3,
-      required this.paket4,
-      required this.paket5})
-      : super(key: key);
+  String paket1;
+  String paket2;
+  String paket3;
+  String paket4;
+  String paket5;
+  String nameClient;
+  int totalPembayaran;
+  DateTime date;
+  String tempat;
+  String jam;
+  String note;
+  int eventId;
+  EditEvent2Screen({
+    Key? key,
+    required this.paket1,
+    required this.paket2,
+    required this.paket3,
+    required this.paket4,
+    required this.paket5,
+    required this.nameClient,
+    required this.totalPembayaran,
+    required this.date,
+    required this.tempat,
+    required this.jam,
+    required this.note,
+    required this.eventId,
+  }) : super(key: key);
 
 //   @override
 //   State<AddEvent2Screen> createState() => _AddEvent2ScreenState();
@@ -35,6 +48,13 @@ class EditEvent2Screen extends StatelessWidget {
         paket3: paket3,
         paket4: paket4,
         paket5: paket5,
+        nameClient: nameClient,
+        totalPembayaran: totalPembayaran,
+        date: date,
+        tempat: tempat,
+        jam: jam,
+        note: note,
+        eventId: eventId,
       ),
     );
   }

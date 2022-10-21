@@ -257,58 +257,70 @@ class _BodyState extends State<Body> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 3,
-                            horizontal: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Color(0xffFB6C90),
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              view.paket1,
-                              style: const TextStyle(
-                                color: Color(0xffFB6C90),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 1.w,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 3,
-                            horizontal: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Color(0xffFB6C90),
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              view.paket2,
-                              style: const TextStyle(
-                                color: Color(0xffFB6C90),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 1.w,
-                        ),
+                        view.paket1 != "-"
+                            ? Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 3,
+                                      horizontal: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        color: Color(0xffFB6C90),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        view.paket1,
+                                        style: const TextStyle(
+                                          color: Color(0xffFB6C90),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 1.w,
+                                  ),
+                                ],
+                              )
+                            : SizedBox(),
+                        view.paket2 != "-"
+                            ? Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 3,
+                                      horizontal: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        color: Color(0xffFB6C90),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        view.paket2,
+                                        style: const TextStyle(
+                                          color: Color(0xffFB6C90),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 1.w,
+                                  ),
+                                ],
+                              )
+                            : SizedBox(),
                       ],
                     ),
                     SizedBox(
@@ -317,81 +329,95 @@ class _BodyState extends State<Body> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 3,
-                            horizontal: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Color(0xffFB6C90),
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              view.paket3,
-                              style: const TextStyle(
-                                color: Color(0xffFB6C90),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 1.w,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 3,
-                            horizontal: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Color(0xffFB6C90),
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              view.paket4,
-                              style: const TextStyle(
-                                color: Color(0xffFB6C90),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 1.w,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 3,
-                            horizontal: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Color(0xffFB6C90),
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              view.paket5,
-                              style: const TextStyle(
-                                color: Color(0xffFB6C90),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                        ),
+                        view.paket3 != "-"
+                            ? Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 3,
+                                      horizontal: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        color: Color(0xffFB6C90),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        view.paket3,
+                                        style: const TextStyle(
+                                          color: Color(0xffFB6C90),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 1.w,
+                                  ),
+                                ],
+                              )
+                            : SizedBox(),
+                        view.paket4 != "-"
+                            ? Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 3,
+                                      horizontal: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        color: Color(0xffFB6C90),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        view.paket4,
+                                        style: const TextStyle(
+                                          color: Color(0xffFB6C90),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 1.w,
+                                  ),
+                                ],
+                              )
+                            : SizedBox(),
+                        view.paket5 != "-"
+                            ? Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 3,
+                                  horizontal: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Color(0xffFB6C90),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    view.paket5,
+                                    style: const TextStyle(
+                                      color: Color(0xffFB6C90),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SizedBox()
                       ],
                     )
                   ],

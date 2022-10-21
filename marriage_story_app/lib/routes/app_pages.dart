@@ -93,16 +93,22 @@ class AppPages {
       name: RouteName.editEvent1,
       page: () => const EditEvent1Screen(),
     ),
-    GetPage(
-      name: RouteName.editEvent2,
-      page: () => const EditEvent2Screen(
-        paket1: "",
-        paket2: "",
-        paket3: "",
-        paket4: "",
-        paket5: "",
-      ),
-    ),
+    // GetPage(
+    //   name: RouteName.editEvent2,
+    //   page: () => const EditEvent2Screen(
+    //       paket1: "",
+    //       paket2: "",
+    //       paket3: "",
+    //       paket4: "",
+    //       paket5: "",
+    //       nameClient: "",
+    //       totalPembayaran: 0,
+    //       date: tanggal,
+    //       tempat: "",
+    //       jam: "",
+    //       note: "",
+    //       eventId: 0),
+    // ),
     GetPage(
       name: RouteName.detailEventWo,
       page: () => const DetailEventScreen(),

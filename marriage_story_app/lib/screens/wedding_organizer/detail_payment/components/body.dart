@@ -16,9 +16,11 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   late Future<EventsModel> _event;
+
   @override
   void initState() {
     super.initState();
+
     try {
       _event = EventService.getAllEvent();
     } catch (e) {
@@ -100,14 +102,14 @@ class _BodyState extends State<Body> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Text(
-                        //   "Kode 170564765",
-                        //   style: TextStyle(
-                        //     color: Color(0xffFFFFFF),
-                        //     fontWeight: FontWeight.w600,
-                        //     fontSize: 14,
-                        //   ),
-                        // ),
+                        Text(
+                          "Kode " + payment.gencode,
+                          style: TextStyle(
+                            color: Color(0xffFFFFFF),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -124,29 +126,10 @@ class _BodyState extends State<Body> {
                             fontSize: 18,
                           ),
                         ),
-                        FutureBuilder(
-                          future: _event,
-                          builder:
-                              (context, AsyncSnapshot<EventsModel> snapshot) {
-                            var state = snapshot.connectionState;
-                            if (state != ConnectionState.done) {
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              if (snapshot.hasData) {
-                                return ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemBuilder: (context, index) {
-                                    // var event = snapshot.data?.data.first;
-                                    var event = snapshot.data!.data[index];
-                                    // namaClient = event.nameClient;
-                                    return Column(
+                        Column(
                                       children: [
                                         Text(
-                                          event.nameClient,
+                              payment.nameClient,
                                           style: const TextStyle(
                                             color: Color(0xffFFFFFF),
                                             fontWeight: FontWeight.w700,
@@ -161,38 +144,61 @@ class _BodyState extends State<Body> {
                                             fontSize: 14,
                                           ),
                                         ),
-                                      ],
-                                    );
-                                  },
-                                  itemCount: snapshot.data!.data.length,
-                                );
-                              } else if (snapshot.hasError) {
-                                return Center(
-                                  child: Text(
-                                    snapshot.error.toString(),
-                                  ),
-                                );
-                              } else {
-                                return const Text('No Schedule');
-                              }
-                            }
-                          },
+                          ],
                         ),
-                        // Text(
-                        //   event.nameClient,
-                        //   style: TextStyle(
-                        //     color: Color(0xffFFFFFF),
-                        //     fontWeight: FontWeight.w700,
-                        //     fontSize: 25,
-                        //   ),
-                        // ),
-                        // Text(
-                        //   event.date.toString(),
-                        //   style: TextStyle(
-                        //     color: Color(0xffFFFFFF),
-                        //     fontWeight: FontWeight.w600,
-                        //     fontSize: 14,
-                        //   ),
+                        // FutureBuilder(
+                        //   future: _event,
+                        //   builder:
+                        //       (context, AsyncSnapshot<EventsModel> snapshot) {
+                        //     var state = snapshot.connectionState;
+                        //     if (state != ConnectionState.done) {
+                        //       return Center(
+                        //         child: CircularProgressIndicator(),
+                        //       );
+                        //     } else {
+                        //       if (snapshot.hasData) {
+                        //         return ListView.builder(
+                        //           physics: NeverScrollableScrollPhysics(),
+                        //           shrinkWrap: true,
+                        //           scrollDirection: Axis.vertical,
+                        //           itemBuilder: (context, index) {
+                        //             // var event = snapshot.data?.data.first;
+                        //             var event = snapshot.data!.data[index];
+                        //             // namaClient = event.nameClient;
+                        //             return Column(
+                        //               children: [
+                        //                 Text(
+                        //                   event.nameClient,
+                        //                   style: const TextStyle(
+                        //                     color: Color(0xffFFFFFF),
+                        //                     fontWeight: FontWeight.w700,
+                        //                     fontSize: 25,
+                        //                   ),
+                        //                 ),
+                        //                 Text(
+                        //                   tanggal,
+                        //                   style: const TextStyle(
+                        //                     color: Color(0xffFFFFFF),
+                        //                     fontWeight: FontWeight.w600,
+                        //                     fontSize: 14,
+                        //                   ),
+                        //                 ),
+                        //               ],
+                        //             );
+                        //           },
+                        //           itemCount: snapshot.data!.data.length,
+                        //         );
+                        //       } else if (snapshot.hasError) {
+                        //         return Center(
+                        //           child: Text(
+                        //             snapshot.error.toString(),
+                        //           ),
+                        //         );
+                        //       } else {
+                        //         return const Text('No Schedule');
+                        //       }
+                        //     }
+                        //   },
                         // ),
                       ],
                     ),
