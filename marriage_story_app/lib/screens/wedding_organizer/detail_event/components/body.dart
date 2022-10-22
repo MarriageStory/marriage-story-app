@@ -37,12 +37,12 @@ class _BodyState extends State<Body> {
     int agendaTotal = 0;
     final event = ModalRoute.of(context)!.settings.arguments as EventModel;
     String tanggal = DateFormat.yMd().format(event.date);
-    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
               padding: EdgeInsets.only(
@@ -122,7 +122,6 @@ class _BodyState extends State<Body> {
                     height: 5.h,
                   ),
                   Container(
-                    height: 20.h,
                     width: 100.w,
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
@@ -150,7 +149,7 @@ class _BodyState extends State<Body> {
                             ),
                           ),
                           SizedBox(
-                            height: 2.h,
+                            height: 1.h,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -396,7 +395,6 @@ class _BodyState extends State<Body> {
                       ),
                       Container(
                         width: 40.w,
-                        height: 5.h,
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
                             begin: Alignment.topLeft,
@@ -441,14 +439,6 @@ class _BodyState extends State<Body> {
                       fontSize: 12,
                     ),
                   ),
-                  // const Text(
-                  //   "Fotografer : Jono Samsudin",
-                  //   style: TextStyle(
-                  //     color: Color(0xff333333),
-                  //     fontWeight: FontWeight.w500,
-                  //     fontSize: 12,
-                  //   ),
-                  // ),
                   SizedBox(
                     height: 3.h,
                   ),
@@ -656,7 +646,6 @@ class _BodyState extends State<Body> {
                     children: [
                       Expanded(
                         child: Container(
-                          height: 5.h,
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
                               begin: Alignment.topLeft,

@@ -82,10 +82,10 @@ class Body extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 10.h,
+                height: 5.h,
               ),
               Container(
-                height: 20.h,
+                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
                 width: 100.w,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
@@ -278,7 +278,7 @@ class Body extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 5.h,
+                height: 3.h,
               ),
               const Text(
                 "Waktu Pelaksanaan :",
@@ -341,7 +341,6 @@ class Body extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    height: 5.h,
                     width: 45.w,
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(

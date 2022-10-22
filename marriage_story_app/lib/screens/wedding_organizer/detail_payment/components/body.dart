@@ -81,7 +81,6 @@ class _BodyState extends State<Body> {
               height: 10.h,
             ),
             Container(
-              height: 30.h,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
@@ -94,7 +93,7 @@ class _BodyState extends State<Body> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -103,7 +102,7 @@ class _BodyState extends State<Body> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Kode " + payment.gencode,
+                          "Kode ${payment.gencode}",
                           style: TextStyle(
                             color: Color(0xffFFFFFF),
                             fontWeight: FontWeight.w600,
@@ -113,12 +112,12 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                     SizedBox(
-                      height: 16,
+                      height: 1.h,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(
+                        const Text(
                           "Pernikahan",
                           style: TextStyle(
                             color: Color(0xffFFFFFF),
@@ -127,23 +126,23 @@ class _BodyState extends State<Body> {
                           ),
                         ),
                         Column(
-                                      children: [
-                                        Text(
+                          children: [
+                            Text(
                               payment.nameClient,
-                                          style: const TextStyle(
-                                            color: Color(0xffFFFFFF),
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 25,
-                                          ),
-                                        ),
-                                        Text(
-                                          tanggal,
-                                          style: const TextStyle(
-                                            color: Color(0xffFFFFFF),
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14,
-                                          ),
-                                        ),
+                              style: const TextStyle(
+                                color: Color(0xffFFFFFF),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 25,
+                              ),
+                            ),
+                            Text(
+                              tanggal,
+                              style: const TextStyle(
+                                color: Color(0xffFFFFFF),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                              ),
+                            ),
                           ],
                         ),
                         // FutureBuilder(
@@ -207,7 +206,7 @@ class _BodyState extends State<Body> {
               ),
             ),
             SizedBox(
-              height: 16,
+              height: 2.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -224,7 +223,7 @@ class _BodyState extends State<Body> {
                       color: Color(0xffFB6C90),
                     ),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Pre-wedding",
                       style: TextStyle(
@@ -236,7 +235,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 SizedBox(
-                  width: 4,
+                  width: 1.w,
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -250,7 +249,7 @@ class _BodyState extends State<Body> {
                       color: Color(0xffFB6C90),
                     ),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Engagement",
                       style: TextStyle(
@@ -262,7 +261,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 SizedBox(
-                  width: 4,
+                  width: 1.w,
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -276,7 +275,7 @@ class _BodyState extends State<Body> {
                       color: Color(0xffFB6C90),
                     ),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Akad",
                       style: TextStyle(
@@ -302,7 +301,7 @@ class _BodyState extends State<Body> {
                       color: Color(0xffFB6C90),
                     ),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Panggih",
                       style: TextStyle(
@@ -314,7 +313,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 SizedBox(
-                  width: 4,
+                  width: 1.w,
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -328,7 +327,7 @@ class _BodyState extends State<Body> {
                       color: Color(0xffFB6C90),
                     ),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       "Resepsi",
                       style: TextStyle(
@@ -342,9 +341,9 @@ class _BodyState extends State<Body> {
               ],
             ),
             SizedBox(
-              height: 30,
+              height: 2.h,
             ),
-            Text(
+            const Text(
               "Total Pembayaran :",
               style: TextStyle(
                 color: Color(0xffBDBDBD),
@@ -355,16 +354,16 @@ class _BodyState extends State<Body> {
             Text(
               formatAngka.convertToIdr(
                   int.parse(payment.totalPembayaran.toString()), 2),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0xff333333),
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 2.h,
             ),
-            Text(
+            const Text(
               "Transaksi Pembayaran",
               style: TextStyle(
                 color: Color(0xff333333),
@@ -373,7 +372,7 @@ class _BodyState extends State<Body> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 1.h,
             ),
 
             // payment.paymentDetail.length != 0
@@ -405,63 +404,6 @@ class _BodyState extends State<Body> {
 
   Widget listItem(PaymentDetailModel view) {
     return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              child: Icon(
-                Icons.add,
-                color: Color(0xffFFFFFF),
-                size: 20,
-              ),
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xffFB6C90),
-                    Color(0xffFB8DA0),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Terima Uang",
-                  style: TextStyle(
-                    color: Color(0xff333333),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                ),
-                Text(
-                  view.tanggal.toString(),
-                  style: TextStyle(
-                    color: Color(0xffBDBDBD),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-            Text(
-              "+ Rp" + view.bayar.toString(),
-              style: TextStyle(
-                color: Color(0xff333333),
-                fontWeight: FontWeight.w700,
-                fontSize: 12,
-              ),
-            ),
-          ],
-        ),
-      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Color(0xffFFFFFF),
@@ -471,6 +413,63 @@ class _BodyState extends State<Body> {
             color: Color(0xff000000).withOpacity(0.25),
           ),
         ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 30,
+              width: 30,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xffFB6C90),
+                    Color(0xffFB8DA0),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: const Icon(
+                Icons.add,
+                color: Color(0xffFFFFFF),
+                size: 20,
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Terima Uang",
+                  style: TextStyle(
+                    color: Color(0xff333333),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                ),
+                Text(
+                  view.tanggal.toString(),
+                  style: const TextStyle(
+                    color: Color(0xffBDBDBD),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              "+ Rp${view.bayar}",
+              style: const TextStyle(
+                color: Color(0xff333333),
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

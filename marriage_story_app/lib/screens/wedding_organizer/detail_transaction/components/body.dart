@@ -14,8 +14,8 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Background(
-      child: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
             top: 5.h,
@@ -46,14 +46,14 @@ class _BodyState extends State<Body> {
                         fontSize: 25,
                       ),
                     ),
-              Text(
-                'Transaksi',
-                style: TextStyle(
-                  color: Color(0xff333333),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
-                ),
-              ),
+                    Text(
+                      'Transaksi',
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
+                      ),
+                    ),
                   ],
                 ),
               ),

@@ -222,7 +222,6 @@ class _BodyState extends State<Body> {
                 children: [
                   Container(
                     width: 45.w,
-                    height: 5.h,
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,

@@ -127,7 +127,7 @@ class _BodyState extends State<Body> {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: 5.h,
+              top: 2.h,
               left: 20,
               right: 20,
             ),
@@ -146,57 +146,56 @@ class _BodyState extends State<Body> {
                 SizedBox(
                   height: 1.h,
                 ),
-                FutureBuilder(
-                  future: _event,
-                  builder: (context, AsyncSnapshot<EventsModel> snapshot) {
-                    var state = snapshot.connectionState;
-                    if (state != ConnectionState.done) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      if (snapshot.hasData) {
-                        return SizedBox(
-                          height: 44.h,
-                          child: ListView.builder(
-                            padding: const EdgeInsets.all(0),
-                            physics: const BouncingScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, index) {
-                              // var event = snapshot.data?.data.first;
-                              var payment = snapshot.data!.data[index];
-                              // if (count == 1) {
-                              //   count++;
-                              return InkWell(
-                                  onTap: () {
-                                    Get.toNamed(RouteName.detailPaymentWo,
-                                        arguments: payment);
-                                    // Navigator.pushNamed(
-                                    //     context, DetailPaymentScreen.url,
-                                    //     arguments: payment);
-                                  },
-                                  child: listItem(payment!));
-                              // }
-                              // return Text(namaClient);
-                            },
-                            itemCount: snapshot.data!.data.length,
-                          ),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Center(
-                          child: Text(
-                            snapshot.error.toString(),
-                          ),
-                        );
-                      } else {
-                        return const Text('No Schedule');
-                      }
-                    }
-                  },
-                ),
               ],
             ),
+          ),
+          FutureBuilder(
+            future: _event,
+            builder: (context, AsyncSnapshot<EventsModel> snapshot) {
+              var state = snapshot.connectionState;
+              if (state != ConnectionState.done) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                if (snapshot.hasData) {
+                  return Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        // var event = snapshot.data?.data.first;
+                        var payment = snapshot.data!.data[index];
+                        // if (count == 1) {
+                        //   count++;
+                        return InkWell(
+                            onTap: () {
+                              Get.toNamed(RouteName.detailPaymentWo,
+                                  arguments: payment);
+                              // Navigator.pushNamed(
+                              //     context, DetailPaymentScreen.url,
+                              //     arguments: payment);
+                            },
+                            child: listItem(payment!));
+                        // }
+                        // return Text(namaClient);
+                      },
+                      itemCount: snapshot.data!.data.length,
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      snapshot.error.toString(),
+                    ),
+                  );
+                } else {
+                  return const Text('No Schedule');
+                }
+              }
+            },
           ),
         ],
       ),

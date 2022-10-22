@@ -53,9 +53,8 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SizedBox(
-        height: size.height,
-        width: double.infinity,
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.only(
             top: 10.h,

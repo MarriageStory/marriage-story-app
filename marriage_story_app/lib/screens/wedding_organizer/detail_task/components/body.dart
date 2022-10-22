@@ -33,301 +33,306 @@ class _BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: 5.h,
-          left: 20,
-          right: 20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                  ),
-                  onPressed: () => Get.back(),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.edit,
-                        color: Colors.blue,
-                      ),
-                      onPressed: () {
-                        Get.toNamed(RouteName.editTaskWo, arguments: schedule);
-                      },
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 5.h,
+            left: 20,
+            right: 20,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
                     ),
-                    IconButton(
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
+                    onPressed: () => Get.back(),
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.edit,
+                          color: Colors.blue,
+                        ),
+                        onPressed: () {
+                          Get.toNamed(RouteName.editTaskWo,
+                              arguments: schedule);
+                        },
                       ),
-                      onPressed: () async {
-                        await ScheduleService.deleteSchedule(schedule.id).then(
-                          (value) {
-                            Get.toNamed(RouteName.navigationWo);
-                          },
-                        );
-                      },
+                      IconButton(
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        onPressed: () async {
+                          await ScheduleService.deleteSchedule(schedule.id)
+                              .then(
+                            (value) {
+                              Get.toNamed(RouteName.navigationWo);
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 5.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Detail",
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
+                      ),
+                    ),
+                    Text(
+                      "Agenda",
+                      style: TextStyle(
+                        color: Color(0xff333333),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 25,
+                      ),
                     ),
                   ],
                 ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 5.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Detail",
-                    style: TextStyle(
-                      color: Color(0xff333333),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 25,
-                    ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // GestureDetector(
+                  //   child: Column(
+                  //     children: [
+                  //       Checkbox(
+                  //         checkColor: Colors.white,
+                  //         fillColor: MaterialStateProperty.resolveWith(getColor),
+                  //         value: isChecked,
+                  //         onChanged: (bool? value) {
+                  //           setState(() {
+                  //             isChecked = value!;
+                  //           });
+                  //         },
+                  //       ),
+                  //       const Text(
+                  //         "Selesai",
+                  //         style: TextStyle(
+                  //           color: Color(0xffFB6C90),
+                  //           fontWeight: FontWeight.w700,
+                  //           fontSize: 14,
+                  //         ),
+                  //       )
+                  //     ],
+                  //   ),
+                  //   onTap: () async {
+                  //     if (schedule.status == "pending") {
+                  //       var body = <String, dynamic>{
+                  //         "nama_kegiatan": schedule.namaKegiatan,
+                  //         "detail_kegiatan": schedule.detailKegiatan,
+                  //         "tanggal": schedule.tanggal.toString(),
+                  //         "tempat": schedule.tempat,
+                  //         "jam": schedule.jam,
+                  //         'status': "done",
+                  //       };
+
+                  //       await ScheduleService.updateSchedule(schedule.id, body)
+                  //           .then(
+                  //         (value) {
+                  //           // Get.toNamed(RouteName.navigationWo);
+                  //           ScaffoldMessenger.of(context).showSnackBar(
+                  //               const SnackBar(
+                  //                   content: Text('Agenda telah selesai')));
+                  //         },
+                  //       );
+                  //     } else {
+                  //       var body = <String, dynamic>{
+                  //         "nama_kegiatan": schedule.namaKegiatan,
+                  //         "detail_kegiatan": schedule.detailKegiatan,
+                  //         "tanggal": schedule.tanggal.toString(),
+                  //         "tempat": schedule.tempat,
+                  //         "jam": schedule.jam,
+                  //         'status': "pending",
+                  //       };
+
+                  //       await ScheduleService.updateSchedule(schedule.id, body)
+                  //           .then(
+                  //         (value) {
+                  //           // Get.toNamed(RouteName.navigationWo);
+                  //           ScaffoldMessenger.of(context).showSnackBar(
+                  //               const SnackBar(
+                  //                   content: Text('Agenda belum selesai')));
+                  //         },
+                  //       );
+                  //     }
+                  //   },
+                  // ),
+                  LabeledSwitch(
+                    label: 'Selesai',
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    value: _isSelected,
+                    onChanged: (bool newValue) async {
+                      setState(
+                        () {
+                          _isSelected = newValue;
+                          print(_isSelected);
+                        },
+                      );
+
+                      if (newValue == true) {
+                        var body = <String, dynamic>{
+                          "nama_kegiatan": schedule.namaKegiatan,
+                          "detail_kegiatan": schedule.detailKegiatan,
+                          "tanggal": schedule.tanggal.toString(),
+                          "tempat": schedule.tempat,
+                          "jam": schedule.jam,
+                          'status': "done",
+                        };
+
+                        await ScheduleService.updateSchedule(schedule.id, body)
+                            .then(
+                          (value) {
+                            // Get.toNamed(RouteName.navigationWo);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Agenda telah selesai')));
+                          },
+                        );
+                      } else {
+                        var body = <String, dynamic>{
+                          "nama_kegiatan": schedule.namaKegiatan,
+                          "detail_kegiatan": schedule.detailKegiatan,
+                          "tanggal": schedule.tanggal.toString(),
+                          "tempat": schedule.tempat,
+                          "jam": schedule.jam,
+                          'status': "pending",
+                        };
+
+                        await ScheduleService.updateSchedule(schedule.id, body)
+                            .then(
+                          (value) {
+                            // Get.toNamed(RouteName.navigationWo);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Agenda belum selesai')));
+                          },
+                        );
+                      }
+                    },
                   ),
-                  Text(
-                    "Agenda",
-                    style: TextStyle(
-                      color: Color(0xff333333),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 25,
+                  Container(
+                    width: 65.w,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xffFB6C90),
+                          Color(0xffFB8DA0),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(80, 32, 52, 32),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            schedule.jam,
+                            style: const TextStyle(
+                              color: Color(0xffFFFFFF),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 25,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            tanggal,
+                            style: const TextStyle(
+                              color: Color(0xffFFFFFF),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // GestureDetector(
-                //   child: Column(
-                //     children: [
-                //       Checkbox(
-                //         checkColor: Colors.white,
-                //         fillColor: MaterialStateProperty.resolveWith(getColor),
-                //         value: isChecked,
-                //         onChanged: (bool? value) {
-                //           setState(() {
-                //             isChecked = value!;
-                //           });
-                //         },
-                //       ),
-                //       const Text(
-                //         "Selesai",
-                //         style: TextStyle(
-                //           color: Color(0xffFB6C90),
-                //           fontWeight: FontWeight.w700,
-                //           fontSize: 14,
-                //         ),
-                //       )
-                //     ],
-                //   ),
-                //   onTap: () async {
-                //     if (schedule.status == "pending") {
-                //       var body = <String, dynamic>{
-                //         "nama_kegiatan": schedule.namaKegiatan,
-                //         "detail_kegiatan": schedule.detailKegiatan,
-                //         "tanggal": schedule.tanggal.toString(),
-                //         "tempat": schedule.tempat,
-                //         "jam": schedule.jam,
-                //         'status': "done",
-                //       };
-
-                //       await ScheduleService.updateSchedule(schedule.id, body)
-                //           .then(
-                //         (value) {
-                //           // Get.toNamed(RouteName.navigationWo);
-                //           ScaffoldMessenger.of(context).showSnackBar(
-                //               const SnackBar(
-                //                   content: Text('Agenda telah selesai')));
-                //         },
-                //       );
-                //     } else {
-                //       var body = <String, dynamic>{
-                //         "nama_kegiatan": schedule.namaKegiatan,
-                //         "detail_kegiatan": schedule.detailKegiatan,
-                //         "tanggal": schedule.tanggal.toString(),
-                //         "tempat": schedule.tempat,
-                //         "jam": schedule.jam,
-                //         'status': "pending",
-                //       };
-
-                //       await ScheduleService.updateSchedule(schedule.id, body)
-                //           .then(
-                //         (value) {
-                //           // Get.toNamed(RouteName.navigationWo);
-                //           ScaffoldMessenger.of(context).showSnackBar(
-                //               const SnackBar(
-                //                   content: Text('Agenda belum selesai')));
-                //         },
-                //       );
-                //     }
-                //   },
-                // ),
-                LabeledSwitch(
-                  label: 'Selesai',
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  value: _isSelected,
-                  onChanged: (bool newValue) async {
-                    setState(
-                      () {
-                        _isSelected = newValue;
-                        print(_isSelected);
-                      },
-                    );
-
-                    if (newValue == true) {
-                      var body = <String, dynamic>{
-                        "nama_kegiatan": schedule.namaKegiatan,
-                        "detail_kegiatan": schedule.detailKegiatan,
-                        "tanggal": schedule.tanggal.toString(),
-                        "tempat": schedule.tempat,
-                        "jam": schedule.jam,
-                        'status': "done",
-                      };
-
-                      await ScheduleService.updateSchedule(schedule.id, body)
-                          .then(
-                        (value) {
-                          // Get.toNamed(RouteName.navigationWo);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Agenda telah selesai')));
-                        },
-                      );
-                    } else {
-                      var body = <String, dynamic>{
-                        "nama_kegiatan": schedule.namaKegiatan,
-                        "detail_kegiatan": schedule.detailKegiatan,
-                        "tanggal": schedule.tanggal.toString(),
-                        "tempat": schedule.tempat,
-                        "jam": schedule.jam,
-                        'status': "pending",
-                      };
-
-                      await ScheduleService.updateSchedule(schedule.id, body)
-                          .then(
-                        (value) {
-                          // Get.toNamed(RouteName.navigationWo);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Agenda belum selesai')));
-                        },
-                      );
-                    }
-                  },
+              SizedBox(
+                height: 5.h,
+              ),
+              const Text(
+                "Nama Tugas :",
+                style: TextStyle(
+                  color: Color(0xffBDBDBD),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
                 ),
-                Container(
-                  width: 65.w,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Color(0xffFB6C90),
-                        Color(0xffFB8DA0),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(80, 32, 52, 32),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          schedule.jam,
-                          style: const TextStyle(
-                            color: Color(0xffFFFFFF),
-                            fontWeight: FontWeight.w700,
-                            fontSize: 25,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          tanggal,
-                          style: const TextStyle(
-                            color: Color(0xffFFFFFF),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+              ),
+              Text(
+                schedule.namaKegiatan,
+                style: const TextStyle(
+                  color: Color(0xff333333),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            const Text(
-              "Nama Tugas :",
-              style: TextStyle(
-                color: Color(0xffBDBDBD),
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
               ),
-            ),
-            Text(
-              schedule.namaKegiatan,
-              style: const TextStyle(
-                color: Color(0xff333333),
-                fontWeight: FontWeight.w700,
-                fontSize: 14,
+              SizedBox(
+                height: 2.h,
               ),
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            const Text(
-              "Tempat :",
-              style: TextStyle(
-                color: Color(0xffBDBDBD),
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
+              const Text(
+                "Tempat :",
+                style: TextStyle(
+                  color: Color(0xffBDBDBD),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                ),
               ),
-            ),
-            Text(
-              schedule.tempat,
-              style: const TextStyle(
-                color: Color(0xff333333),
-                fontWeight: FontWeight.w700,
-                fontSize: 14,
+              Text(
+                schedule.tempat,
+                style: const TextStyle(
+                  color: Color(0xff333333),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            const Text(
-              "Detail Tugas :",
-              style: TextStyle(
-                color: Color(0xffBDBDBD),
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
+              SizedBox(
+                height: 2.h,
               ),
-            ),
-            Text(
-              schedule.detailKegiatan,
-              style: const TextStyle(
-                color: Color(0xff333333),
-                fontWeight: FontWeight.w700,
-                fontSize: 14,
+              const Text(
+                "Detail Tugas :",
+                style: TextStyle(
+                  color: Color(0xffBDBDBD),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                ),
               ),
-            ),
-          ],
+              Text(
+                schedule.detailKegiatan,
+                style: const TextStyle(
+                  color: Color(0xff333333),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

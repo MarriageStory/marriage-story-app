@@ -1,11 +1,8 @@
 import 'package:get/get.dart';
 import 'package:marriage_story_app/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/event/components/background.dart';
 import 'package:marriage_story_app/model/event_model.dart';
 import 'package:marriage_story_app/service/event_service.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/detail_event/detail_event_screen.dart';
-import 'package:marriage_story_app/screens/wedding_organizer/add_event_2/add_event_2_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -74,7 +71,12 @@ class _BodyState extends State<Body> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                height: 15.h,
+                padding: EdgeInsets.only(
+                  top: 1.h,
+                  bottom: 1.h,
+                  left: 1.w,
+                  right: 3.w,
+                ),
                 width: 65.w,
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -180,7 +182,7 @@ class _BodyState extends State<Body> {
             ],
           ),
           SizedBox(
-            height: 3.h,
+            height: 2.h,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -191,8 +193,8 @@ class _BodyState extends State<Body> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       "Semua Acara",
                       style: TextStyle(
                         color: Color(0xff828282),
@@ -200,61 +202,54 @@ class _BodyState extends State<Body> {
                         fontSize: 14,
                       ),
                     ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    FutureBuilder(
-                      future: _event,
-                      builder: (context, AsyncSnapshot<EventsModel> snapshot) {
-                        var state = snapshot.connectionState;
-                        if (state != ConnectionState.done) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        } else {
-                          if (snapshot.hasData) {
-                            return SizedBox(
-                              height: 45.h,
-                              child: ListView.builder(
-                                padding: const EdgeInsets.symmetric(),
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemBuilder: (context, index) {
-                                  // var event = snapshot.data?.data.first;
-                                  var event = snapshot.data!.data[index];
-                                  return GestureDetector(
-                                      onTap: () {
-                                        Get.toNamed(RouteName.detailEventWo,
-                                            arguments: event);
-                                        // Navigator.pushNamed(
-                                        //     context, DetailEventScreen.url,
-                                        //     arguments: event);
-                                      },
-                                      child: listItem(event!));
-                                },
-                                itemCount: snapshot.data!.data.length,
-                              ),
-                            );
-                          } else if (snapshot.hasError) {
-                            return Center(
-                              child: Text(
-                                snapshot.error.toString(),
-                              ),
-                            );
-                          } else {
-                            return const Text('No Schedule');
-                          }
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
                   ],
                 ),
-              )
+              ),
             ],
+          ),
+          FutureBuilder(
+            future: _event,
+            builder: (context, AsyncSnapshot<EventsModel> snapshot) {
+              var state = snapshot.connectionState;
+              if (state != ConnectionState.done) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                if (snapshot.hasData) {
+                  return Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        // var event = snapshot.data?.data.first;
+                        var event = snapshot.data!.data[index];
+                        return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(RouteName.detailEventWo,
+                                  arguments: event);
+                              // Navigator.pushNamed(
+                              //     context, DetailEventScreen.url,
+                              //     arguments: event);
+                            },
+                            child: listItem(event!));
+                      },
+                      itemCount: snapshot.data!.data.length,
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      snapshot.error.toString(),
+                    ),
+                  );
+                } else {
+                  return const Text('No Schedule');
+                }
+              }
+            },
           ),
         ],
       ),
@@ -273,6 +268,13 @@ class _BodyState extends State<Body> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Color(0xffFFFFFF),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 4,
+                offset: const Offset(0, 0),
+                color: const Color(0xff000000).withOpacity(0.1),
+              ),
+            ],
           ),
           child: Padding(
             padding: const EdgeInsets.all(16),

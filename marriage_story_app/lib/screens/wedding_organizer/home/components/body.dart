@@ -112,9 +112,13 @@ class _BodyState extends State<Body> {
                   height: 5.h,
                 ),
                 Container(
-                  height: 14.h,
                   width: 100.w,
-                  padding: const EdgeInsets.all(25),
+                  padding: EdgeInsets.only(
+                    top: 6.h,
+                    bottom: 2.h,
+                    left: 5.w,
+                    right: 5.w,
+                  ),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       begin: Alignment.topLeft,
@@ -165,7 +169,12 @@ class _BodyState extends State<Body> {
                   children: <Widget>[
                     Container(
                       width: 43.w,
-                      height: 12.h,
+                      padding: EdgeInsets.only(
+                        top: 3.h,
+                        bottom: 1.h,
+                        left: 1.w,
+                        right: 1.w,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: const Color(0xffFFFFFF),
@@ -229,7 +238,12 @@ class _BodyState extends State<Body> {
                     ),
                     Container(
                       width: 43.w,
-                      height: 12.h,
+                      padding: EdgeInsets.only(
+                        top: 3.h,
+                        bottom: 1.h,
+                        left: 1.w,
+                        right: 1.w,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: const Color(0xffFFFFFF),
@@ -295,7 +309,7 @@ class _BodyState extends State<Body> {
                   ],
                 ),
                 SizedBox(
-                  height: 3.h,
+                  height: 2.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -310,53 +324,52 @@ class _BodyState extends State<Body> {
                     ),
                   ],
                 ),
-                FutureBuilder(
-                  future: _event,
-                  builder: (context, AsyncSnapshot<EventsModel> snapshot) {
-                    var state = snapshot.connectionState;
-                    if (state != ConnectionState.done) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      if (snapshot.hasData) {
-                        return SizedBox(
-                          height: 36.h,
-                          child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            padding: const EdgeInsets.all(5),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, index) {
-                              // var event = snapshot.data?.data.first;
-                              var event = snapshot.data!.data[index];
-                              return GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(RouteName.detailEventWo,
-                                        arguments: event);
-                                    // Navigator.pushNamed(
-                                    //     context, DetailEventScreen.url,
-                                    //     arguments: event);
-                                  },
-                                  child: listItem(event!));
-                            },
-                            itemCount: snapshot.data!.data.length,
-                          ),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Center(
-                          child: Text(
-                            snapshot.error.toString(),
-                          ),
-                        );
-                      } else {
-                        return const Text('Tidak Ada Acara');
-                      }
-                    }
-                  },
-                ),
               ],
             ),
+          ),
+          FutureBuilder(
+            future: _event,
+            builder: (context, AsyncSnapshot<EventsModel> snapshot) {
+              var state = snapshot.connectionState;
+              if (state != ConnectionState.done) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                if (snapshot.hasData) {
+                  return Expanded(
+                    child: ListView.builder(
+                      // physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        // var event = snapshot.data?.data.first;
+                        var event = snapshot.data!.data[index];
+                        return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(RouteName.detailEventWo,
+                                  arguments: event);
+                              // Navigator.pushNamed(
+                              //     context, DetailEventScreen.url,
+                              //     arguments: event);
+                            },
+                            child: listItem(event!));
+                      },
+                      itemCount: snapshot.data!.data.length,
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      snapshot.error.toString(),
+                    ),
+                  );
+                } else {
+                  return const Text('Tidak Ada Acara');
+                }
+              }
+            },
           ),
         ],
       ),

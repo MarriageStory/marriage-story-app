@@ -90,11 +90,11 @@ class Body extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 10.h,
+                height: 5.h,
               ),
               Container(
+                padding: EdgeInsets.symmetric(vertical: 2.h),
                 width: 100.w,
-                height: 20.h,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
                     begin: Alignment.topLeft,
@@ -107,7 +107,7 @@ class Body extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(30),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -309,7 +309,7 @@ class Body extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 5.h,
+                height: 2.h,
               ),
               const Text(
                 "Waktu Pelaksanaan :",
@@ -372,7 +372,6 @@ class Body extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    height: 5.h,
                     width: 45.w,
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(

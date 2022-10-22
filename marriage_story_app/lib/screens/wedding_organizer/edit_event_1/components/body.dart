@@ -37,8 +37,8 @@ class _BodyState extends State<Body> {
       inisialisasi = true;
     }
 
-    return Background(
-      child: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.only(
