@@ -407,7 +407,10 @@ class _BodyState extends State<Body> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed(RouteName.detailPaymentWo,
+                                arguments: event);
+                          },
                           child: const Text(
                             "Lihat  Pembayaran",
                             style: TextStyle(
