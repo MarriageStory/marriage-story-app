@@ -21,6 +21,8 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   late Future<SchedulesModel> _schedule;
   late Future<EventsModel> _event;
+  bool punyaData = false;
+  int count = 1;
   TextEditingController _gencodeController = TextEditingController();
 
   UserModel user = UserModel(
@@ -338,30 +340,55 @@ class _BodyState extends State<Body> {
                                 );
                               } else {
                                 if (snapshot.hasData) {
-                                  return ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemBuilder: (context, index) {
-                                      // var event = snapshot.data?.data.first;
-                                      var schedule = snapshot.data!.data[index];
-                                      // var schedule_2 = snapshot.data?.data.first;
+                                  if (snapshot.data!.data.length > 0) {
+                                    return ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        // var event = snapshot.data?.data.first;
+                                        var schedule =
+                                            snapshot.data!.data[index];
+                                        // var schedule_2 = snapshot.data?.data.first;
 
-                                      if (user.gencode == schedule.gencode) {
-                                        return InkWell(
-                                            onTap: () {
-                                              // Navigator.pushNamed(context, DetailTask.url,
-                                              //     arguments: schedule);
-                                              Get.toNamed(
-                                                  RouteName.detailTaskClient,
-                                                  arguments: schedule);
-                                            },
-                                            child: listItemSchedule(schedule!));
-                                      }
-                                      return SizedBox();
-                                    },
-                                    itemCount: snapshot.data!.data.length,
-                                  );
+                                        if (user.gencode == schedule.gencode) {
+                                          punyaData = true;
+                                          return InkWell(
+                                              onTap: () {
+                                                // Navigator.pushNamed(context, DetailTask.url,
+                                                //     arguments: schedule);
+                                                Get.toNamed(
+                                                    RouteName.detailTaskClient,
+                                                    arguments: schedule);
+                                              },
+                                              child:
+                                                  listItemSchedule(schedule!));
+                                        }
+                                        if (punyaData == false &&
+                                            count ==
+                                                snapshot.data!.data.length) {
+                                          return Center(
+                                            child: Text(
+                                              "belum ada Agenda",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                          );
+                                        }
+                                        count++;
+                                        return SizedBox();
+                                      },
+                                      itemCount: snapshot.data!.data.length,
+                                    );
+                                  } else {
+                                    return Center(
+                                      child: Text(
+                                        "belum ada Agenda",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    );
+                                  }
                                 } else if (snapshot.hasError) {
                                   return Center(
                                     child: Text(
@@ -438,8 +465,7 @@ class _BodyState extends State<Body> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     view.paket1 != "-"
-                        ?
-                        Container(
+                        ? Container(
                             padding: const EdgeInsets.symmetric(
                               vertical: 3,
                               horizontal: 6,
@@ -467,8 +493,7 @@ class _BodyState extends State<Body> {
                       width: 4,
                     ),
                     view.paket2 != "-"
-                        ?
-                        Container(
+                        ? Container(
                             padding: const EdgeInsets.symmetric(
                               vertical: 3,
                               horizontal: 6,
@@ -504,8 +529,7 @@ class _BodyState extends State<Body> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     view.paket3 != "-"
-                        ?
-                        Container(
+                        ? Container(
                             padding: const EdgeInsets.symmetric(
                               vertical: 3,
                               horizontal: 6,
@@ -533,8 +557,7 @@ class _BodyState extends State<Body> {
                       width: 4,
                     ),
                     view.paket4 != "-"
-                        ?
-                        Container(
+                        ? Container(
                             padding: const EdgeInsets.symmetric(
                               vertical: 3,
                               horizontal: 6,
@@ -562,8 +585,7 @@ class _BodyState extends State<Body> {
                       width: 4,
                     ),
                     view.paket5 != "-"
-                        ?
-                        Container(
+                        ? Container(
                             padding: const EdgeInsets.symmetric(
                               vertical: 3,
                               horizontal: 6,

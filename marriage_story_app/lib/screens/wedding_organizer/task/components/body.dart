@@ -19,6 +19,9 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   late Future<SchedulesModel> _schedule;
   late Future<EventsModel> _event;
+  bool punyaData = false;
+  int semuaAgenda = 1;
+  // int count = 1;
 
   @override
   void initState() {
@@ -126,45 +129,64 @@ class _BodyState extends State<Body> {
                                   );
                                 } else {
                                   if (snapshot.hasData) {
-                                    return ListView.builder(
-                                      padding: const EdgeInsets.all(0),
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemBuilder: (context, index) {
-                                        // var event = snapshot.data?.data.first;
-                                        var schedule =
-                                            snapshot.data!.data[index];
-                                        if (schedule.eventId ==
-                                            eventDetail.id) {
-                                          agendaTotal++;
-                                        }
-                                        if (count ==
-                                            snapshot.data!.data.length) {
-                                          count = 1;
-                                          return Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                agendaTotal.toString(),
-                                                style: const TextStyle(
-                                                  color: Color(0xffFB5490),
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 20,
+                                    if (snapshot.data!.data.length > 0) {
+                                      return ListView.builder(
+                                        padding: const EdgeInsets.all(0),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemBuilder: (context, index) {
+                                          // var event = snapshot.data?.data.first;
+                                          var schedule =
+                                              snapshot.data!.data[index];
+                                          if (schedule.eventId ==
+                                              eventDetail.id) {
+                                            agendaTotal++;
+                                          }
+                                          if (count ==
+                                              snapshot.data!.data.length) {
+                                            count = 1;
+                                            return Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  agendaTotal.toString(),
+                                                  style: const TextStyle(
+                                                    color: Color(0xffFB5490),
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 20,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          );
-                                        }
-                                        count++;
-                                        return const SizedBox();
-                                      },
-                                      itemCount: snapshot.data!.data.length,
-                                    );
+                                              ],
+                                            );
+                                          }
+                                          count++;
+                                          return const SizedBox();
+                                        },
+                                        itemCount: snapshot.data!.data.length,
+                                      );
+                                    } else {
+                                      return Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            agendaTotal.toString(),
+                                            style: const TextStyle(
+                                              color: Color(0xffFB5490),
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }
                                   } else if (snapshot.hasError) {
                                     return Center(
                                       child: Text(
@@ -209,45 +231,65 @@ class _BodyState extends State<Body> {
                                   );
                                 } else {
                                   if (snapshot.hasData) {
-                                    return ListView.builder(
-                                      padding: const EdgeInsets.all(0),
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemBuilder: (context, index) {
-                                        // var event = snapshot.data?.data.first;
-                                        var schedule =
-                                            snapshot.data!.data[index];
-                                        if (schedule.status == "done" &&
-                                            schedule.eventId ==
-                                                eventDetail.id) {
-                                          agendaSelesai++;
-                                        }
-                                        if (count ==
-                                            snapshot.data!.data.length) {
-                                          return Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                agendaSelesai.toString(),
-                                                style: const TextStyle(
-                                                  color: Color(0xffFB5490),
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 20,
+                                    if (snapshot.data!.data.length > 0) {
+                                      return ListView.builder(
+                                        padding: const EdgeInsets.all(0),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemBuilder: (context, index) {
+                                          // var event = snapshot.data?.data.first;
+                                          var schedule =
+                                              snapshot.data!.data[index];
+                                          if (schedule.status == "done" &&
+                                              schedule.eventId ==
+                                                  eventDetail.id) {
+                                            agendaSelesai++;
+                                          }
+                                          if (count ==
+                                              snapshot.data!.data.length) {
+                                            count = 1;
+                                            return Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  agendaSelesai.toString(),
+                                                  style: const TextStyle(
+                                                    color: Color(0xffFB5490),
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 20,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          );
-                                        }
-                                        count++;
-                                        return const SizedBox();
-                                      },
-                                      itemCount: snapshot.data!.data.length,
-                                    );
+                                              ],
+                                            );
+                                          }
+                                          count++;
+                                          return const SizedBox();
+                                        },
+                                        itemCount: snapshot.data!.data.length,
+                                      );
+                                    } else {
+                                      return Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            agendaSelesai.toString(),
+                                            style: const TextStyle(
+                                              color: Color(0xffFB5490),
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }
                                   } else if (snapshot.hasError) {
                                     return Center(
                                       child: Text(
@@ -312,27 +354,52 @@ class _BodyState extends State<Body> {
                 );
               } else {
                 if (snapshot.hasData) {
-                  return SizedBox(
-                    height: 50.h,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.only(top: 5),
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) {
-                        var schedule = snapshot.data!.data[index];
-                        return GestureDetector(
-                            onTap: () {
-                              // Navigator.pushNamed(context, DetailTaskScreen.url,
-                              //     arguments: schedule);
-                              Get.toNamed(RouteName.detailTaskWo,
-                                  arguments: schedule);
-                            },
-                            child: listItemSchedule(eventDetail, schedule!));
-                      },
-                      itemCount: snapshot.data!.data.length,
-                    ),
-                  );
+                  if (snapshot.data!.data.length > 0) {
+                    return SizedBox(
+                      height: 50.h,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.only(top: 5),
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) {
+                          var schedule = snapshot.data!.data[index];
+
+                          if (eventDetail.id == schedule.eventId) {
+                            punyaData = true;
+                            return GestureDetector(
+                                onTap: () {
+                                  // Navigator.pushNamed(context, DetailTaskScreen.url,
+                                  //     arguments: schedule);
+                                  Get.toNamed(RouteName.detailTaskWo,
+                                      arguments: schedule);
+                                },
+                                child:
+                                    listItemSchedule(eventDetail, schedule!));
+                          }
+                          if (punyaData == false &&
+                              semuaAgenda == snapshot.data!.data.length) {
+                            return Center(
+                              child: Text(
+                                "belum ada jadwal",
+                                style: TextStyle(fontWeight: FontWeight.w700),
+                              ),
+                            );
+                          }
+                          semuaAgenda++;
+                          return SizedBox();
+                        },
+                        itemCount: snapshot.data!.data.length,
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: Text(
+                        "belum ada jadwal",
+                        style: TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                    );
+                  }
                 } else if (snapshot.hasError) {
                   return Center(
                     child: Text(
