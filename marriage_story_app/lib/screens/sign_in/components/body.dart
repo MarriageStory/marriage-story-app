@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marriage_story_app/routes/routes.dart';
 import 'package:marriage_story_app/screens/sign_in/components/background.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:marriage_story_app/service/auth_service.dart';
 import 'package:marriage_story_app/model/user_model.dart';
@@ -185,6 +186,49 @@ class _BodyState extends State<Body> {
                           fontSize: 14,
                         ),
                       ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 2.h, horizontal: 10.w),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "AKUN WO",
+                          style: TextStyle(
+                            color: Color(0xff333333),
+                            fontWeight: FontWeight.w800,
+                            fontSize: 15,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "wo@gmail.com",
+                          style: TextStyle(
+                            color: Color(0xff333333),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                        ),
+                        Text(
+                          "12345678",
+                          style: TextStyle(
+                            color: Color(0xff333333),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
